@@ -3,8 +3,6 @@ package Main.States;
 import Main.GamePanel;
 import Main.Graphics.Assets;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainState extends State{
 
@@ -28,8 +26,8 @@ public class MainState extends State{
         if(mouseX >= 225 && mouseX <= 370 && mouseY >= 365 && mouseY <= 430 
                 && game.getMouseManager().isLeftPressed()){
 ///////////////////////// เปลี่ยน State /////////////////////////////////
-            /*game.gameState = new ชื่อState(game);
-            State.setState(game.gameState);*/
+            game.gameState = new RunMiniGame(game);
+            State.setState(game.gameState);
         }
         
         if((System.nanoTime() - lastTime) / 10000000 > 1){
