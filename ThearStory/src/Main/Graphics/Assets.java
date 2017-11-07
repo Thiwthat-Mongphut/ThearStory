@@ -1,14 +1,32 @@
+/* 
+    Picture Sources
+    - bevouliin.com
+    - MR.SUJIT YADAV from unluckystudio.com
+    - http://www.gameart2d.com/free-platformer-game-tileset.html
+    Sound Source
+    - Little Idia: https://www.bensound.com
+    ********************Thank you so much***************************
+*/
+
 package Main.Graphics;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Assets {
+    
+// Pictures
     public static ArrayList<BufferedImage[]> TearImg;
     public static ArrayList<BufferedImage[]> Obj;
     public static ArrayList<BufferedImage> Tiles;
     public static BufferedImage[] BG;
     public static BufferedImage menuBG, startIcon;
+    
+    // Sounds
+    public static Clip runGameMusic;
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
@@ -41,19 +59,17 @@ public class Assets {
             curHeight += frameHeight[i];
         }
         
-        // Background;
-        BG = new BufferedImage[4];
-        BG[0] = ImageLoader.loadImage("/BG/clouds.gif");
-        BG[1] = ImageLoader.loadImage("/BG/sky.gif");
-        BG[2] = ImageLoader.loadImage("/BG/mountains.gif");
-        BG[3] = ImageLoader.loadImage("/BG/sunset.gif");
+        // Backgrounds
+        BG = new BufferedImage[3];
+        BG[0] = ImageLoader.loadImage("/BG/runBG0.jpg");
+        BG[1] = ImageLoader.loadImage("/BG/runBG1.png");
+        BG[2] = ImageLoader.loadImage("/BG/runBG2.png");
         
-        // main menu
+        // Load Some Image
         menuBG = ImageLoader.loadImage("/BG/Menu.png");
         startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
-       
         
-        // Objects
+        // Load Objects
         sheet = new SpriteSheet(ImageLoader.loadImage("/Objects/ObjectsSprite.png"));
         curHeight = 0;
         int curWidth = 0;
@@ -70,7 +86,7 @@ public class Assets {
             curWidth = 0;
         }
         
-        // Tiles
+        // Load Tiles
         sheet = new SpriteSheet(ImageLoader.loadImage("/Tilesets/Tiles.png"));
         curWidth = 0;
         Tiles = new ArrayList<BufferedImage>();
@@ -79,7 +95,17 @@ public class Assets {
                     tileFrameWidth[i], tileFrameHeight[i]));
             curWidth += tileFrameWidth[i];
         }
-        
+
+        // Load Sounds
+        try {
+            runGameMusic = AudioSystem.getClip();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+              Assets.class.getResourceAsStream("/Music/LittleIdea.wav"));
+            runGameMusic.open(inputStream);
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
 
