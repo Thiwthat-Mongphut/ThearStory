@@ -24,7 +24,7 @@ public class Player extends Creature{
     public Player(GamePanel game, float x, float y) {
         super(x, y);
         this.game = game;
-        lastTime = System.nanoTime();
+        lastTime = System.nanoTime() / 300000000;
     }
 
     @Override
@@ -60,14 +60,14 @@ public class Player extends Creature{
         }
         if(game.getKeyManager().left){
             x -= speed;
-            if(System.nanoTime() / 1000000000 - lastTime >= 1 && !startJump){
+            if(System.nanoTime() / 300000000 - lastTime >= 1 && !startJump){
                 if(walkFrame >= 2){
                     walkFrame = 0;
-                    lastTime = System.nanoTime() / 1000000000;
+                    lastTime = System.nanoTime() / 300000000;
                 }
                 else{
                     walkFrame++;
-                    lastTime = System.nanoTime() / 1000000000;
+                    lastTime = System.nanoTime() / 300000000;
                 }
             }
             
@@ -76,14 +76,14 @@ public class Player extends Creature{
             
         if(game.getKeyManager().right){
             x += speed;
-            if(System.nanoTime() / 1000000000 - lastTime >= 1 && !startJump){
+            if(System.nanoTime() / 300000000 - lastTime >= 1 && !startJump){
                 if(walkFrame >= 2){
                     walkFrame = 0;
-                    lastTime = System.nanoTime() / 1000000000;
+                    lastTime = System.nanoTime() / 300000000;
                     }
                 else{
                     walkFrame++;
-                    lastTime = System.nanoTime() / 1000000000;
+                    lastTime = System.nanoTime() / 300000000;
                     }
             }
             img = Assets.TearImg.get(1);   

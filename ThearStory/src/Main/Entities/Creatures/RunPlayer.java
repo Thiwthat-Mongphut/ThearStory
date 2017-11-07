@@ -5,23 +5,35 @@ import Main.Graphics.Assets;
 
 public class RunPlayer extends Player{
     
+    private boolean Stand = false;
+    
     public RunPlayer(GamePanel game, float x, float y) {
         super(game, x, y);
         img = Assets.TearImg.get(1);
+        lastTime = System.nanoTime() / 200000000;
     }
     
     public void tick() {
-        if(System.nanoTime() / 1000000000 - lastTime >= 1){
+        if(Stand){
+            img = Assets.TearImg.get(1);
+            walkFrame = 0;
+            y = 353;
+            Stand = false;
+        }
+        // Change Walk Frame
+        else if(System.nanoTime() / 200000000 - lastTime >= 1 
+                && !startJump && !Stand){
             if(walkFrame >= 2){
                 walkFrame = 0;
-                lastTime = System.nanoTime() / 1000000000;
+                lastTime = System.nanoTime() / 200000000;
             }
             else{
                 walkFrame++;
-                lastTime = System.nanoTime() / 1000000000;
+                lastTime = System.nanoTime() / 200000000;
             }
         }
         
+        // Jump Algorithm
         if(game.getKeyManager().up){
             if (jumpStatus != true && jumpWidth <= 0){
                 jumpStatus = true;
@@ -47,10 +59,25 @@ public class RunPlayer extends Player{
                     y += jumpPower + gravity;
                 }
                 else if (jumpWidth <= 0) {
+                    gravity = 3;
                     startJump = false;
                 }
             }
         }
-            
+        
+        // Down
+        if(game.getKeyManager().down){
+            if(startJump && !jumpStatus){
+                gravity++;
+            }
+            else if(!startJump){
+                img = Assets.TearImg.get(2);
+                walkFrame = 0;
+                y = 385;
+                Stand = true;
+            }
+        }
+
     }
+    
 }

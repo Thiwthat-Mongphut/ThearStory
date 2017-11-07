@@ -10,9 +10,9 @@ public class Assets {
     public static BufferedImage menuBG, startIcon, dogSkin;
     
     // Size and Number of Thear Sprite
-    private static int numFrame[] = {3,3};
-    private static int frameWidth[] = {130,130};
-    private static int frameHeight[] = {87,87};
+    private static int numFrame[] = {3,3,1};
+    private static int frameWidth[] = {130,130,130};
+    private static int frameHeight[] = {87,87,55};
     
     // Size and Number of Obj Sprite
     private static int objFrame = 1;

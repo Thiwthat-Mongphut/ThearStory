@@ -5,7 +5,6 @@ import Main.GamePanel;
 import Main.Graphics.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class RunMiniGame extends State{
     
@@ -40,11 +39,19 @@ public class RunMiniGame extends State{
     public void render(Graphics g) {
         player.render(g);
         if(distance >= 366){
-            x[frame] = 732;
-            if(frame == 2)
-                frame = 0;
-            else
+            if(frame == 0){
+                x[frame] = x[2] + 366;
                 frame++;
+            }
+                
+            else if(frame == 1){
+                x[frame] = x[0] + 366;
+                frame++;
+            }
+            else if(frame == 2){
+                x[frame] = x[1] + 366;
+                frame = 0;
+            }
             distance = 0;
             for(int i = 0;i < x.length;i++){
                 g.drawImage(img, x[i], 440, null);
