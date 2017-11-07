@@ -5,31 +5,37 @@ import Main.Graphics.Assets;
 
 public class RunPlayer extends Player{
     
+    private final float walkY;
+    private final float downY;
     private boolean Stand = false;
+    private long timeUnit = 200000000;
     
-    public RunPlayer(GamePanel game, float x, float y) {
+    public RunPlayer(GamePanel game, float x, float y, float walkY, float downY) {
         super(game, x, y);
         img = Assets.TearImg.get(1);
-        lastTime = System.nanoTime() / 200000000;
+        this.walkY = walkY;
+        this.downY = downY;
+        lastTime = System.nanoTime() / timeUnit;
     }
     
     public void tick() {
+        // Return Image to Walk
         if(Stand){
             img = Assets.TearImg.get(1);
             walkFrame = 0;
-            y = 353;
+            y = walkY;
             Stand = false;
         }
         // Change Walk Frame
-        else if(System.nanoTime() / 200000000 - lastTime >= 1 
+        else if(System.nanoTime() / timeUnit - lastTime >= 1 
                 && !startJump && !Stand){
             if(walkFrame >= 2){
                 walkFrame = 0;
-                lastTime = System.nanoTime() / 200000000;
+                lastTime = System.nanoTime() / timeUnit;
             }
             else{
                 walkFrame++;
-                lastTime = System.nanoTime() / 200000000;
+                lastTime = System.nanoTime() / timeUnit;
             }
         }
         
@@ -59,6 +65,7 @@ public class RunPlayer extends Player{
                     y += jumpPower + gravity;
                 }
                 else if (jumpWidth <= 0) {
+                    y = walkY;
                     gravity = 3;
                     startJump = false;
                 }
@@ -68,12 +75,13 @@ public class RunPlayer extends Player{
         // Down
         if(game.getKeyManager().down){
             if(startJump && !jumpStatus){
-                gravity++;
+                if(gravity <= 8)
+                    gravity++;
             }
             else if(!startJump){
                 img = Assets.TearImg.get(2);
                 walkFrame = 0;
-                y = 385;
+                y = downY;
                 Stand = true;
             }
         }

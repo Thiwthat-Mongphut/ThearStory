@@ -7,7 +7,8 @@ public class Assets {
     public static ArrayList<BufferedImage[]> TearImg;
     public static ArrayList<BufferedImage[]> Obj;
     public static ArrayList<BufferedImage> Tiles;
-    public static BufferedImage menuBG, startIcon, dogSkin;
+    public static BufferedImage[] BG;
+    public static BufferedImage menuBG, startIcon;
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
@@ -21,8 +22,8 @@ public class Assets {
     
     // Size and Number of Tiles
     private static int tileFrame = 1;
-    private static int tileFrameWidth[] = {366};
-    private static int tileFrameHeight[] = {40};
+    private static int tileFrameWidth[] = {458};
+    private static int tileFrameHeight[] = {50};
     
     public static void init(){
         SpriteSheet sheet;
@@ -40,10 +41,17 @@ public class Assets {
             curHeight += frameHeight[i];
         }
         
+        // Background;
+        BG = new BufferedImage[4];
+        BG[0] = ImageLoader.loadImage("/BG/clouds.gif");
+        BG[1] = ImageLoader.loadImage("/BG/sky.gif");
+        BG[2] = ImageLoader.loadImage("/BG/mountains.gif");
+        BG[3] = ImageLoader.loadImage("/BG/sunset.gif");
+        
         // main menu
         menuBG = ImageLoader.loadImage("/BG/Menu.png");
         startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
-        dogSkin = ImageLoader.loadImage("/BG/Skin.png");
+       
         
         // Objects
         sheet = new SpriteSheet(ImageLoader.loadImage("/Objects/ObjectsSprite.png"));

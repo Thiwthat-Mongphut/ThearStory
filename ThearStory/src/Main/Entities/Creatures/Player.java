@@ -12,6 +12,7 @@ public class Player extends Creature{
     protected BufferedImage[] img;
     protected int walkFrame;
     protected long lastTime;
+    private long timeUnit = 300000000;
     
     // Jump Variables
     protected int jumpWidth = 0;
@@ -24,7 +25,7 @@ public class Player extends Creature{
     public Player(GamePanel game, float x, float y) {
         super(x, y);
         this.game = game;
-        lastTime = System.nanoTime() / 300000000;
+        lastTime = System.nanoTime() / timeUnit;
     }
 
     @Override
@@ -60,14 +61,14 @@ public class Player extends Creature{
         }
         if(game.getKeyManager().left){
             x -= speed;
-            if(System.nanoTime() / 300000000 - lastTime >= 1 && !startJump){
+            if(System.nanoTime() / timeUnit - lastTime >= 1 && !startJump){
                 if(walkFrame >= 2){
                     walkFrame = 0;
-                    lastTime = System.nanoTime() / 300000000;
+                    lastTime = System.nanoTime() / timeUnit;
                 }
                 else{
                     walkFrame++;
-                    lastTime = System.nanoTime() / 300000000;
+                    lastTime = System.nanoTime() / timeUnit;
                 }
             }
             
@@ -76,14 +77,14 @@ public class Player extends Creature{
             
         if(game.getKeyManager().right){
             x += speed;
-            if(System.nanoTime() / 300000000 - lastTime >= 1 && !startJump){
+            if(System.nanoTime() / timeUnit - lastTime >= 1 && !startJump){
                 if(walkFrame >= 2){
                     walkFrame = 0;
-                    lastTime = System.nanoTime() / 300000000;
+                    lastTime = System.nanoTime() / timeUnit;
                     }
                 else{
                     walkFrame++;
-                    lastTime = System.nanoTime() / 300000000;
+                    lastTime = System.nanoTime() / timeUnit;
                     }
             }
             img = Assets.TearImg.get(1);   
