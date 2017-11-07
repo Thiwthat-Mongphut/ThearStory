@@ -58,7 +58,7 @@ public class RunMiniGame extends State{
                     speed++;
             }
             lastTime = System.nanoTime() / timeUnit;
-            System.out.println(score);
+            //System.out.println(score);
         }
         
         background[map].tick();
