@@ -35,8 +35,8 @@ public class Assets {
     
     // Size and Number of Obj Sprite
     private static int objFrame = 1;
-    private static int objFrameWidth[][] = {{31,29,28,36}};
-    private static int objFrameHeight[][] = {{34,17,19,22}};
+    private static int objFrameWidth[][] = {{131,145,103,100}};
+    private static int objFrameHeight[][] = {{150,85,70,64}};
     
     // Size and Number of Tiles
     private static int tileFrame = 1;
