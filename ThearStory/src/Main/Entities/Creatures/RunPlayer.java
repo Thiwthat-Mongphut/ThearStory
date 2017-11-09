@@ -10,6 +10,8 @@ public class RunPlayer extends Player{
     private boolean Stand = false;
     private long timeUnit = 200000000;
     
+    private int count = 0;
+    
     public RunPlayer(GamePanel game, float x, float y, float walkY, float downY) {
         super(game, x, y);
         img = Assets.TearImg.get(1);
@@ -50,6 +52,14 @@ public class RunPlayer extends Player{
         if(startJump){
             if(jumpStatus){
                 if(jumpWidth < jumpHeight){
+                    if(count >= 10){
+                        if(gravity > 0){
+                            gravity--;
+                            count = 0;
+                        }
+                    }
+                    else
+                        count++;  
                     jumpWidth += jumpPower + gravity;
                     y -= jumpPower + gravity;
                 }
@@ -61,12 +71,22 @@ public class RunPlayer extends Player{
             }
             else if(!jumpStatus){
                 if (jumpWidth > 0) {
+                    if(count >= 10){
+                        if(gravity <= 7){
+                            gravity++;
+                            count = 0;
+                        }
+                            
+                    }
+                    else
+                        count++;
                     jumpWidth -= jumpPower + gravity;
                     y += jumpPower + gravity;
                 }
                 else if (jumpWidth <= 0) {
                     y = walkY;
                     gravity = 3;
+                    count = 0;
                     startJump = false;
                 }
             }
@@ -74,8 +94,8 @@ public class RunPlayer extends Player{
         
         // Down
         if(game.getKeyManager().down){
-            if(startJump && !jumpStatus){
-                if(gravity <= 8)
+            if(startJump){
+                if(gravity <= 12)
                     gravity++;
             }
             else if(!startJump){
@@ -85,7 +105,11 @@ public class RunPlayer extends Player{
                 Stand = true;
             }
         }
-
+    }
+    
+    public void increaseJumpPower(){
+        if(jumpPower < 10)
+            jumpPower++;
     }
     
 }

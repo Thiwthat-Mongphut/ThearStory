@@ -3,6 +3,7 @@ package Main.States;
 import Main.Backgrounds.Background;
 import Main.Backgrounds.Street;
 import Main.Backgrounds.miniGameBG;
+import Main.Entities.Creatures.Items;
 import Main.Entities.Creatures.RunPlayer;
 import Main.GamePanel;
 import Main.Graphics.Assets;
@@ -24,18 +25,23 @@ public class RunMiniGame extends State{
     // Game Value
     private int score = 0;
     private int lastScore;
-    private int speed = 5;
+    private int speed = 6;
     private long lastTime;
     private long timeUnit = 100000000;
     
     // Sound
     private static Clip music;
     
+    // Items
+    private Items items;
+    
     public RunMiniGame(GamePanel game) {
         super(game);
         player = new RunPlayer(game, 50, walkY, walkY, downY);
         street = new Street(0, 440);
         lastTime = System.nanoTime() / timeUnit;
+        
+        items = new Items(0, 0);
         
         // Set Backgrounds
         background = new Background[3];
@@ -45,7 +51,6 @@ public class RunMiniGame extends State{
         
         // Play BG Music
         music = Assets.runGameMusic;
-        music.start();
         music.loop(Clip.LOOP_CONTINUOUSLY);
     }
     
@@ -60,8 +65,9 @@ public class RunMiniGame extends State{
                     map = 0;
                 else
                     map++;
-                if(speed <= 5)
-                    speed++;
+                if(speed < 10)
+                    speed += 2;
+                player.increaseJumpPower();
             }
             lastTime = System.nanoTime() / timeUnit;
             System.out.println("Score: " + score);
@@ -72,6 +78,9 @@ public class RunMiniGame extends State{
         street.move(-speed, 0);
         street.tick();
         player.tick();
+        
+        items.tick();
+        items.move(-speed);
     }
 
     @Override
@@ -79,6 +88,8 @@ public class RunMiniGame extends State{
         background[map].render(g);
         street.render(g);
         player.render(g);
+        
+        items.render(g);
     }
     
 }

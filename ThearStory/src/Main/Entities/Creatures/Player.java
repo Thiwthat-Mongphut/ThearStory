@@ -16,16 +16,16 @@ public class Player extends Creature{
     
     // Jump Variables
     protected int jumpWidth = 0;
-    protected int jumpHeight = 160;
+    protected int jumpHeight = 250;
     protected boolean jumpStatus = false;
     protected int gravity = 3;
-    protected int jumpPower = 5;
+    protected int jumpPower = 7;
     protected boolean startJump = false;
     
     public Player(GamePanel game, float x, float y) {
         super(x, y);
         this.game = game;
-        lastTime = System.nanoTime() / timeUnit;
+        lastTime = System.nanoTime() / 1000000000;
     }
 
     @Override
@@ -46,7 +46,6 @@ public class Player extends Creature{
                 else if(jumpWidth >= jumpHeight){
                     jumpWidth += jumpPower + gravity;
                     y -= jumpPower + gravity;
-                    jumpStatus = false;
                 }
             }
             else if(!jumpStatus){

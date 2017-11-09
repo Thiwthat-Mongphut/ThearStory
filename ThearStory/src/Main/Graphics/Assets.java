@@ -18,10 +18,14 @@ import javax.sound.sampled.Clip;
 
 public class Assets {
     
-// Pictures
+    private static int curWidth;
+    private static int curHeight;
+    
+    // Pictures
     public static ArrayList<BufferedImage[]> TearImg;
     public static ArrayList<BufferedImage[]> Obj;
     public static ArrayList<BufferedImage> Tiles;
+    public static BufferedImage[] bird;
     public static BufferedImage[] BG;
     public static BufferedImage menuBG, startIcon;
     
@@ -32,11 +36,11 @@ public class Assets {
     private static int numFrame[] = {3,3,1};
     private static int frameWidth[] = {130,130,130};
     private static int frameHeight[] = {87,87,55};
-    
+
     // Size and Number of Obj Sprite
     private static int objFrame = 1;
-    private static int objFrameWidth[][] = {{131,145,103,100}};
-    private static int objFrameHeight[][] = {{150,85,70,64}};
+    private static int objFrameWidth[][] = {{94,92,141,107,101,75,15,18}};
+    private static int objFrameHeight[][] = {{100,90,85,107,75,35,13,14}};
     
     // Size and Number of Tiles
     private static int tileFrame = 1;
@@ -47,7 +51,7 @@ public class Assets {
         SpriteSheet sheet;
         // Thear Crop
         sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/TearSprite.png"));
-        int curHeight = 0;
+        curHeight = 0;
         TearImg = new ArrayList<BufferedImage[]>();
         for(int i=0; i<numFrame.length; i++){
             BufferedImage[] groupImg = new BufferedImage[numFrame[i]];
@@ -57,6 +61,13 @@ public class Assets {
             }
             TearImg.add(groupImg);
             curHeight += frameHeight[i];
+        }
+        
+        // Bird Crop
+        sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/birdSprite.png"));
+        bird = new BufferedImage[4];
+        for(int i = 0;i < 4;i++){
+            bird[i] = sheet.crop(i * 41, 0, 41, 35);
         }
         
         // Backgrounds
@@ -72,7 +83,7 @@ public class Assets {
         // Load Objects
         sheet = new SpriteSheet(ImageLoader.loadImage("/Objects/ObjectsSprite.png"));
         curHeight = 0;
-        int curWidth = 0;
+        curWidth = 0;
         Obj = new ArrayList<BufferedImage[]>();
         for(int i=0; i<objFrame; i++){
             BufferedImage[] groupImg = new BufferedImage[objFrameWidth[i].length];
