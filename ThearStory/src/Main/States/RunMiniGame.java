@@ -70,7 +70,7 @@ public class RunMiniGame extends State{
                 player.increaseJumpPower();
             }
             lastTime = System.nanoTime() / timeUnit;
-            System.out.println("Score: " + score);
+            //System.out.println("Score: " + score);
         }
         
         background[map].tick();

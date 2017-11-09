@@ -62,9 +62,11 @@ public class Items extends Entity {
                 this.y[i] = 430 - Assets.Obj.get(0)[5].getHeight();
             }
         }
+        
         // Bird
         bird = new BufferedImage[1][];
         bird[0] = Assets.bird;
+
     }
 
     @Override
@@ -166,7 +168,6 @@ public class Items extends Entity {
             
     }
     
-
     @Override
     public void render(Graphics g) {
         for(int i = 0;i< x.length;i++){
@@ -185,7 +186,6 @@ public class Items extends Entity {
         if(xBird >= -41 && haveBird){
             xBird += speed;
         }
-            
     }
 
 }
