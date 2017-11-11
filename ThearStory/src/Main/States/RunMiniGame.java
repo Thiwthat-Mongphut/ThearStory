@@ -13,8 +13,10 @@ import javax.sound.sampled.Clip;
 public class RunMiniGame extends State{
     
     private RunPlayer player;
+    private float playerWidth;
+    private float playerHeight;
     
-    private final float walkY = 345;
+    private final float walkY = 343;
     private final float downY = 375;
     
     // BG
@@ -38,6 +40,8 @@ public class RunMiniGame extends State{
     public RunMiniGame(GamePanel game) {
         super(game);
         player = new RunPlayer(game, 50, walkY, walkY, downY);
+        playerWidth = player.getWidth();
+        playerHeight = player.getHeight();
         street = new Street(0, 440);
         lastTime = System.nanoTime() / timeUnit;
         
@@ -70,7 +74,7 @@ public class RunMiniGame extends State{
                 player.increaseJumpPower();
             }
             lastTime = System.nanoTime() / timeUnit;
-            //System.out.println("Score: " + score);
+            System.out.println("Score: " + score);
         }
         
         background[map].tick();
@@ -78,9 +82,17 @@ public class RunMiniGame extends State{
         street.move(-speed, 0);
         street.tick();
         player.tick();
+        playerWidth = player.getWidth();
+        playerHeight = player.getHeight();
         
         items.tick();
         items.move(-speed);
+        
+        if(items.collisionCheck(player.getX() + 12, player.getY() + 19, playerWidth - 12, playerHeight - 54)){
+            game.gameState = new MainState(game);
+            State.setState(game.gameState);
+        }
+           
     }
 
     @Override
