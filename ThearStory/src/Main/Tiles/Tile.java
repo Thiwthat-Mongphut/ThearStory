@@ -9,7 +9,6 @@ public class Tile {
     
     // Create all tile
     public static Tile[] tiles = new Tile[50];
-    public static Tile dogSkin = new DogSkin(0);
     
     // CLASS
     protected BufferedImage texture;

@@ -6,14 +6,19 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener{
     
     private boolean[] keys;
-    public boolean up, left, right;
+    public boolean up, down, left, right;
     
     public KeyManager(){
         keys = new boolean[256];
     }
     
     public void tick(){
-        up = keys[KeyEvent.VK_UP];
+        if(keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_SPACE]){
+            up = true;
+        }
+        else
+            up = false;
+        down = keys[KeyEvent.VK_DOWN];
         left = keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_RIGHT];
     }

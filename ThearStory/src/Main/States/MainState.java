@@ -3,8 +3,6 @@ package Main.States;
 import Main.GamePanel;
 import Main.Graphics.Assets;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainState extends State{
 
@@ -25,11 +23,11 @@ public class MainState extends State{
         int mouseX = game.getMouseManager().getMouseX();
         int mouseY = game.getMouseManager().getMouseY();
         // if start button is clicked, change to tutorial state
-        if(mouseX >= 225 && mouseX <= 370 && mouseY >= 365 && mouseY <= 430 
+        if(mouseX >= 315 && mouseX <= 495 && mouseY >= 350 && mouseY <= 428
                 && game.getMouseManager().isLeftPressed()){
 ///////////////////////// เปลี่ยน State /////////////////////////////////
-            /*game.gameState = new ชื่อState(game);
-            State.setState(game.gameState);*/
+            game.gameState = new RunMiniGame(game);
+            State.setState(game.gameState);
         }
         
         if((System.nanoTime() - lastTime) / 10000000 > 1){
@@ -44,8 +42,8 @@ public class MainState extends State{
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.menuBG, 0, 0, null);
-        g.drawImage(Assets.startIcon, 215+((butWeight[0]-butWeight[frame])/2),
-                360+((butHeight[0]-butHeight[frame])/2),
+        g.drawImage(Assets.startIcon, 310+((butWeight[0]-butWeight[frame])/2),
+                350+((butHeight[0]-butHeight[frame])/2),
                 butWeight[frame],butHeight[frame],null);
     }
     
