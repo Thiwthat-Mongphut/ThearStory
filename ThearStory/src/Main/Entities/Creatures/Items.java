@@ -230,9 +230,12 @@ public class Items extends Entity {
                 else if(yBird >= y && yBird + bird[0][birdFrame].getHeight() <= y + height)
                     return true;
             }
-            else if(xBird >= x && xBird <= x + width && 
-                    xBird >= y && yBird <= y + height)
-                return true;
+            else if(xBird >= x && xBird <= x + width){
+                if(yBird >= y && yBird <= y + height)
+                    return true;
+                else if(y >= yBird && y <= yBird + bird[0][birdFrame].getHeight())
+                    return true;
+            }
         return false;
     }
 
