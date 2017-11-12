@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Assets {
     public static ArrayList<BufferedImage[]> TearImg;
     public static BufferedImage[] Tiles = new BufferedImage[50];
-    public static BufferedImage menuBG, startIcon, dogSkin;
+    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, s1;
     
     // Size and Number of Thear Frame 
     private static int numFrame[] = {3,3};
@@ -30,6 +30,8 @@ public class Assets {
         }
         
         // main menu
+        interFaceBg = ImageLoader.loadImage("/interFace/Bg3.png");
+        s1 =  ImageLoader.loadImage("/interFace/letgo.png");
         menuBG = ImageLoader.loadImage("/BG/Menu.png");
         startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
         dogSkin = ImageLoader.loadImage("/BG/Skin.png");
