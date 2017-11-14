@@ -43,9 +43,9 @@ public class Assets {
     private static int objFrameHeight[][] = {{100,90,85,107,75,35,13,14}};
     
     // Size and Number of Tiles
-    private static int tileFrame = 1;
-    private static int tileFrameWidth[] = {458};
-    private static int tileFrameHeight[] = {50};
+    private static int tileFrame = 2;
+    private static int tileFrameWidth[] = {458, 820};
+    private static int tileFrameHeight[] = {50, 20};
     
     public static void init(){
         SpriteSheet sheet;
@@ -99,12 +99,12 @@ public class Assets {
         
         // Load Tiles
         sheet = new SpriteSheet(ImageLoader.loadImage("/Tilesets/Tiles.png"));
-        curWidth = 0;
+        curHeight = 0;
         Tiles = new ArrayList<BufferedImage>();
         for(int i=0; i<tileFrame; i++){
-            Tiles.add(sheet.crop(curWidth, 0, 
+            Tiles.add(sheet.crop(0, curHeight, 
                     tileFrameWidth[i], tileFrameHeight[i]));
-            curWidth += tileFrameWidth[i];
+            curHeight += tileFrameHeight[i];
         }
 
         // Load Sounds
