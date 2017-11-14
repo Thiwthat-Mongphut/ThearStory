@@ -34,7 +34,7 @@ public class Street extends Background{
     @Override
     public void render(Graphics g) {
         for(int i = 0;i < x.length;i++){
-                g.drawImage(img, x[i], 430, null);
+                g.drawImage(img, x[i],(int)y, null);
             }
     }
 

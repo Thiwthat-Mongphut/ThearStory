@@ -42,7 +42,7 @@ public class RunMiniGame extends State{
         player = new RunPlayer(game, 50, walkY, walkY, downY);
         playerWidth = player.getWidth();
         playerHeight = player.getHeight();
-        street = new Street(0, 440);
+        street = new Street(0, 430);
         lastTime = System.nanoTime() / timeUnit;
         
         items = new Items(0, 0);
@@ -100,7 +100,6 @@ public class RunMiniGame extends State{
         background[map].render(g);
         street.render(g);
         player.render(g);
-        
         items.render(g);
     }
     
