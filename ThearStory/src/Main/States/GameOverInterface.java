@@ -22,7 +22,7 @@ public class GameOverInterface extends State {
         if(mouseX >= 30 && mouseX <= 400 && mouseY >= 350 && mouseY <= 450){
            check = false;
            if(game.getMouseManager().isLeftPressed()){
-               game.gameState = new MainState(game);
+               game.gameState = new MenuInterFace(game);
                State.setState(game.gameState);
            }
         }

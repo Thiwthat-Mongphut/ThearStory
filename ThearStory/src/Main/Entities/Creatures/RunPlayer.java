@@ -67,6 +67,7 @@ public class RunPlayer extends Player{
                 else if(jumpWidth >= jumpHeight){
                     jumpWidth += jumpPower + gravity;
                     y -= jumpPower + gravity;
+                    count = 0;
                     jumpStatus = false;
                 }
             }
