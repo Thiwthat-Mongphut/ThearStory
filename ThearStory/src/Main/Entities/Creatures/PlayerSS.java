@@ -10,11 +10,8 @@ public class PlayerSS extends Creature
     protected GamePanel game;
     protected BufferedImage[] img;
     protected int walkFrame = 0;
+    protected boolean EnterDoor = false;
     private long lastTime, timeUnit = 300000000;
-    
-    // Variable ladder
-    protected boolean checkLadder, checkLadderUp, checkLadderDown;
-    protected float xLadder, yLadder;
 
     public PlayerSS(GamePanel game, float x, float y) {
         super(x, y);
@@ -67,13 +64,35 @@ public class PlayerSS extends Creature
             img = Assets.TearImg.get(1);   
         }
         
-        
+        if(game.getKeyManager().Enter)
+        {
+            EnterDoor = true;
+        }
     }
-
+    
+    public boolean getEnterDoor()
+    {
+        return EnterDoor;
+    }
+    
+    public void setEnterDoor()
+    {
+        EnterDoor = false;
+    }
+    
+    public float getX()
+    {
+        return x;
+    }
+    
+    public float getY()
+    {
+        return y;
+    }
+    
     @Override
     public void render(Graphics g) 
     {
-        g.drawImage(img[walkFrame], (int)x, (int)y, null);
+        g.drawImage(img[walkFrame], (int)x, (int)y, 100, 57, null);
     }
-    
 }
