@@ -17,7 +17,7 @@ public class MenuInterFace extends State {
         int mouseY = game.getMouseManager().getMouseY();
         if(mouseX >= 450 && mouseX <= 770 && mouseY >= 350 && mouseY <= 450){
             check = false;
-             if(game.getMouseManager().isLeftPressed()){
+            if(game.getMouseManager().isLeftPressed()){
                game.gameState = new RunMiniGame(game); // go to miniGame
                State.setState(game.gameState);
            }

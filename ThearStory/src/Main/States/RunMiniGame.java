@@ -7,6 +7,8 @@ import Main.Entities.Creatures.RunPlayer;
 import Main.GamePanel;
 import Main.Graphics.Assets;
 import Main.Objects.Items;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.sound.sampled.Clip;
 
@@ -25,7 +27,7 @@ public class RunMiniGame extends State{
     private Street street;
 
     // Game Value
-    private int score = 0;
+    private static int score;
     private int lastScore;
     private int speed = 6;
     private long lastTime;
@@ -42,6 +44,7 @@ public class RunMiniGame extends State{
         player = new RunPlayer(game, 50, walkY, walkY, downY);
         playerWidth = player.getWidth();
         playerHeight = player.getHeight();
+        score = 0;
         street = new Street(0, 430);
         lastTime = System.nanoTime() / timeUnit;
         
@@ -62,6 +65,12 @@ public class RunMiniGame extends State{
     
     @Override
     public void tick() { 
+        if(items.collisionCheck(player.getX() + 15, player.getY() + 19, playerWidth - 25, 25)){
+            music.stop();
+            game.gameState = new GameOverInterface(game);
+            State.setState(game.gameState);
+        }
+        
         if(System.nanoTime() / timeUnit - lastTime >= 1){
             score += 2;
             if(score - lastScore >= 750){
@@ -71,13 +80,12 @@ public class RunMiniGame extends State{
                     map = 0;
                 else
                     map++;
-                if(speed < 8)
+                if(speed < 10)
                     speed++;
                 player.increaseJumpPower();
                 items.moveMap();
             }
             lastTime = System.nanoTime() / timeUnit;
-            System.out.println("Score: " + score);
         }
         
         background[map].tick();
@@ -90,13 +98,6 @@ public class RunMiniGame extends State{
         
         items.tick();
         items.move(-speed);
-        
-        if(items.collisionCheck(player.getX() + 12, player.getY() + 19, playerWidth - 12, playerHeight - 54)){
-            music.stop();
-            game.gameState = new GameOverInterface(game);
-            State.setState(game.gameState);
-        }
-           
     }
 
     @Override
@@ -105,6 +106,9 @@ public class RunMiniGame extends State{
         street.render(g);
         player.render(g);
         items.render(g);
+        g.setColor(Color.BLACK);
+        g.setFont(Assets.gothicFont);
+        g.drawString("Score " + String.valueOf(score), 650, 50);
     }
     
 }

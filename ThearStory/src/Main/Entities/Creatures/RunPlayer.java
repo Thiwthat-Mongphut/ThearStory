@@ -47,6 +47,8 @@ public class RunPlayer extends Player{
             if (jumpStatus != true && jumpWidth <= 0){
                 jumpStatus = true;
                 startJump = true;
+                gravity = 3;
+                count = 0;
             } 
         }
         
@@ -87,15 +89,13 @@ public class RunPlayer extends Player{
                 }
                 else if (jumpWidth <= 0) {
                     y = walkY;
-                    gravity = 3;
-                    count = 0;
                     startJump = false;
                 }
             }
         }
         
         // Down
-        if(game.getKeyManager().down){
+        if(game.getKeyManager().down && !jumpStatus){
             if(startJump){
                 if(gravity <= 12)
                     gravity++;

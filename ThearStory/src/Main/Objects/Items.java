@@ -192,10 +192,10 @@ public class Items extends Entity {
     
     public boolean collisionCheck(float x, float y, float width, float height){
         for(int i = 0;i < this.x.length;i++){
-            float xObj = this.x[i] - 15;
-            float widthObj = this.x[i] + obj[i].getWidth() - 30;
-            float yObj = this.y[i] - 5;
-            float heightObj = this.y[i] + obj[i].getHeight() - 5;
+            float xObj = this.x[i] + 15;
+            float widthObj = this.x[i] + obj[i].getWidth() - 15;
+            float yObj = this.y[i] + 10;
+            float heightObj = this.y[i] + obj[i].getHeight() - 10;
             if(x >= xObj && x <= widthObj){
                 if(y >= yObj && y <= heightObj)
                     return true;

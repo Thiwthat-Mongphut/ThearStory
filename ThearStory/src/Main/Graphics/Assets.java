@@ -8,6 +8,7 @@
 
 package Main.Graphics;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
@@ -32,7 +33,9 @@ public class Assets {
     
     // Sounds
     public static Clip runGameMusic;
-
+    
+    // Font
+    public static Font gothicFont = new Font("SHOWCARD GOTHIC", Font.PLAIN, 20);
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
@@ -41,14 +44,14 @@ public class Assets {
 
     // Size and Number of Obj Sprite
     private static int objFrame = 6;
-    private static int objFrameWidth[][] = {{114,143,132,144,94,100},
+    private static int objFrameWidth[][] = {{114,143,132,144,104,100},
                                             {140,120,140,114,129},
                                             {179,158,102,144,137},
                                             {458},
                                             {820},
                                             {47,43,70,70}
                                             };
-    private static int objFrameHeight[][] = {{122,104,131,110,43,79},
+    private static int objFrameHeight[][] = {{122,104,131,110,63,79},
                                             {94,80,115,94,74},
                                             {105,100,109,111,92},
                                             {50},
