@@ -17,6 +17,7 @@ public class RunPlayer extends Player{
         img = Assets.TearImg.get(1);
         this.walkY = walkY;
         this.downY = downY;
+        health = 1;
         lastTime = System.nanoTime() / timeUnit;
     }
     
@@ -66,6 +67,7 @@ public class RunPlayer extends Player{
                 else if(jumpWidth >= jumpHeight){
                     jumpWidth += jumpPower + gravity;
                     y -= jumpPower + gravity;
+                    count = 0;
                     jumpStatus = false;
                 }
             }
@@ -108,8 +110,34 @@ public class RunPlayer extends Player{
     }
     
     public void increaseJumpPower(){
-        if(jumpPower < 10)
-            jumpPower++;
+        if(jumpPower < 8)
+            jumpPower += 1;
+    }
+    
+    public void reduceHealth(int i){
+        health -= i;
+    }
+    
+    public float getX(){
+        return x;
+    }
+    
+    public float getY(){
+        return y;
+    }
+    
+    public float getWidth(){
+        return img[walkFrame].getWidth();
+    }
+    
+    public float getHeight(){
+        return img[walkFrame].getHeight();
+    }
+     
+    public boolean getStatus(){
+        if(health <= 0)
+            return false;
+        return true;
     }
     
 }

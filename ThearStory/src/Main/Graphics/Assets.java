@@ -1,8 +1,6 @@
 /* 
     Picture Sources
-    - bevouliin.com
-    - MR.SUJIT YADAV from unluckystudio.com
-    - http://www.gameart2d.com/free-platformer-game-tileset.html
+    - http://www.gameart2d.com/
     Sound Source
     - Little Idia: https://www.bensound.com
     ********************Thank you so much***************************
@@ -23,14 +21,18 @@ public class Assets {
     
     // Pictures
     public static ArrayList<BufferedImage[]> TearImg;
+
+    public static BufferedImage[] Tiles = new BufferedImage[50];
+    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
+            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
+
     public static ArrayList<BufferedImage[]> Obj;
-    public static ArrayList<BufferedImage> Tiles;
     public static BufferedImage[] bird;
     public static BufferedImage[] BG;
-    public static BufferedImage menuBG, startIcon;
     
     // Sounds
     public static Clip runGameMusic;
+
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
@@ -38,14 +40,22 @@ public class Assets {
     private static int frameHeight[] = {87,87,55};
 
     // Size and Number of Obj Sprite
-    private static int objFrame = 1;
-    private static int objFrameWidth[][] = {{94,92,141,107,101,75,15,18}};
-    private static int objFrameHeight[][] = {{100,90,85,107,75,35,13,14}};
-    
-    // Size and Number of Tiles
-    private static int tileFrame = 1;
-    private static int tileFrameWidth[] = {458};
-    private static int tileFrameHeight[] = {50};
+    private static int objFrame = 6;
+    private static int objFrameWidth[][] = {{114,143,132,144,94,100},
+                                            {140,120,140,114,129},
+                                            {179,158,102,144,137},
+                                            {458},
+                                            {820},
+                                            {47,43,70,70}
+                                            };
+    private static int objFrameHeight[][] = {{122,104,131,110,43,79},
+                                            {94,80,115,94,74},
+                                            {105,100,109,111,92},
+                                            {50},
+                                            {20},
+                                            {235,82,50,50}
+                                            };
+    private static int rowHeight[] = {131,116,112,50,20,235};
     
     public static void init(){
         SpriteSheet sheet;
@@ -63,6 +73,16 @@ public class Assets {
             curHeight += frameHeight[i];
         }
         
+        // main menu
+        interFaceBg = ImageLoader.loadImage("/interFace/Bg.png");
+        letsGoButton = ImageLoader.loadImage("/interFace/lets_go.png");
+        letsGoButton2 = ImageLoader.loadImage("/interFace/lets_go2.png");
+        menuButton = ImageLoader.loadImage("/interFace/menu_button.png");
+        menuButton2 = ImageLoader.loadImage("/interFace/menu_button2.png");
+        closeButton = ImageLoader.loadImage("/interFace/close_button.png");
+        closeButton2 = ImageLoader.loadImage("/interFace/close_button2.png");
+        gameOver = ImageLoader.loadImage("/interFace/gameOver.png");
+        
         // Bird Crop
         sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/birdSprite.png"));
         bird = new BufferedImage[4];
@@ -72,7 +92,7 @@ public class Assets {
         
         // Backgrounds
         BG = new BufferedImage[3];
-        BG[0] = ImageLoader.loadImage("/BG/runBG0.jpg");
+        BG[0] = ImageLoader.loadImage("/BG/runBG0.png");
         BG[1] = ImageLoader.loadImage("/BG/runBG1.png");
         BG[2] = ImageLoader.loadImage("/BG/runBG2.png");
         
@@ -93,22 +113,12 @@ public class Assets {
                 curWidth += objFrameWidth[i][j];
             }
             Obj.add(groupImg);
-            curHeight += objFrameHeight[i][0];
+            curHeight += rowHeight[i];
             curWidth = 0;
         }
         
-        // Load Tiles
-        sheet = new SpriteSheet(ImageLoader.loadImage("/Tilesets/Tiles.png"));
-        curWidth = 0;
-        Tiles = new ArrayList<BufferedImage>();
-        for(int i=0; i<tileFrame; i++){
-            Tiles.add(sheet.crop(curWidth, 0, 
-                    tileFrameWidth[i], tileFrameHeight[i]));
-            curWidth += tileFrameWidth[i];
-        }
-
         // Load Sounds
-        try {
+       try {
             runGameMusic = AudioSystem.getClip();
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(
               Assets.class.getResourceAsStream("/Music/LittleIdea.wav"));
