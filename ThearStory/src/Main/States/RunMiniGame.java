@@ -52,8 +52,8 @@ public class RunMiniGame extends State{
         // Set Backgrounds
         background = new Background[3];
         background[0] = new miniGameBG(Assets.BG[0],0 ,0, 587);
-        background[1] = new miniGameBG(Assets.BG[1],0 ,0, 587);
-        background[2] = new miniGameBG(Assets.BG[2],0 ,0, 880);
+        background[1] = new miniGameBG(Assets.BG[1],0 ,0, 640);
+        background[2] = new miniGameBG(Assets.BG[2],0 ,0, 968);
         
         // Play BG Music
         music = Assets.runGameMusic;
