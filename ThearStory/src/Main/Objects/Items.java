@@ -24,6 +24,8 @@ public class Items extends Entity {
     private int birdFrame = 0;
     private boolean haveBird = false;
     private int[] setYBird = {325, 270};
+    
+    private int mapArray = 0;
 
     public Items(float x, float y) {
         super(x, y);
@@ -36,30 +38,30 @@ public class Items extends Entity {
             else
                 this.x[i] = this.x[i-1] + setX[randObj];
             
-            randObj = rand.nextInt(6);
+            randObj = rand.nextInt(Assets.Obj.get(mapArray).length);
             if(randObj == 0){
-                obj[i] = Assets.Obj.get(0)[0];
-                this.y[i] = 430 - Assets.Obj.get(0)[0].getHeight();
+                obj[i] = Assets.Obj.get(mapArray)[0];
+                this.y[i] = 430 - Assets.Obj.get(mapArray)[0].getHeight();
             }
             else if(randObj == 1){
-                obj[i] = Assets.Obj.get(0)[1];
-                this.y[i] = 430 - Assets.Obj.get(0)[1].getHeight();
+                obj[i] = Assets.Obj.get(mapArray)[1];
+                this.y[i] = 430 - Assets.Obj.get(mapArray)[1].getHeight();
             }
             else if(randObj == 2){
-                obj[i] = Assets.Obj.get(0)[2];
-                this.y[i] = 430 - Assets.Obj.get(0)[2].getHeight();
+                obj[i] = Assets.Obj.get(mapArray)[2];
+                this.y[i] = 430 - Assets.Obj.get(mapArray)[2].getHeight();
             }
             else if(randObj == 3){
-                obj[i] = Assets.Obj.get(0)[3];
-                this.y[i] = 430 - Assets.Obj.get(0)[3].getHeight();
+                obj[i] = Assets.Obj.get(mapArray)[3];
+                this.y[i] = 430 - Assets.Obj.get(mapArray)[3].getHeight();
             }
             else if(randObj == 4){
-                obj[i] = Assets.Obj.get(0)[4];
-                this.y[i] = 430 - Assets.Obj.get(0)[4].getHeight();
+                obj[i] = Assets.Obj.get(mapArray)[4];
+                this.y[i] = 430 - Assets.Obj.get(mapArray)[4].getHeight();
             }
             else if(randObj == 5){
-                obj[i] = Assets.Obj.get(0)[5];
-                this.y[i] = 430 - Assets.Obj.get(0)[5].getHeight();
+                obj[i] = Assets.Obj.get(mapArray)[5];
+                this.y[i] = 430 - Assets.Obj.get(mapArray)[5].getHeight();
             }
         }
         
@@ -77,8 +79,8 @@ public class Items extends Entity {
                 randObj = rand.nextInt(4);
                 
                 // move left object to next of bird
-                obj[count] = Assets.Obj.get(0)[randObj];
-                this.y[count] = 430 - Assets.Obj.get(0)[randObj].getHeight();
+                obj[count] = Assets.Obj.get(mapArray)[randObj];
+                this.y[count] = 430 - Assets.Obj.get(mapArray)[randObj].getHeight();
                 
                 if(count == 0){
                     xBird = x[3] + setX[randObj];
@@ -109,31 +111,31 @@ public class Items extends Entity {
             }
             else{
                 // change items
-                randObj = rand.nextInt(7);
+                randObj = rand.nextInt(Assets.Obj.get(mapArray).length);
 
                 if(randObj == 0){
-                    obj[count] = Assets.Obj.get(0)[0];
-                    this.y[count] = 430 - Assets.Obj.get(0)[0].getHeight();
+                    obj[count] = Assets.Obj.get(mapArray)[0];
+                    this.y[count] = 430 - Assets.Obj.get(mapArray)[0].getHeight();
                 }
                 else if(randObj == 1){
-                    obj[count] = Assets.Obj.get(0)[1];
-                    this.y[count] = 430 - Assets.Obj.get(0)[1].getHeight();
+                    obj[count] = Assets.Obj.get(mapArray)[1];
+                    this.y[count] = 430 - Assets.Obj.get(mapArray)[1].getHeight();
                 }
                 else if(randObj == 2){
-                    obj[count] = Assets.Obj.get(0)[2];
-                    this.y[count] = 430 - Assets.Obj.get(0)[2].getHeight();
+                    obj[count] = Assets.Obj.get(mapArray)[2];
+                    this.y[count] = 430 - Assets.Obj.get(mapArray)[2].getHeight();
                 }
                 else if(randObj == 3){
-                    obj[count] = Assets.Obj.get(0)[3];
-                    this.y[count] = 430 - Assets.Obj.get(0)[3].getHeight();
+                    obj[count] = Assets.Obj.get(mapArray)[3];
+                    this.y[count] = 430 - Assets.Obj.get(mapArray)[3].getHeight();
                 }
                 else if(randObj == 4){
-                    obj[count] = Assets.Obj.get(0)[4];
-                    this.y[count] = 430 - Assets.Obj.get(0)[4].getHeight();
+                    obj[count] = Assets.Obj.get(mapArray)[4];
+                    this.y[count] = 430 - Assets.Obj.get(mapArray)[4].getHeight();
                 }
                 else if(randObj == 5){
-                    obj[count] = Assets.Obj.get(0)[5];
-                    this.y[count] = 430 - Assets.Obj.get(0)[5].getHeight();
+                    obj[count] = Assets.Obj.get(mapArray)[5];
+                    this.y[count] = 430 - Assets.Obj.get(mapArray)[5].getHeight();
                 }
 
                 randObj = rand.nextInt(3);
@@ -237,6 +239,13 @@ public class Items extends Entity {
                     return true;
             }
         return false;
+    }
+    
+    public void moveMap(){
+        if(mapArray == 2)
+            mapArray = 0;
+        else
+            mapArray++;
     }
 
 }
