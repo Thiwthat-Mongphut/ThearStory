@@ -28,7 +28,7 @@ public class MainState extends State{
         if(mouseX >= 225 && mouseX <= 370 && mouseY >= 365 && mouseY <= 430 
                 && game.getMouseManager().isLeftPressed()){
 ///////////////////////// เปลี่ยน State /////////////////////////////////
-            game.gameState = new FirstInterFace(game);
+            game.gameState = new MenuInterFace(game);
             State.setState(game.gameState);
         }
         

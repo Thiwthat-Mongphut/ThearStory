@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public class Assets {
     public static ArrayList<BufferedImage[]> TearImg;
     public static BufferedImage[] Tiles = new BufferedImage[50];
-    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, s1;
+    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
+            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
     
     // Size and Number of Thear Frame 
     private static int numFrame[] = {3,3};
@@ -30,8 +31,14 @@ public class Assets {
         }
         
         // main menu
-        interFaceBg = ImageLoader.loadImage("/interFace/Bg3.png");
-        s1 =  ImageLoader.loadImage("/interFace/letgo.png");
+        interFaceBg = ImageLoader.loadImage("/interFace/Bg.png");
+        letsGoButton = ImageLoader.loadImage("/interFace/lets_go.png");
+        letsGoButton2 = ImageLoader.loadImage("/interFace/lets_go2.png");
+        menuButton = ImageLoader.loadImage("/interFace/menu_button.png");
+        menuButton2 = ImageLoader.loadImage("/interFace/menu_button2.png");
+        closeButton = ImageLoader.loadImage("/interFace/close_button.png");
+        closeButton2 = ImageLoader.loadImage("/interFace/close_button2.png");
+        gameOver = ImageLoader.loadImage("/interFace/gameOver.png");
         menuBG = ImageLoader.loadImage("/BG/Menu.png");
         startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
         dogSkin = ImageLoader.loadImage("/BG/Skin.png");
