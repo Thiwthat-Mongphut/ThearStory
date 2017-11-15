@@ -1,8 +1,6 @@
 /* 
     Picture Sources
-    - bevouliin.com
-    - MR.SUJIT YADAV from unluckystudio.com
-    - http://www.gameart2d.com/free-platformer-game-tileset.html
+    - http://www.gameart2d.com/
     Sound Source
     - Little Idia: https://www.bensound.com
     ********************Thank you so much***************************

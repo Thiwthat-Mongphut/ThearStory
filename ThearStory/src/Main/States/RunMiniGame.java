@@ -6,10 +6,8 @@ import Main.Backgrounds.miniGameBG;
 import Main.Entities.Creatures.RunPlayer;
 import Main.GamePanel;
 import Main.Graphics.Assets;
-import Main.Objects.Items; // new package
+import Main.Objects.Items;
 import java.awt.Graphics;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 
 public class RunMiniGame extends State{
@@ -52,8 +50,8 @@ public class RunMiniGame extends State{
         // Set Backgrounds
         background = new Background[3];
         background[0] = new miniGameBG(Assets.BG[0],0 ,0, 587);
-        background[1] = new miniGameBG(Assets.BG[1],0 ,0, 587);
-        background[2] = new miniGameBG(Assets.BG[2],0 ,0, 880);
+        background[1] = new miniGameBG(Assets.BG[1],0 ,0, 640);
+        background[2] = new miniGameBG(Assets.BG[2],0 ,0, 968);
         
         // Play BG Music
         music = Assets.runGameMusic;

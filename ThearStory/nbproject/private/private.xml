@@ -2,35 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/MalinZ/Documents/GitHub/ThearStory/ThearStory/src/Main/States/FirstInterFace.java</file>
-            <file>file:/C:/Users/MalinZ/Documents/GitHub/ThearStory/ThearStory/src/Main/Graphics/Assets.java</file>
-=======
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Graphics/Assets.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Entities/Creatures/Items.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Entities/Creatures/RunPlayer.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Tiles/Tile.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Backgrounds/Street.java</file>
             <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/States/RunMiniGame.java</file>
->>>>>>> SSGame
+            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Objects/Items.java</file>
+            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Graphics/Assets.java</file>
+            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Backgrounds/miniGameBG.java</file>
         </group>
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <group>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Entities/Creatures/PlayerSS.java</file>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Objects/Doors.java</file>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/GamePanel.java</file>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/States/StealStates.java</file>
-        </group>
-=======
-        <group/>
->>>>>>> 5eb4535a89cae1fc8d25bb0ed13d7137c72da982
-=======
-        <group/>
->>>>>>> 5eb4535a89cae1fc8d25bb0ed13d7137c72da982
->>>>>>> a60e67df2a8f38b88be45338d2c7d056d6b0aa8b
     </open-files>
 </project-private>
