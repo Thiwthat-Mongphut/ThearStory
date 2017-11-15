@@ -8,24 +8,24 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Creature{
 
-    private GamePanel game;
-    private BufferedImage[] img;
-    private int walkFrame;
-    private long lastTime;
+    protected GamePanel game;
+    protected BufferedImage[] img;
+    protected int walkFrame;
+    protected long lastTime;
+    private long timeUnit = 300000000;
     
     // Jump Variables
-    private int jumpWidth = 0;
-    private int jumpHeight = 100;
-    private boolean jumpStatus = false;
-    private int gravity = 2;
-    private int jumpPower = 5;
-    private boolean startJump = false;
+    protected int jumpWidth = 0;
+    protected int jumpHeight = 250;
+    protected boolean jumpStatus = false;
+    protected int gravity = 3;
+    protected int jumpPower = 5;
+    protected boolean startJump = false;
     
     public Player(GamePanel game, float x, float y) {
         super(x, y);
         this.game = game;
-        img = Assets.TearImg.get(1);
-        lastTime = System.nanoTime();
+        lastTime = System.nanoTime() / 1000000000;
     }
 
     @Override
@@ -46,7 +46,6 @@ public class Player extends Creature{
                 else if(jumpWidth >= jumpHeight){
                     jumpWidth += jumpPower + gravity;
                     y -= jumpPower + gravity;
-                    jumpStatus = false;
                 }
             }
             else if(!jumpStatus){
@@ -54,24 +53,21 @@ public class Player extends Creature{
                     jumpWidth -= jumpPower + gravity;
                     y += jumpPower + gravity;
                 }
-                else if (jumpWidth <= 1) {
-                    jumpWidth -= jumpPower + gravity;
-                    y += jumpPower + gravity;
+                else if (jumpWidth <= 0) {
                     startJump = false;
                 }
             }
         }
-        
         if(game.getKeyManager().left){
             x -= speed;
-            if((System.nanoTime() - lastTime) / 100000000 > 1 && !startJump){
+            if(System.nanoTime() / timeUnit - lastTime >= 1 && !startJump){
                 if(walkFrame >= 2){
                     walkFrame = 0;
-                    lastTime = System.nanoTime();
+                    lastTime = System.nanoTime() / timeUnit;
                 }
-            else{
-                walkFrame++;
-                lastTime = System.nanoTime();
+                else{
+                    walkFrame++;
+                    lastTime = System.nanoTime() / timeUnit;
                 }
             }
             
@@ -80,14 +76,14 @@ public class Player extends Creature{
             
         if(game.getKeyManager().right){
             x += speed;
-            if((System.nanoTime() - lastTime) / 100000000 > 1 && !startJump){
+            if(System.nanoTime() / timeUnit - lastTime >= 1 && !startJump){
                 if(walkFrame >= 2){
                     walkFrame = 0;
-                    lastTime = System.nanoTime();
+                    lastTime = System.nanoTime() / timeUnit;
                     }
                 else{
                     walkFrame++;
-                    lastTime = System.nanoTime();
+                    lastTime = System.nanoTime() / timeUnit;
                     }
             }
             img = Assets.TearImg.get(1);   
