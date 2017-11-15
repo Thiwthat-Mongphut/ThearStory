@@ -42,7 +42,7 @@ public class RunMiniGame extends State{
         player = new RunPlayer(game, 50, walkY, walkY, downY);
         playerWidth = player.getWidth();
         playerHeight = player.getHeight();
-        street = new Street(0, 440);
+        street = new Street(0, 430);
         lastTime = System.nanoTime() / timeUnit;
         
         items = new Items(0, 0);
@@ -55,7 +55,9 @@ public class RunMiniGame extends State{
         
         // Play BG Music
         music = Assets.runGameMusic;
+        music.setFramePosition(0);
         music.loop(Clip.LOOP_CONTINUOUSLY);
+        music.start();
     }
     
     @Override
@@ -89,6 +91,7 @@ public class RunMiniGame extends State{
         items.move(-speed);
         
         if(items.collisionCheck(player.getX() + 12, player.getY() + 19, playerWidth - 12, playerHeight - 54)){
+            music.stop();
             game.gameState = new MainState(game);
             State.setState(game.gameState);
         }
