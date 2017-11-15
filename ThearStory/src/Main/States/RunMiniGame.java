@@ -3,10 +3,10 @@ package Main.States;
 import Main.Backgrounds.Background;
 import Main.Backgrounds.Street;
 import Main.Backgrounds.miniGameBG;
-import Main.Entities.Creatures.Items;
 import Main.Entities.Creatures.RunPlayer;
 import Main.GamePanel;
 import Main.Graphics.Assets;
+import Main.Objects.Items; // new package
 import java.awt.Graphics;
 import javax.sound.sampled.Clip;
 
@@ -103,7 +103,6 @@ public class RunMiniGame extends State{
         background[map].render(g);
         street.render(g);
         player.render(g);
-        
         items.render(g);
     }
     

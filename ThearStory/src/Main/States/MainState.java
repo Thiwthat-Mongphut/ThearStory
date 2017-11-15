@@ -26,7 +26,7 @@ public class MainState extends State{
         if(mouseX >= 315 && mouseX <= 495 && mouseY >= 350 && mouseY <= 428
                 && game.getMouseManager().isLeftPressed()){
 ///////////////////////// เปลี่ยน State /////////////////////////////////
-            game.gameState = new RunMiniGame(game);
+            game.gameState = new StealStates(game);
             State.setState(game.gameState);
         }
         

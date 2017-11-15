@@ -1,4 +1,4 @@
-package Main.Entities.Creatures;
+package Main.Objects;
 
 import Main.Entities.Entity;
 import Main.Graphics.Assets;
@@ -240,3 +240,4 @@ public class Items extends Entity {
     }
 
 }
+
