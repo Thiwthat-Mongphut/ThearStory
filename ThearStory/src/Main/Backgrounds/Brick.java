@@ -10,7 +10,7 @@ public class Brick extends Background{
     private int frame = 0;
 
     public Brick(float x, float y) {
-        super(Assets.Tiles.get(1), x, y);
+        super(Assets.Obj.get(4)[0], x, y);
     }
 
     @Override

@@ -110,7 +110,7 @@ public class RunPlayer extends Player{
     
     public void increaseJumpPower(){
         if(jumpPower < 8)
-            jumpPower += 2;
+            jumpPower += 1;
     }
     
     public void reduceHealth(int i){

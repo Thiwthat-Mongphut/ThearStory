@@ -8,6 +8,8 @@ import Main.GamePanel;
 import Main.Graphics.Assets;
 import Main.Objects.Items; // new package
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 
 public class RunMiniGame extends State{
@@ -55,23 +57,26 @@ public class RunMiniGame extends State{
         
         // Play BG Music
         music = Assets.runGameMusic;
+        music.setFramePosition(0);
         music.loop(Clip.LOOP_CONTINUOUSLY);
+        music.start();
     }
     
     @Override
-    public void tick() {
+    public void tick() { 
         if(System.nanoTime() / timeUnit - lastTime >= 1){
             score += 2;
-            if(score - lastScore >= 500){
+            if(score - lastScore >= 750){
                 lastScore = score;
                 background[map].setX(0);
                 if(map == 2)
                     map = 0;
                 else
                     map++;
-                if(speed < 10)
-                    speed += 2;
+                if(speed < 8)
+                    speed++;
                 player.increaseJumpPower();
+                items.moveMap();
             }
             lastTime = System.nanoTime() / timeUnit;
             System.out.println("Score: " + score);
@@ -89,6 +94,7 @@ public class RunMiniGame extends State{
         items.move(-speed);
         
         if(items.collisionCheck(player.getX() + 12, player.getY() + 19, playerWidth - 12, playerHeight - 54)){
+            music.stop();
             game.gameState = new MainState(game);
             State.setState(game.gameState);
         }

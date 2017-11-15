@@ -9,7 +9,7 @@ public class Street extends Background{
     private int frame = 0;
     
     public Street(float x, float y) {
-        super(Assets.Tiles.get(0), x, y);
+        super(Assets.Obj.get(3)[0], x, y);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class Street extends Background{
     @Override
     public void render(Graphics g) {
         for(int i = 0;i < x.length;i++){
-                g.drawImage(img, x[i],(int)y, null);
-            }
+            g.drawImage(img, x[i], (int)y, null);
+        }
     }
 
     @Override
