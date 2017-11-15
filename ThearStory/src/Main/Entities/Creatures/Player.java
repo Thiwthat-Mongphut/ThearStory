@@ -19,7 +19,7 @@ public class Player extends Creature{
     protected int jumpHeight = 250;
     protected boolean jumpStatus = false;
     protected int gravity = 3;
-    protected int jumpPower = 7;
+    protected int jumpPower = 5;
     protected boolean startJump = false;
     
     public Player(GamePanel game, float x, float y) {

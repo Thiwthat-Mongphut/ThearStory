@@ -2,19 +2,20 @@ package Main.Backgrounds;
 
 import Main.Graphics.Assets;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-public class Street extends Background{
-
+public class Brick extends Background{
+    
     private int[] x = {0, 458, 916};
     private int frame = 0;
-    
-    public Street(float x, float y) {
-        super(Assets.Tiles.get(0), x, y);
+
+    public Brick(float x, float y) {
+        super(Assets.Tiles.get(1), x, y);
     }
 
     @Override
     public void tick() {
-        if(x[frame] <= -458){
+                if(x[frame] <= -458){
             if(frame == 0){
                 x[frame] = x[2] + 458;
                 frame++;
@@ -40,9 +41,7 @@ public class Street extends Background{
 
     @Override
     public void move(float x, float y) {
-        for(int i = 0;i < this.x.length;i++){
-            this.x[i] += x;
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -1,4 +1,4 @@
-package Main.Entities.Creatures;
+package Main.Objects;
 
 import Main.Entities.Entity;
 import Main.Graphics.Assets;
@@ -187,5 +187,57 @@ public class Items extends Entity {
             xBird += speed;
         }
     }
+    
+    public boolean collisionCheck(float x, float y, float width, float height){
+        for(int i = 0;i < this.x.length;i++){
+            float xObj = this.x[i] - 5;
+            float widthObj = this.x[i] + obj[i].getWidth() - 10;
+            float yObj = this.y[i] - 5;
+            float heightObj = this.y[i] + obj[i].getHeight() - 5;
+            if(x >= xObj && x <= widthObj){
+                if(y >= yObj && y <= heightObj)
+                    return true;
+                else if(y + height >= yObj && y + height <= heightObj)
+                    return true;
+                else if(yObj >= y && heightObj <= y)
+                    return true;
+            }
+            else if(x + width >= xObj && x + width <= widthObj){
+                if(y >= yObj && y <= heightObj)
+                    return true;
+                else if(y + height >= yObj && y + height <= heightObj)
+                    return true;
+                else if(yObj >= y && heightObj <= y + height)
+                    return true;
+            }
+            else if(xObj >= x && xObj <= x + width && 
+                    yObj >= y && yObj <= y + height)
+                return true;
+        }
+        if(x >= xBird && x <= xBird + bird[0][birdFrame].getWidth()){
+                if(y >= yBird && y <= yBird + bird[0][birdFrame].getHeight())
+                    return true;
+                else if(y + height >= yBird && y + height <= yBird + bird[0][birdFrame].getHeight())
+                    return true;
+                else if(yBird >= y && yBird + bird[0][birdFrame].getHeight() <= y)
+                    return true;
+            }
+            else if(x + width >= xBird && x + width <= xBird + bird[0][birdFrame].getWidth()){
+                if(y >= yBird && y <= yBird + bird[0][birdFrame].getHeight())
+                    return true;
+                else if(y + height >= yBird && y + height <= yBird + bird[0][birdFrame].getHeight())
+                    return true;
+                else if(yBird >= y && yBird + bird[0][birdFrame].getHeight() <= y + height)
+                    return true;
+            }
+            else if(xBird >= x && xBird <= x + width){
+                if(yBird >= y && yBird <= y + height)
+                    return true;
+                else if(y >= yBird && y <= yBird + bird[0][birdFrame].getHeight())
+                    return true;
+            }
+        return false;
+    }
 
 }
+

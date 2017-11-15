@@ -3,18 +3,20 @@ package Main.States;
 import Main.Backgrounds.Background;
 import Main.Backgrounds.Street;
 import Main.Backgrounds.miniGameBG;
-import Main.Entities.Creatures.Items;
 import Main.Entities.Creatures.RunPlayer;
 import Main.GamePanel;
 import Main.Graphics.Assets;
+import Main.Objects.Items; // new package
 import java.awt.Graphics;
 import javax.sound.sampled.Clip;
 
 public class RunMiniGame extends State{
     
     private RunPlayer player;
+    private float playerWidth;
+    private float playerHeight;
     
-    private final float walkY = 345;
+    private final float walkY = 343;
     private final float downY = 375;
     
     // BG
@@ -38,7 +40,9 @@ public class RunMiniGame extends State{
     public RunMiniGame(GamePanel game) {
         super(game);
         player = new RunPlayer(game, 50, walkY, walkY, downY);
-        street = new Street(0, 440);
+        playerWidth = player.getWidth();
+        playerHeight = player.getHeight();
+        street = new Street(0, 430);
         lastTime = System.nanoTime() / timeUnit;
         
         items = new Items(0, 0);
@@ -70,7 +74,7 @@ public class RunMiniGame extends State{
                 player.increaseJumpPower();
             }
             lastTime = System.nanoTime() / timeUnit;
-            //System.out.println("Score: " + score);
+            System.out.println("Score: " + score);
         }
         
         background[map].tick();
@@ -78,9 +82,17 @@ public class RunMiniGame extends State{
         street.move(-speed, 0);
         street.tick();
         player.tick();
+        playerWidth = player.getWidth();
+        playerHeight = player.getHeight();
         
         items.tick();
         items.move(-speed);
+        
+        if(items.collisionCheck(player.getX() + 12, player.getY() + 19, playerWidth - 12, playerHeight - 54)){
+            game.gameState = new MainState(game);
+            State.setState(game.gameState);
+        }
+           
     }
 
     @Override
@@ -88,7 +100,6 @@ public class RunMiniGame extends State{
         background[map].render(g);
         street.render(g);
         player.render(g);
-        
         items.render(g);
     }
     

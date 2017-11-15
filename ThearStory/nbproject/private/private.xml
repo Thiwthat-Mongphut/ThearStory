@@ -2,12 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+<<<<<<< HEAD
         <group>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Graphics/Assets.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Entities/Creatures/Items.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Entities/Creatures/RunPlayer.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/Entities/Creatures/Player.java</file>
-            <file>file:/C:/Users/Whiter/Documents/GitHub/ThearStory/ThearStory/src/Main/States/RunMiniGame.java</file>
+            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Entities/Creatures/PlayerSS.java</file>
+            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Objects/Doors.java</file>
+            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/GamePanel.java</file>
+            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/States/StealStates.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 5eb4535a89cae1fc8d25bb0ed13d7137c72da982
+=======
+        <group/>
+>>>>>>> 5eb4535a89cae1fc8d25bb0ed13d7137c72da982
     </open-files>
 </project-private>
