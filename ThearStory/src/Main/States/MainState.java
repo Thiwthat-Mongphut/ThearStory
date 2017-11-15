@@ -25,8 +25,7 @@ public class MainState extends State{
         // if start button is clicked, change to tutorial state
         if(mouseX >= 315 && mouseX <= 495 && mouseY >= 350 && mouseY <= 428
                 && game.getMouseManager().isLeftPressed()){
-///////////////////////// เปลี่ยน State /////////////////////////////////
-            game.gameState = new RunMiniGame(game);
+            game.gameState = new MenuInterFace(game);
             State.setState(game.gameState);
         }
         
@@ -43,7 +42,7 @@ public class MainState extends State{
     public void render(Graphics g) {
         g.drawImage(Assets.menuBG, 0, 0, null);
         g.drawImage(Assets.startIcon, 310+((butWeight[0]-butWeight[frame])/2),
-                350+((butHeight[0]-butHeight[frame])/2),
+                360+((butHeight[0]-butHeight[frame])/2),
                 butWeight[frame],butHeight[frame],null);
     }
     
