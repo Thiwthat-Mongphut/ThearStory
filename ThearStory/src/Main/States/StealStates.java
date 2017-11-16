@@ -55,7 +55,7 @@ public class StealStates extends State
     
     // ZombieM
     private ZombieM zombieM;
-    private float zmX = 250, zmY = 75;
+    private float zmX = 0, zmY = 75;
     
     // ZombieF
     private ZombieF zombieF;
@@ -172,11 +172,6 @@ public class StealStates extends State
         player.setEnterDoor(false);
         player.tick();
         
-        /*RightorLeft = dice.nextInt(2);
-        if(RightorLeft == 0)
-            rightroomKey = true;
-        else
-            rightroomKey = false;*/
         zombieM.setvX(player.getX());
         zombieM.setvY(player.getY());
         zombieM.tick();
@@ -184,6 +179,7 @@ public class StealStates extends State
         zombieF.tick();
         
         System.out.println("Player "+"X:" + player.getX() + "Y:" + player.getY());
+        System.out.println("ZombieM "+"X:" + zombieM.GetX() + "Y:" + zombieM.GetY());
         
         // Crosse Room
         if(player.getY() == 395)
@@ -201,7 +197,6 @@ public class StealStates extends State
         // Go up or Go down Door
         for(int i = 0; i < ND; i++)
         {
-            System.out.println(NumDoor.get(i).getX());
             // ต.น. X
             if(player.getX() + 35 >= NumDoor.get(i).getX() && player.getX() + 35 <= NumDoor.get(i).getX() + 50)
             {
@@ -251,6 +246,7 @@ public class StealStates extends State
         }
         // End Loop Key
         
+        //Game End
         if(win == 3)
         {
             game.gameState = new MainState(game);
@@ -279,6 +275,7 @@ public class StealStates extends State
         {
             NumKey.get(i).render(g);
         }
+        zombieM.render(g);
         player.render(g);
         
         zombieF.render(g);
