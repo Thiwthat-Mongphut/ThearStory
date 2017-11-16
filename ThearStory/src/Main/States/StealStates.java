@@ -44,7 +44,7 @@ public class StealStates extends State
     private KeyForWin key;
     private static ArrayList<KeyForWin>NumKey;
     private Random dice;
-    private int [] YkeysAll = {395, 235, 75};
+    private int [] YkeysAll = {420, 260, 100};
     private int Ykey, Xkey, RightorLeft, win = 0;
     private boolean rightroomKey;
     
