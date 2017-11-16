@@ -53,7 +53,7 @@ public class StealStates extends State
     
     // ZombieM
     private ZombieM zombieM;
-    private float zmX = 0, zmY = 75;
+    private float zmX = 0, zmY = 66;
     
     StealStates(GamePanel game)
     {
