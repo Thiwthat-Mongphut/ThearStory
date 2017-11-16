@@ -4,8 +4,10 @@ import Main.Backgrounds.Background;
 import Main.Backgrounds.Brick;
 import Main.Backgrounds.miniGameBG;
 import Main.Entities.Creatures.PlayerSS;
+import Main.Entities.Creatures.ZombieF;
 import Main.Entities.Creatures.ZombieM;
 import Main.GamePanel;
+import Main.Graphics.Assets;
 import Main.Objects.Doors;
 import Main.Objects.KeyForWin;
 import Main.Objects.Walls;
@@ -55,11 +57,18 @@ public class StealStates extends State
     private ZombieM zombieM;
     private float zmX = 250, zmY = 75;
     
+    // ZombieF
+    private ZombieF zombieF;
+    private int pos, posY, posX;
+    private int[] positionX = {100, 600};
+    private int[] positionY = {227, 67};
+    private Random rand = new Random();
+    
     StealStates(GamePanel game)
     {
         super(game);
         player = new PlayerSS(game, X, Y, false);
-
+        
         // Set Brick
         int height;
         for(int i = 0; i < 3; i++)
@@ -147,6 +156,14 @@ public class StealStates extends State
         } 
         
         zombieM = new ZombieM(game, zmX, zmY);      
+        
+        // ZombieF
+        pos = rand.nextInt(2);
+        posY = positionY[pos];
+        pos = rand.nextInt(2);
+        posX = positionX[pos];
+        
+        zombieF = new ZombieF(game, posX, posY, (float)0.5);
     }
 
     @Override
@@ -163,6 +180,8 @@ public class StealStates extends State
         zombieM.setvX(player.getX());
         zombieM.setvY(player.getY());
         zombieM.tick();
+        
+        zombieF.tick();
         
         System.out.println("Player "+"X:" + player.getX() + "Y:" + player.getY());
         
@@ -212,6 +231,8 @@ public class StealStates extends State
                 // End if y
             }
             // End if x
+            // get position y player to ZombieF
+            zombieF.getPositionPlayer(player.getY());
         }
         // End Loop Door
         
@@ -240,6 +261,8 @@ public class StealStates extends State
     @Override
     public void render(Graphics g) 
     {
+        g.drawImage(Assets.SSBackGround, 0, 0, null);
+        
         for(int i = 0; i < 3; i++)
         {
             brick[i].render(g);
@@ -257,5 +280,7 @@ public class StealStates extends State
             NumKey.get(i).render(g);
         }
         player.render(g);
+        
+        zombieF.render(g);
     }
 }
