@@ -61,9 +61,9 @@ public class Assets {
     private static int rowHeight[] = {131,116,112,50,20,235};
     
     // Size of Zombit Sprite
-    private static int zombieFrame[] = {10,10,8};
-    private static int zombieWidth[] = {39,42,42};
-    private static int zombieHeight[] = {65,66,66};
+    private static int zombieFrame[] = {10,10,10,10};
+    private static int zombieWidth[] = {38,38,42,42};
+    private static int zombieHeight[] = {66,66,66,67};
     
     public static void init(){
         SpriteSheet sheet;
