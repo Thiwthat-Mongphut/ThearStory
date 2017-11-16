@@ -88,6 +88,12 @@ public class RunMiniGame extends State{
             lastTime = System.nanoTime() / timeUnit;
         }
         
+        if(score >= 2000){
+            music.stop();
+            game.gameState = new StealStates(game);
+            State.setState(game.gameState);
+        }
+        
         background[map].tick();
         background[map].move(-1,0);
         street.move(-speed, 0);

@@ -22,7 +22,7 @@ public class Assets {
     
     // Pictures
     public static ArrayList<BufferedImage[]> TearImg;
-
+    public static ArrayList<BufferedImage[]> ZombieImg;
     public static BufferedImage[] Tiles = new BufferedImage[50];
     public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
             ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
@@ -60,6 +60,11 @@ public class Assets {
                                             };
     private static int rowHeight[] = {131,116,112,50,20,235};
     
+    // Size of Zombit Sprite
+    private static int zombieFrame[] = {10,10,8};
+    private static int zombieWidth[] = {39,42,42};
+    private static int zombieHeight[] = {65,66,66};
+    
     public static void init(){
         SpriteSheet sheet;
         // Thear Crop
@@ -91,6 +96,19 @@ public class Assets {
         bird = new BufferedImage[4];
         for(int i = 0;i < 4;i++){
             bird[i] = sheet.crop(i * 41, 0, 41, 35);
+        }
+        
+        sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/ZombieSprite.png"));
+        ZombieImg = new ArrayList<BufferedImage[]>();
+        curHeight = 0;
+        for(int i = 0;i < zombieFrame.length;i++){
+            BufferedImage[] groupImg = new BufferedImage[zombieFrame[i]];
+            for(int j = 0;j < zombieFrame[i];j++){
+                groupImg[j] = sheet.crop(j * zombieWidth[i], curHeight, zombieWidth[i],
+                        zombieHeight[i]);
+            }
+            ZombieImg.add(groupImg);
+            curHeight += zombieHeight[i];
         }
         
         // Backgrounds
