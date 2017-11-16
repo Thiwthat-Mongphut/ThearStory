@@ -43,27 +43,29 @@ public class Assets {
     private static int frameHeight[] = {87,87,55};
 
     // Size and Number of Obj Sprite
-    private static int objFrame = 6;
+    private static int objFrame = 7;
     private static int objFrameWidth[][] = {{114,143,132,144,104,100},
                                             {140,120,140,114,129},
                                             {179,158,102,144,137},
                                             {458},
                                             {820},
-                                            {47,43,50,50}
+                                            {47,43,50,50},
+                                            {45}
                                             };
     private static int objFrameHeight[][] = {{122,104,131,110,63,79},
                                             {94,80,115,94,74},
                                             {105,100,109,111,92},
                                             {50},
                                             {20},
-                                            {235,82,70,70}
+                                            {235,82,70,70},
+                                            {30}
                                             };
-    private static int rowHeight[] = {131,116,112,50,20,235};
+    private static int rowHeight[] = {131,116,112,50,20,235,30};
     
     // Size of Zombit Sprite
-    private static int zombieFrame[] = {10,10,8};
-    private static int zombieWidth[] = {39,42,42};
-    private static int zombieHeight[] = {65,66,66};
+    private static int zombieFrame[] = {10,10,10,10};
+    private static int zombieWidth[] = {38,38,42,42};
+    private static int zombieHeight[] = {66,66,66,66};
     
     public static void init(){
         SpriteSheet sheet;
