@@ -30,6 +30,7 @@ public class Assets {
     public static ArrayList<BufferedImage[]> Obj;
     public static BufferedImage[] bird;
     public static BufferedImage[] BG;
+    public static BufferedImage SSBackGround;
     
     // Sounds
     public static Clip runGameMusic;
@@ -125,6 +126,7 @@ public class Assets {
         BG[0] = ImageLoader.loadImage("/BG/runBG0.png");
         BG[1] = ImageLoader.loadImage("/BG/runBG1.png");
         BG[2] = ImageLoader.loadImage("/BG/runBG2.png");
+        SSBackGround = ImageLoader.loadImage("/BG/wall.png");
         
         // Load Some Image
         menuBG = ImageLoader.loadImage("/BG/Menu.png");
