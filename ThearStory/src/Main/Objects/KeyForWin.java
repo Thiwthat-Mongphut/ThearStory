@@ -14,7 +14,7 @@ public class KeyForWin extends Entity{
     public KeyForWin(GamePanel game, float x, float y) {
         super(x, y);
         this.game = game;
-        img = Assets.Obj.get(1);
+        img = Assets.Obj.get(6);
     }
 
     @Override
