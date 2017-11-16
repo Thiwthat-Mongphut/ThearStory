@@ -25,7 +25,7 @@ public class MainState extends State{
         // if start button is clicked, change to tutorial state
         if(mouseX >= 315 && mouseX <= 495 && mouseY >= 350 && mouseY <= 428
                 && game.getMouseManager().isLeftPressed()){
-            game.gameState = new MenuInterFace(game);
+            game.gameState = new StealStates(game);
             State.setState(game.gameState);
         }
         

@@ -79,6 +79,11 @@ public class PlayerSS extends Creature
         {
             EnterDoor = true;
         }
+        // Crawl
+        /*if(game.getKeyManager().down)
+        {
+            
+        }*/
     }
     
     public boolean getEnterDoor()

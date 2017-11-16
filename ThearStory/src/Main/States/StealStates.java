@@ -4,6 +4,7 @@ import Main.Backgrounds.Background;
 import Main.Backgrounds.Brick;
 import Main.Backgrounds.miniGameBG;
 import Main.Entities.Creatures.PlayerSS;
+import Main.Entities.Creatures.ZombieM;
 import Main.GamePanel;
 import Main.Objects.Doors;
 import Main.Objects.KeyForWin;
@@ -44,13 +45,21 @@ public class StealStates extends State
     private static ArrayList<KeyForWin>NumKey;
     private Random dice;
     private int [] YkeysAll = {395, 235, 75};
-    private int Ykey, Xkey;
+    private int Ykey, Xkey, RightorLeft, win = 0;
+    private boolean rightroomKey;
+    
+    // Zombie Value
+    private float vX, vY, checkY;
+    
+    // ZombieM
+    private ZombieM zombieM;
+    private float zmX = 250, zmY = 75;
     
     StealStates(GamePanel game)
     {
         super(game);
         player = new PlayerSS(game, X, Y, false);
-        
+
         // Set Brick
         int height;
         for(int i = 0; i < 3; i++)
@@ -103,6 +112,7 @@ public class StealStates extends State
         
         //Keys
         dice = new Random();
+        NumKey = new ArrayList<KeyForWin>();
         for(int i = 0; i < 3; i++)
         {
             Ykey = dice.nextInt(3);
@@ -111,10 +121,32 @@ public class StealStates extends State
             {
                 Xkey = dice.nextInt(720);
             }
+            else
+            {
+                // Room Key Right or Left
+                RightorLeft = dice.nextInt(2);
+                if(RightorLeft == 0)
+                {
+                    rightroomKey = true;
+                    Xkey = dice.nextInt(270);
+                }
+                else
+                {
+                    rightroomKey = false;
+                    Xkey = dice.nextInt(720);
+                    
+                    if(Xkey <= 310)
+                        Xkey += 310;
+                    
+                    if(Xkey >= 310 && Xkey <= 410)
+                        Xkey += 50;
+                }
+            }
             key = new KeyForWin(game, Xkey, Ykey);
-        }
+            NumKey.add(key);
+        } 
         
-        
+        zombieM = new ZombieM(game, zmX, zmY);      
     }
 
     @Override
@@ -123,8 +155,16 @@ public class StealStates extends State
         player.setEnterDoor(false);
         player.tick();
         
+        /*RightorLeft = dice.nextInt(2);
+        if(RightorLeft == 0)
+            rightroomKey = true;
+        else
+            rightroomKey = false;*/
+        zombieM.setvX(player.getX());
+        zombieM.setvY(player.getY());
+        zombieM.tick();
+        
         System.out.println("Player "+"X:" + player.getX() + "Y:" + player.getY());
-        System.out.println(player.getEnterDoor());
         
         // Crosse Room
         if(player.getY() == 395)
@@ -142,6 +182,7 @@ public class StealStates extends State
         // Go up or Go down Door
         for(int i = 0; i < ND; i++)
         {
+            System.out.println(NumDoor.get(i).getX());
             // ต.น. X
             if(player.getX() + 35 >= NumDoor.get(i).getX() && player.getX() + 35 <= NumDoor.get(i).getX() + 50)
             {
@@ -172,7 +213,28 @@ public class StealStates extends State
             }
             // End if x
         }
-        // End Loop
+        // End Loop Door
+        
+        // Key
+        for(int i = 0; i < NumKey.size(); i++)
+        {
+            // รอแก้ความกว้าง key
+            if(player.getX() >= NumKey.get(i).getX() && player.getX() <= NumKey.get(i).getX() + 20)
+            {
+                if(player.getY() == NumKey.get(i).getY())
+                {
+                    win++;
+                    NumKey.remove(i);
+                }
+            }
+        }
+        // End Loop Key
+        
+        if(win == 3)
+        {
+            game.gameState = new MainState(game);
+            State.setState(game.gameState);
+        }
     }
 
     @Override
@@ -189,6 +251,10 @@ public class StealStates extends State
         for(int i = 0; i < ND; i++)
         {
             NumDoor.get(i).render(g);
+        }
+        for(int i = 0; i < NumKey.size(); i++)
+        {
+            NumKey.get(i).render(g);
         }
         player.render(g);
     }
