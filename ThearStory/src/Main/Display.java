@@ -5,9 +5,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-public class Display {
+public class Display{
     
-    private JFrame frame;
+    public static JFrame frame;
     private Canvas canvas;
 
     public Display(int width, int height){
@@ -16,8 +16,8 @@ public class Display {
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setResizable(false);
-	frame.setVisible(true);
+        frame.setResizable(false);
+        frame.setVisible(true);
         
         
         canvas = new Canvas();
@@ -28,7 +28,6 @@ public class Display {
         
         frame.add(canvas);
         frame.pack();
-        
     }
     
     public Canvas getCanvas(){

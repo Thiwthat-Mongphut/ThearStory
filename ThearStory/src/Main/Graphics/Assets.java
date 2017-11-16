@@ -1,8 +1,6 @@
 /* 
     Picture Sources
-    - bevouliin.com
-    - MR.SUJIT YADAV from unluckystudio.com
-    - http://www.gameart2d.com/free-platformer-game-tileset.html
+    - http://www.gameart2d.com/
     Sound Source
     - Little Idia: https://www.bensound.com
     ********************Thank you so much***************************
@@ -10,6 +8,7 @@
 
 package Main.Graphics;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
@@ -23,13 +22,20 @@ public class Assets {
     
     // Pictures
     public static ArrayList<BufferedImage[]> TearImg;
+
+    public static BufferedImage[] Tiles = new BufferedImage[50];
+    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
+            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
+
     public static ArrayList<BufferedImage[]> Obj;
     public static BufferedImage[] bird;
     public static BufferedImage[] BG;
-    public static BufferedImage menuBG, startIcon;
     
     // Sounds
     public static Clip runGameMusic;
+    
+    // Font
+    public static Font gothicFont = new Font("SHOWCARD GOTHIC", Font.PLAIN, 20);
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
@@ -38,14 +44,14 @@ public class Assets {
 
     // Size and Number of Obj Sprite
     private static int objFrame = 6;
-    private static int objFrameWidth[][] = {{114,143,132,144,94,100},
+    private static int objFrameWidth[][] = {{114,143,132,144,104,100},
                                             {140,120,140,114,129},
                                             {179,158,102,144,137},
                                             {458},
                                             {820},
                                             {47,43,50,50}
                                             };
-    private static int objFrameHeight[][] = {{122,104,131,110,43,79},
+    private static int objFrameHeight[][] = {{122,104,131,110,63,79},
                                             {94,80,115,94,74},
                                             {105,100,109,111,92},
                                             {50},
@@ -69,6 +75,16 @@ public class Assets {
             TearImg.add(groupImg);
             curHeight += frameHeight[i];
         }
+        
+        // main menu
+        interFaceBg = ImageLoader.loadImage("/interFace/Bg.png");
+        letsGoButton = ImageLoader.loadImage("/interFace/lets_go.png");
+        letsGoButton2 = ImageLoader.loadImage("/interFace/lets_go2.png");
+        menuButton = ImageLoader.loadImage("/interFace/menu_button.png");
+        menuButton2 = ImageLoader.loadImage("/interFace/menu_button2.png");
+        closeButton = ImageLoader.loadImage("/interFace/close_button.png");
+        closeButton2 = ImageLoader.loadImage("/interFace/close_button2.png");
+        gameOver = ImageLoader.loadImage("/interFace/gameOver.png");
         
         // Bird Crop
         sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/birdSprite.png"));

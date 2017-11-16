@@ -11,7 +11,6 @@ import java.awt.image.BufferStrategy;
 public class GamePanel implements Runnable{
 
     private Display display;
-
     private static final int WIDTH = 820;
     private static final int HEIGHT = 480;
     
