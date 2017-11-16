@@ -12,6 +12,7 @@ import Main.Objects.Doors;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import static sun.audio.AudioPlayer.player;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.util.ArrayList;
  */
 public class ZombieM extends Zombie{
 
+    
     protected BufferedImage[] img;
     protected int walkFrame;
     private float vX, vY, speedUP = 1;
@@ -34,19 +36,7 @@ public class ZombieM extends Zombie{
 
     @Override
     public void tick() {
-        // UPorDown
-        /*if(vY == y)
-        {
-            if(vX >= x)
-            {
- 
-            }
-            else if(vX <= x)
-            {
-
-            }
-        }*/
-        // End
+        
         
         // Down
         if(vY > y)
@@ -73,7 +63,7 @@ public class ZombieM extends Zombie{
                     }
                 }
                 // DOOR TOP 2 Left
-                else if(x - 75 > x - 245 && !righRoom)
+                else if(x - 75 >= x - 245 && !righRoom)
                 {
                     if(x > 245)
                     {
@@ -109,7 +99,7 @@ public class ZombieM extends Zombie{
                     }
                 }
                 // DOOR TOP 2 Right
-                else if(x - 650 > x - 745 && righRoom)
+                else if(x - 650 >= x - 745 && righRoom)
                 {
                     if(x > 745)
                     {
@@ -151,7 +141,7 @@ public class ZombieM extends Zombie{
                     }
                 }
                 // DOOR Mid 2 Left
-                else if(x > x - 170 && !righRoom)
+                else if(x >= x - 170 && !righRoom)
                 {
                     if(x > 170)
                     {
@@ -187,7 +177,7 @@ public class ZombieM extends Zombie{
                     }
                 }
                 // DOOR Mid 4 Right
-                else if(x - 480 > x - 575 && righRoom)
+                else if(x - 480 >= x - 575 && righRoom)
                 {
                     if(x > 575)
                     {
@@ -312,7 +302,7 @@ public class ZombieM extends Zombie{
                     }
                 }
                 // DOOR Mid 2 Left
-                else if(x > x - 170 && !righRoom)
+                else if(x >= x - 170 && !righRoom)
                 {
                     if(x > 170)
                     {
@@ -348,7 +338,7 @@ public class ZombieM extends Zombie{
                     }
                 }
                 // DOOR Mid 4 Right
-                else if(x - 480 > x - 575 && righRoom)
+                else if(x - 480 >= x - 575 && righRoom)
                 {
                     if(x > 575)
                     {
@@ -375,35 +365,35 @@ public class ZombieM extends Zombie{
     {
         if(System.nanoTime() / timeUnit - lastTime >= 1)
         {
-                if(walkFrame >= 9)
-                {
-                    walkFrame = 0;
-                    lastTime = System.nanoTime() / timeUnit;
-                }
-                else
-                {
-                    walkFrame++;
-                    lastTime = System.nanoTime() / timeUnit;
-                }
+            if(walkFrame >= 9)
+            {
+                walkFrame = 0;
+                lastTime = System.nanoTime() / timeUnit;
             }
-            img = Assets.ZombieImg.get(0);   
+            else
+            {
+                walkFrame++;
+                lastTime = System.nanoTime() / timeUnit;
+            }
+        }
+        img = Assets.ZombieImg.get(0);   
     }
     
     public void walkRight()
     {
         if(System.nanoTime() / timeUnit - lastTime >= 1)
         {
-                if(walkFrame >= 9)
-                {
-                    walkFrame = 0;
-                    lastTime = System.nanoTime() / timeUnit;
-                }
-                else
-                {
-                    walkFrame++;
-                    lastTime = System.nanoTime() / timeUnit;
-                }
+            if(walkFrame >= 9)
+            {
+                walkFrame = 0;
+                lastTime = System.nanoTime() / timeUnit;
             }
+            else
+            {
+                walkFrame++;
+                lastTime = System.nanoTime() / timeUnit;
+            }
+        }
         img = Assets.ZombieImg.get(1);   
     }
     
