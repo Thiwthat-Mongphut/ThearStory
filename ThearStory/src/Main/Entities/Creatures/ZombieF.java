@@ -2,11 +2,8 @@ package Main.Entities.Creatures;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
-import static Main.Graphics.Assets.ZombieImg;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import Main.Entities.Creatures.PlayerSS;
 
 public class ZombieF extends Creature{
     
@@ -154,10 +151,14 @@ public class ZombieF extends Creature{
     public float getY(){
         return y;
     }
+    
+     public int getWidth(){
+        return img[walkFrame].getWidth();
+    }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(img[walkFrame], (int)x, (int)y, 42, 66, null);
+        g.drawImage(img[walkFrame], (int)x, (int)y, null);
     }
     
 }

@@ -34,9 +34,13 @@ public class Assets {
     
     // Sounds
     public static Clip runGameMusic;
+    public static Clip stealthGameMusic;
+    public static Clip zombieMSound;
+    public static Clip zombieFSound;
     
     // Font
     public static Font gothicFont = new Font("SHOWCARD GOTHIC", Font.PLAIN, 20);
+    public static Font gothicFontBig = new Font("SHOWCARD GOTHIC", Font.PLAIN, 45);
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
@@ -67,7 +71,7 @@ public class Assets {
     private static int zombieFrame[] = {10,10,10,10};
     private static int zombieWidth[][] = {{39,39,38,38,42,44,46,46,43,39},
                                           {39,43,46,46,44,42,38,38,39,39},
-                                          {42,42,42,42,42,42,42,42,42,42},
+                                          {42,42,41,42,42,42,42,42,42,42},
                                           {42,42,42,42,42,42,42,42,42,42}
                                         };
     private static int zombieHeight[] = {65,65,66,66};
@@ -155,6 +159,21 @@ public class Assets {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(
               Assets.class.getResourceAsStream("/Music/LittleIdea.wav"));
             runGameMusic.open(inputStream);
+            
+            stealthGameMusic = AudioSystem.getClip();
+            inputStream = AudioSystem.getAudioInputStream(
+              Assets.class.getResourceAsStream("/Music/Pink-panther-theme.wav"));
+            stealthGameMusic.open(inputStream);
+            
+            zombieMSound = AudioSystem.getClip();
+            inputStream = AudioSystem.getAudioInputStream(
+              Assets.class.getResourceAsStream("/Music/ZombieM.wav"));
+            zombieMSound.open(inputStream);
+            
+            zombieFSound = AudioSystem.getClip();
+            inputStream = AudioSystem.getAudioInputStream(
+              Assets.class.getResourceAsStream("/Music/ZombieF.wav"));
+            zombieFSound.open(inputStream);
         }
         catch (Exception e) {
             System.err.println(e.getMessage());

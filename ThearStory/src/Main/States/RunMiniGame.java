@@ -8,7 +8,6 @@ import Main.GamePanel;
 import Main.Graphics.Assets;
 import Main.Objects.Items;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import javax.sound.sampled.Clip;
 
@@ -23,13 +22,14 @@ public class RunMiniGame extends State{
     
     // BG
     private Background[] background;
-    private int map = 0;
-    private Street street;
+    private static int map = 0;
+    private Street street= new Street(0, 430);;
 
     // Game Value
-    private static int score;
-    private int lastScore;
-    private int speed = 6;
+    public static int score;
+    private static int lastScore;
+    private static int oldScore;
+    private static int speed = 6;
     private long lastTime;
     private long timeUnit = 100000000;
     
@@ -44,8 +44,7 @@ public class RunMiniGame extends State{
         player = new RunPlayer(game, 50, walkY, walkY, downY);
         playerWidth = player.getWidth();
         playerHeight = player.getHeight();
-        score = 0;
-        street = new Street(0, 430);
+
         lastTime = System.nanoTime() / timeUnit;
         
         items = new Items(0, 0);
@@ -56,7 +55,34 @@ public class RunMiniGame extends State{
         background[1] = new miniGameBG(Assets.BG[1],0 ,0, 640);
         background[2] = new miniGameBG(Assets.BG[2],0 ,0, 968);
         
-        // Play BG Music
+        // BG Music
+        music = Assets.runGameMusic;
+        music.setFramePosition(0);
+        music.loop(Clip.LOOP_CONTINUOUSLY);
+        music.start();
+    }
+    
+    public RunMiniGame(GamePanel game, int speed, int score, int map) {
+        super(game);
+        this.score = score;
+        this.speed = speed;
+        this.map = map;
+        oldScore = 0;
+        player = new RunPlayer(game, 50, walkY, walkY, downY);
+        playerWidth = player.getWidth();
+        playerHeight = player.getHeight();
+
+        lastTime = System.nanoTime() / timeUnit;
+        
+        items = new Items(0, 0);
+        
+        // Set Backgrounds
+        background = new Background[3];
+        background[0] = new miniGameBG(Assets.BG[0],0 ,0, 587);
+        background[1] = new miniGameBG(Assets.BG[1],0 ,0, 640);
+        background[2] = new miniGameBG(Assets.BG[2],0 ,0, 968);
+        
+        // BG Music
         music = Assets.runGameMusic;
         music.setFramePosition(0);
         music.loop(Clip.LOOP_CONTINUOUSLY);
@@ -88,7 +114,8 @@ public class RunMiniGame extends State{
             lastTime = System.nanoTime() / timeUnit;
         }
         
-        if(score >= 2000){
+        if(score - oldScore >= 1500){
+            oldScore = score;
             music.stop();
             game.gameState = new StealStates(game);
             State.setState(game.gameState);
