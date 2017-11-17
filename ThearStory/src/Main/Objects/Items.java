@@ -19,11 +19,11 @@ public class Items extends Entity {
     private int count = 0;
     
     private BufferedImage[][] bird;
-    private int xBird;
+    private float xBird;
     private int yBird;
     private int birdFrame = 0;
     private boolean haveBird = false;
-    private int[] setYBird = {325, 270};
+    private int[] setYBird = {345, 270};
     
     private int mapArray = 0;
 
@@ -177,7 +177,7 @@ public class Items extends Entity {
         }
         
         if(xBird >= -41 && haveBird)
-            g.drawImage(bird[0][birdFrame], xBird, yBird, null);
+            g.drawImage(bird[0][birdFrame], (int) xBird, yBird, null);
     }
     
     public void move(int speed){
@@ -186,7 +186,7 @@ public class Items extends Entity {
         }
         
         if(xBird >= -41 && haveBird){
-            xBird += speed;
+            xBird += speed - 0.3;
         }
     }
     

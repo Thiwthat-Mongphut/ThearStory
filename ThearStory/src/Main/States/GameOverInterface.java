@@ -4,6 +4,8 @@ package Main.States;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
+import Main.States.RunMiniGame;
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -56,6 +58,9 @@ public class GameOverInterface extends State {
         else{
             g.drawImage(Assets.closeButton2, 410, 330, null);
         }
+        g.setColor(Color.WHITE);
+        g.setFont(Assets.gothicFontBig);
+        g.drawString(String.valueOf(RunMiniGame.score), 320, 305);
     }
     
 }

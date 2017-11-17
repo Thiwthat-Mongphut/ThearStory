@@ -10,14 +10,15 @@ public class PlayerSS extends Creature
     protected GamePanel game;
     protected BufferedImage[] img;
     protected int walkFrame = 0;
-    protected boolean EnterDoor = false;
+    protected boolean EnterDoor, righRoom = false;
     private long lastTime, timeUnit = 300000000;
 
-    public PlayerSS(GamePanel game, float x, float y) {
+    public PlayerSS(GamePanel game, float x, float y, boolean EnterDoor) {
         super(x, y);
         this.game = game;
         lastTime = System.nanoTime() / 1000000000;
         img = Assets.TearImg.get(1);
+        this.EnterDoor = EnterDoor;
     }
 
     @Override
@@ -27,10 +28,20 @@ public class PlayerSS extends Creature
        {
            x = 0;
        }
-       if(x >= 300)
+       else if(x >= 720)
        {
-           x = 300;
+           x = 720;
        }
+       
+       if(x >= 270 && y != 395 && !righRoom)
+       {
+           x = 270;
+       }
+       else if(x <= 410 && y != 395 && righRoom)
+       {
+           x = 410;
+       }
+       
        if(game.getKeyManager().left){
             x -= speed;
             if(System.nanoTime() / timeUnit - lastTime >= 1)
@@ -68,6 +79,11 @@ public class PlayerSS extends Creature
         {
             EnterDoor = true;
         }
+        // Crawl
+        /*if(game.getKeyManager().down)
+        {
+            
+        }*/
     }
     
     public boolean getEnterDoor()
@@ -75,9 +91,9 @@ public class PlayerSS extends Creature
         return EnterDoor;
     }
     
-    public void setEnterDoor()
+    public void setEnterDoor(boolean EnterDoor)
     {
-        EnterDoor = false;
+        this.EnterDoor = EnterDoor;
     }
     
     public float getX()
@@ -89,6 +105,27 @@ public class PlayerSS extends Creature
     {
         return y;
     }
+    
+    public void setY(int dis)
+    {
+        y = y + dis;
+    }
+    
+    public void setX(int dis)
+    {
+        x = dis;
+    }
+    
+    public void setrighRoom(boolean righRoom)
+    {
+        this.righRoom = righRoom;
+    }
+    
+    public boolean getrighRoom()
+    {
+        return righRoom;
+    }
+    
     
     @Override
     public void render(Graphics g) 

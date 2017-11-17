@@ -19,7 +19,7 @@ public class MenuInterFace extends State {
         if(mouseX >= 450 && mouseX <= 770 && mouseY >= 350 && mouseY <= 450){
             check = false;
             if(game.getMouseManager().isLeftPressed()){
-               game.gameState = new RunMiniGame(game); // go to miniGame
+               game.gameState = new RunMiniGame(game, 6, 0, 0); // go to miniGame
                State.setState(game.gameState);
            }
         }
@@ -39,8 +39,8 @@ public class MenuInterFace extends State {
         }
         
         g.setColor(Color.WHITE);
-        g.setFont(Assets.gothicFont);
-        g.drawString("High Score " + RunMiniGame.score, 100, 350);
+        g.setFont(Assets.gothicFontBig);
+        g.drawString(String.valueOf(RunMiniGame.score), 80, 430);
     }
     
 }
