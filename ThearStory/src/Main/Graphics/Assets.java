@@ -30,6 +30,7 @@ public class Assets {
     public static ArrayList<BufferedImage[]> Obj;
     public static BufferedImage[] bird;
     public static BufferedImage[] BG;
+    public static BufferedImage SSBackGround;
     
     // Sounds
     public static Clip runGameMusic;
@@ -40,7 +41,7 @@ public class Assets {
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
     private static int frameWidth[] = {130,130,130};
-    private static int frameHeight[] = {87,87,55};
+    private static int frameHeight[] = {86,86,55};
 
     // Size and Number of Obj Sprite
     private static int objFrame = 7;
@@ -64,8 +65,12 @@ public class Assets {
     
     // Size of Zombit Sprite
     private static int zombieFrame[] = {10,10,10,10};
-    private static int zombieWidth[] = {39,39,42,42};
-    private static int zombieHeight[] = {66,66,66,66};
+    private static int zombieWidth[][] = {{39,39,38,38,42,44,46,46,43,39},
+                                          {39,43,46,46,44,42,38,38,39,39},
+                                          {42,42,42,42,42,42,42,42,42,42},
+                                          {42,42,42,42,42,42,42,42,42,42}
+                                        };
+    private static int zombieHeight[] = {65,65,66,66};
     
     public static void init(){
         SpriteSheet sheet;
@@ -102,15 +107,18 @@ public class Assets {
         
         sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/ZombieSprite.png"));
         ZombieImg = new ArrayList<BufferedImage[]>();
+        curWidth = 0;
         curHeight = 0;
         for(int i = 0;i < zombieFrame.length;i++){
             BufferedImage[] groupImg = new BufferedImage[zombieFrame[i]];
             for(int j = 0;j < zombieFrame[i];j++){
-                groupImg[j] = sheet.crop(j * zombieWidth[i], curHeight, zombieWidth[i],
+                groupImg[j] = sheet.crop(curWidth, curHeight, zombieWidth[i][j],
                         zombieHeight[i]);
+                curWidth += zombieWidth[i][j];
             }
             ZombieImg.add(groupImg);
             curHeight += zombieHeight[i];
+            curWidth = 0;
         }
         
         // Backgrounds
@@ -118,6 +126,7 @@ public class Assets {
         BG[0] = ImageLoader.loadImage("/BG/runBG0.png");
         BG[1] = ImageLoader.loadImage("/BG/runBG1.png");
         BG[2] = ImageLoader.loadImage("/BG/runBG2.png");
+        SSBackGround = ImageLoader.loadImage("/BG/wall.png");
         
         // Load Some Image
         menuBG = ImageLoader.loadImage("/BG/Menu.png");

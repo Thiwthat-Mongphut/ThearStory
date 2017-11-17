@@ -4,8 +4,10 @@ import Main.Backgrounds.Background;
 import Main.Backgrounds.Brick;
 import Main.Backgrounds.miniGameBG;
 import Main.Entities.Creatures.PlayerSS;
+import Main.Entities.Creatures.ZombieF;
 import Main.Entities.Creatures.ZombieM;
 import Main.GamePanel;
+import Main.Graphics.Assets;
 import Main.Objects.Doors;
 import Main.Objects.KeyForWin;
 import Main.Objects.Walls;
@@ -13,6 +15,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.sound.sampled.Clip;
+import static sun.audio.AudioPlayer.player;
 
 
 public class StealStates extends State
@@ -43,9 +46,10 @@ public class StealStates extends State
     //Key
     private KeyForWin key;
     private static ArrayList<KeyForWin>NumKey;
+    private static ArrayList<Integer>RandomP;
     private Random dice;
-    private int [] YkeysAll = {395, 235, 75};
-    private int Ykey, Xkey, RightorLeft, win = 0;
+    //private int [] YkeysAll = {420, 260, 100};
+    private int Ykey, Xkey, RightorLeft, win = 0, RandomK = 4, getRK;
     private boolean rightroomKey;
     
     // Zombie Value
@@ -55,11 +59,20 @@ public class StealStates extends State
     private ZombieM zombieM;
     private float zmX = 0, zmY = 66;
     
+    // ZombieF
+    private ZombieF zombieF;
+    private int pos, posY, posX;
+    private int[] positionX = {100, 600};
+    private int[] positionY = {227, 67};
+    private Random rand = new Random();
+    
+    private int a = 0;
+    
     StealStates(GamePanel game)
     {
         super(game);
         player = new PlayerSS(game, X, Y, false);
-
+        
         // Set Brick
         int height;
         for(int i = 0; i < 3; i++)
@@ -112,41 +125,55 @@ public class StealStates extends State
         
         //Keys
         dice = new Random();
+        RandomP = new ArrayList<Integer>();
         NumKey = new ArrayList<KeyForWin>();
+        RandomP.add(0);
+        RandomP.add(1);
+        RandomP.add(2);
+        RandomP.add(3);
         for(int i = 0; i < 3; i++)
         {
-            Ykey = dice.nextInt(3);
-            Ykey = YkeysAll[Ykey];
-            if(Ykey == 395)
+            getRK = dice.nextInt(RandomK);
+            RandomK--;
+            Ykey = RandomP.get(getRK);
+            
+            if(Ykey == 0)
             {
-                Xkey = dice.nextInt(720);
+                Xkey = dice.nextInt(300);
+                Ykey = 260;
             }
-            else
+            else if(Ykey == 1)
             {
-                // Room Key Right or Left
-                RightorLeft = dice.nextInt(2);
-                if(RightorLeft == 0)
-                {
-                    rightroomKey = true;
-                    Xkey = dice.nextInt(270);
-                }
-                else
-                {
-                    rightroomKey = false;
-                    Xkey = dice.nextInt(720);
-                    
-                    if(Xkey <= 310)
-                        Xkey += 310;
-                    
-                    if(Xkey >= 310 && Xkey <= 410)
-                        Xkey += 50;
-                }
+                Xkey = dice.nextInt(300);
+                Xkey += 450;
+                Ykey = 260;
             }
+            else if(Ykey == 2)
+            {
+                Xkey = dice.nextInt(300);
+                Ykey = 100;
+            }
+            else if(Ykey == 3)
+            {
+                Xkey = dice.nextInt(300);
+                Xkey += 450;
+                Ykey = 100;
+            }
+            
             key = new KeyForWin(game, Xkey, Ykey);
             NumKey.add(key);
+            RandomP.remove(getRK);
         } 
         
         zombieM = new ZombieM(game, zmX, zmY);      
+        
+        // ZombieF
+        pos = rand.nextInt(2);
+        posY = positionY[pos];
+        pos = rand.nextInt(2);
+        posX = positionX[pos];
+        
+        zombieF = new ZombieF(game, posX, posY, (float)0.5);
     }
 
     @Override
@@ -155,23 +182,23 @@ public class StealStates extends State
         player.setEnterDoor(false);
         player.tick();
         
+        zombieM.setrighRoom(player.getrighRoom());
         zombieM.setvX(player.getX());
         zombieM.setvY(player.getY());
         zombieM.tick();
         
-        System.out.println("Player "+"X:" + player.getX() + "Y:" + player.getY());
-        System.out.println("ZombieM "+"X:" + zombieM.GetX() + "Y:" + zombieM.GetY());
+        zombieF.tick();
         
         // Crosse Room
         if(player.getY() == 395)
         {
             if(player.getX() <= 270)
             {
-                player.setrighRoom(true);
+                player.setrighRoom(false);
             }
             else if(player.getX() >= 300)
             {
-                player.setrighRoom(false);
+                player.setrighRoom(true);
             }
         }
         
@@ -207,16 +234,35 @@ public class StealStates extends State
                 // End if y
             }
             // End if x
+            // get position y player to ZombieF
+            zombieF.getPositionPlayer(player.getY());
         }
         // End Loop Door
+        
+        if(player.getX() + 85 >= zombieM.GetX() && player.getX() - 35 <= zombieM.GetX())
+        {
+            if(player.getY() - 9 == zombieM.GetY())
+            {
+                game.gameState = new MainState(game);
+                State.setState(game.gameState);
+            }
+        }
+        /*if(player.getX() + 100 >= zombieF.getX() && player.getX() - 95 <= zombieF.getX())
+        {
+            if(player.getY() - 9 == zombieM.GetY())
+            {
+                game.gameState = new MainState(game);
+                State.setState(game.gameState);
+            }
+        }*/
         
         // Key
         for(int i = 0; i < NumKey.size(); i++)
         {
             // รอแก้ความกว้าง key
-            if(player.getX() >= NumKey.get(i).getX() && player.getX() <= NumKey.get(i).getX() + 20)
+            if(player.getX() <= NumKey.get(i).getX() && player.getX() >= NumKey.get(i).getX() - 40)
             {
-                if(player.getY() == NumKey.get(i).getY())
+                if(player.getY() + 25  == NumKey.get(i).getY())
                 {
                     win++;
                     NumKey.remove(i);
@@ -236,6 +282,8 @@ public class StealStates extends State
     @Override
     public void render(Graphics g) 
     {
+        g.drawImage(Assets.SSBackGround, 0, 0, null);
+        
         for(int i = 0; i < 3; i++)
         {
             brick[i].render(g);
@@ -254,5 +302,7 @@ public class StealStates extends State
         }
         zombieM.render(g);
         player.render(g);
+        
+        zombieF.render(g);
     }
 }

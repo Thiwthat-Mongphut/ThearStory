@@ -10,7 +10,7 @@ public class PlayerSS extends Creature
     protected GamePanel game;
     protected BufferedImage[] img;
     protected int walkFrame = 0;
-    protected boolean EnterDoor, righRoom = true;
+    protected boolean EnterDoor, righRoom = false;
     private long lastTime, timeUnit = 300000000;
 
     public PlayerSS(GamePanel game, float x, float y, boolean EnterDoor) {
@@ -33,11 +33,11 @@ public class PlayerSS extends Creature
            x = 720;
        }
        
-       if(x >= 270 && y != 395 && righRoom)
+       if(x >= 270 && y != 395 && !righRoom)
        {
            x = 270;
        }
-       else if(x <= 410 && y != 395 && !righRoom)
+       else if(x <= 410 && y != 395 && righRoom)
        {
            x = 410;
        }
@@ -119,6 +119,11 @@ public class PlayerSS extends Creature
     public void setrighRoom(boolean righRoom)
     {
         this.righRoom = righRoom;
+    }
+    
+    public boolean getrighRoom()
+    {
+        return righRoom;
     }
     
     
