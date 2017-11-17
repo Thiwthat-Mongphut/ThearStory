@@ -27,7 +27,7 @@ public class RunMiniGame extends State{
     private Street street;
 
     // Game Value
-    private static int score;
+    public static int score;
     private int lastScore;
     private int speed = 6;
     private long lastTime;

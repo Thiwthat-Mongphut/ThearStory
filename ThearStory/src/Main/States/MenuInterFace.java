@@ -3,6 +3,7 @@ package Main.States;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class MenuInterFace extends State {
@@ -36,6 +37,10 @@ public class MenuInterFace extends State {
         else{
             g.drawImage(Assets.letsGoButton2, 430, 330, null);
         }
+        
+        g.setColor(Color.WHITE);
+        g.setFont(Assets.gothicFont);
+        g.drawString("High Score " + RunMiniGame.score, 100, 350);
     }
     
 }
