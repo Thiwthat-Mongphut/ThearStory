@@ -247,14 +247,14 @@ public class StealStates extends State
                 State.setState(game.gameState);
             }
         }
-        /*if(player.getX() + 100 >= zombieF.getX() && player.getX() - 95 <= zombieF.getX())
+        if(player.getX() + 85 >= zombieF.getX() && player.getX() - 130 <= zombieF.getX())
         {
-            if(player.getY() - 9 == zombieM.GetY())
+            if(player.getY() - 8 == zombieF.getY())
             {
                 game.gameState = new MainState(game);
                 State.setState(game.gameState);
             }
-        }*/
+        }
         
         // Key
         for(int i = 0; i < NumKey.size(); i++)
