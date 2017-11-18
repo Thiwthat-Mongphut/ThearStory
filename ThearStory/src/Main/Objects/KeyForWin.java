@@ -32,6 +32,9 @@ public class KeyForWin extends Entity{
         return y;
     }
 
+    public int getWidth(){
+        return img[0].getWidth();
+    }
     @Override
     public void render(Graphics g) {
         g.drawImage(img[0], (int)x, (int) y, null);

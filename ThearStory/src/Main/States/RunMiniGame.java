@@ -29,7 +29,7 @@ public class RunMiniGame extends State{
     public static int score;
     private static int lastScore;
     private static int oldScore;
-    private static int speed = 6;
+    private static int speed = 8;
     private long lastTime;
     private long timeUnit = 100000000;
     
@@ -106,8 +106,8 @@ public class RunMiniGame extends State{
                     map = 0;
                 else
                     map++;
-                if(speed < 10)
-                    speed++;
+                if(speed < 11)
+                    speed += 2;
                 player.increaseJumpPower();
                 items.moveMap();
             }

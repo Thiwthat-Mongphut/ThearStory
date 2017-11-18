@@ -11,7 +11,7 @@ public class ZombieM extends Zombie{
     protected BufferedImage[] img;
     protected int walkFrame;
     private float vX, vY, speedUP = 1, limitLeft, LimiRight;
-    private boolean righRoom, LeftRoomZ = true, lock = false;
+    private boolean righRoom, LeftRoomZ = true, lock = false, ProtectPlayer = false;
     private long timeUnit = 300000000, lastTime;
     
     public ZombieM(GamePanel game, float x, float y) {
@@ -115,13 +115,19 @@ public class ZombieM extends Zombie{
             if(y == 66)
             {
                 if(x == 75 || x == 245 || x == 575 || x == 645)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
             }
             
             else if(y == 226)
             {
                 if(x == 0 || x == 170 || x == 480 ||x == 0 || x == 650)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
             }
         }
     }
@@ -186,26 +192,34 @@ public class ZombieM extends Zombie{
                     lock = false;
             }
         }
-        
         if(y < vY - 9 && y == 66) // เตี้ยล่างสุด ซอมบนสุด
         {
             if(x == 75 || x == 245 || x == 575 || x == 745)
-                y += 160;
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
         }
         
         else if(y < vY - 9 && y == 226) // เตี้ยล่าง ซอมกลาง
         {
             if(x == 0 || x == 170 || x == 480 || x == 650)
-                y += 160;
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
         }
         
         else if(y > vY - 9 && y == 226) // เตี้ยบน ซอมกลาง
         {
             if(x == 75 || x == 245 || x == 575 || x == 745)
-                y -= 160;
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
         }
         
-        else if(y == vY - 9 )
+        else if(y == vY - 9)
         {
             if(x >= 400)
                 LeftRoomZ = false;
@@ -217,7 +231,10 @@ public class ZombieM extends Zombie{
         else if(y > vY - 9 && y == 386) // เตี้ยบน ซอมล่างสุด
         {
             if(x == 0 || x == 170 || x == 480 || x == 650)
-                y -= 160;
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }
         }
     }
     
@@ -290,5 +307,13 @@ public class ZombieM extends Zombie{
     @Override
     public void setrighRoom(boolean righRoom) {
         this.righRoom = righRoom;
+    }
+    
+    public boolean getProtectPlayer(){
+        return ProtectPlayer;
+    }
+          
+    public void setProtectPlayer(boolean ProtectPlayer){
+        this.ProtectPlayer = ProtectPlayer;
     }
 }

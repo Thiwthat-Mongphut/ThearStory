@@ -18,6 +18,7 @@ public class RunPlayer extends Player{
         this.walkY = walkY;
         this.downY = downY;
         health = 1;
+        jumpPower = 6;
         lastTime = System.nanoTime() / timeUnit;
     }
     
@@ -110,7 +111,7 @@ public class RunPlayer extends Player{
     }
     
     public void increaseJumpPower(){
-        if(jumpPower < 8)
+        if(jumpPower < 9)
             jumpPower += 1;
     }
     
