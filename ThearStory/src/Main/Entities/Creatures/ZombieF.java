@@ -162,12 +162,12 @@ public class ZombieF extends Creature{
                 // ซอมบี้เดินขึ้น
                 if(x == 575)
                 {
-                    y += 160;
+                    y -= 160;
                     ProtectPlayer = true;
                 }
                 else if(x == 745)
                 {
-                    y += 160;
+                    y -= 160;
                     ProtectPlayer = true;
                 }  
             }

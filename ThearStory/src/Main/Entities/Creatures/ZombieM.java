@@ -214,7 +214,7 @@ public class ZombieM extends Zombie{
         {
             if(x == 75 || x == 245 || x == 575 || x == 745)
                 {
-                    y += 160;
+                    y -= 160;
                     ProtectPlayer = true;
                 }
         }

@@ -322,7 +322,7 @@ public class StealStates extends State
         if(win == 3)
         {
             backgroundMusic.stop();
-            game.gameState = new RunMiniGame(game);
+            game.gameState = new RunMiniGame(game, true);
             State.setState(game.gameState);
         }
     }

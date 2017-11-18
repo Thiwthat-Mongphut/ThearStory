@@ -18,7 +18,8 @@ public class RunPlayer extends Player{
         this.walkY = walkY;
         this.downY = downY;
         health = 1;
-        jumpPower = 6;
+        jumpPower = 5;
+        gravity = 4;
         lastTime = System.nanoTime() / timeUnit;
     }
     
@@ -48,7 +49,7 @@ public class RunPlayer extends Player{
             if (jumpStatus != true && jumpWidth <= 0){
                 jumpStatus = true;
                 startJump = true;
-                gravity = 3;
+                gravity = 4;
                 count = 0;
             } 
         }

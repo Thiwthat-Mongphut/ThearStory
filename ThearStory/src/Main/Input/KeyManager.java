@@ -33,7 +33,11 @@ public class KeyManager implements KeyListener{
         }
         else
             right = false;
-        Enter = keys[KeyEvent.VK_E];
+        if(keys[KeyEvent.VK_E] || keys[KeyEvent.VK_SPACE]){
+            Enter = true;
+        }
+        else
+            Enter = false;
     }
     
     @Override

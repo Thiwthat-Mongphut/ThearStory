@@ -176,7 +176,7 @@ public class Items extends Entity {
             g.drawImage(obj[i], x[i], y[i], null);
         }
         
-        if(xBird >= -41 && haveBird)
+        if(haveBird)
             g.drawImage(bird[0][birdFrame], (int) xBird, yBird, null);
     }
     
