@@ -1,13 +1,16 @@
 /* 
     Picture Sources
     - http://www.gameart2d.com/
+    - https://opengameart.org/content/free-game-asset-grumpy-flappy-bird-sprite-sheets
     Sound Source
     - Little Idia: https://www.bensound.com
+    - Pink-panther-theme: http://www.orangefreesounds.com/
     ********************Thank you so much***************************
 */
 
 package Main.Graphics;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
@@ -21,41 +24,57 @@ public class Assets {
     
     // Pictures
     public static ArrayList<BufferedImage[]> TearImg;
-
-    public static BufferedImage[] Tiles = new BufferedImage[50];
-    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
-            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
+    public static ArrayList<BufferedImage[]> ZombieImg;
+    public static BufferedImage menuBG, startIcon, interFaceBg, gameOver
+            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2
+            ,restartButton,restartButton2, runTutorial_1, runTutorial_2, stealthTutorial_1,stealthTutorial_2;
 
     public static ArrayList<BufferedImage[]> Obj;
     public static BufferedImage[] bird;
     public static BufferedImage[] BG;
+    public static BufferedImage SSBackGround;
     
     // Sounds
     public static Clip runGameMusic;
-
+    public static Clip stealthGameMusic;
+    
+    // Font
+    public static Font gothicFont = new Font("SHOWCARD GOTHIC", Font.PLAIN, 20);
+    public static Font gothicFontBig = new Font("SHOWCARD GOTHIC", Font.PLAIN, 45);
     
     // Size and Number of Thear Sprite
     private static int numFrame[] = {3,3,1};
     private static int frameWidth[] = {130,130,130};
-    private static int frameHeight[] = {87,87,55};
+    private static int frameHeight[] = {86,86,55};
 
     // Size and Number of Obj Sprite
-    private static int objFrame = 6;
-    private static int objFrameWidth[][] = {{114,143,132,144,94,100},
+    private static int objFrame = 7;
+    private static int objFrameWidth[][] = {{114,143,132,144,104,100},
                                             {140,120,140,114,129},
                                             {179,158,102,144,137},
                                             {458},
                                             {820},
-                                            {47,43,70,70}
+                                            {47,43,50,50},
+                                            {45}
                                             };
-    private static int objFrameHeight[][] = {{122,104,131,110,43,79},
+    private static int objFrameHeight[][] = {{122,104,131,110,63,79},
                                             {94,80,115,94,74},
                                             {105,100,109,111,92},
                                             {50},
                                             {20},
-                                            {235,82,50,50}
+                                            {235,82,70,70},
+                                            {30}
                                             };
-    private static int rowHeight[] = {131,116,112,50,20,235};
+    private static int rowHeight[] = {131,116,112,50,20,235,30};
+    
+    // Size of Zombit Sprite
+    private static int zombieFrame[] = {10,10,10,10};
+    private static int zombieWidth[][] = {{39,39,38,38,42,44,46,46,43,39},
+                                          {39,43,46,46,44,42,38,38,39,39},
+                                          {42,42,41,42,42,42,42,42,42,42},
+                                          {42,42,42,42,42,42,42,42,42,42}
+                                        };
+    private static int zombieHeight[] = {65,65,66,66};
     
     public static void init(){
         SpriteSheet sheet;
@@ -73,14 +92,28 @@ public class Assets {
             curHeight += frameHeight[i];
         }
         
+        // Start Menu
+        menuBG = ImageLoader.loadImage("/BG/Menu.png");
+        startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
+        
         // main menu
         interFaceBg = ImageLoader.loadImage("/interFace/Bg.png");
         letsGoButton = ImageLoader.loadImage("/interFace/lets_go.png");
         letsGoButton2 = ImageLoader.loadImage("/interFace/lets_go2.png");
-        menuButton = ImageLoader.loadImage("/interFace/menu_button.png");
-        menuButton2 = ImageLoader.loadImage("/interFace/menu_button2.png");
-        closeButton = ImageLoader.loadImage("/interFace/close_button.png");
-        closeButton2 = ImageLoader.loadImage("/interFace/close_button2.png");
+        
+        // RunMiniGame
+        runTutorial_1 = ImageLoader.loadImage("/SFX/runTutorial_1.png");
+        runTutorial_2 = ImageLoader.loadImage("/SFX/runTutorial_2.png");
+        stealthTutorial_1 = ImageLoader.loadImage("/SFX/stealthTutorial_1.png");
+        stealthTutorial_2 = ImageLoader.loadImage("/SFX/stealthTutorial_2.png");
+        
+        // gameover menu
+        restartButton = ImageLoader.loadImage("/interFace/restart.png");
+        restartButton2 = ImageLoader.loadImage("/interFace/restart2.png");
+        menuButton = ImageLoader.loadImage("/interFace/menu.png");
+        menuButton2 = ImageLoader.loadImage("/interFace/menu2.png");
+        closeButton = ImageLoader.loadImage("/interFace/close.png");
+        closeButton2 = ImageLoader.loadImage("/interFace/close2.png");
         gameOver = ImageLoader.loadImage("/interFace/gameOver.png");
         
         // Bird Crop
@@ -90,15 +123,31 @@ public class Assets {
             bird[i] = sheet.crop(i * 41, 0, 41, 35);
         }
         
+        // Zombie Crop
+        sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/ZombieSprite.png"));
+        ZombieImg = new ArrayList<BufferedImage[]>();
+        curWidth = 0;
+        curHeight = 0;
+        for(int i = 0;i < zombieFrame.length;i++){
+            BufferedImage[] groupImg = new BufferedImage[zombieFrame[i]];
+            for(int j = 0;j < zombieFrame[i];j++){
+                groupImg[j] = sheet.crop(curWidth, curHeight, zombieWidth[i][j],
+                        zombieHeight[i]);
+                curWidth += zombieWidth[i][j];
+            }
+            ZombieImg.add(groupImg);
+            curHeight += zombieHeight[i];
+            curWidth = 0;
+        }
+        
         // Backgrounds
         BG = new BufferedImage[3];
         BG[0] = ImageLoader.loadImage("/BG/runBG0.png");
         BG[1] = ImageLoader.loadImage("/BG/runBG1.png");
         BG[2] = ImageLoader.loadImage("/BG/runBG2.png");
+        SSBackGround = ImageLoader.loadImage("/BG/wall.png");
         
-        // Load Some Image
-        menuBG = ImageLoader.loadImage("/BG/Menu.png");
-        startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
+        
         
         // Load Objects
         sheet = new SpriteSheet(ImageLoader.loadImage("/Objects/ObjectsSprite.png"));
@@ -123,6 +172,11 @@ public class Assets {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(
               Assets.class.getResourceAsStream("/Music/LittleIdea.wav"));
             runGameMusic.open(inputStream);
+            
+            stealthGameMusic = AudioSystem.getClip();
+            inputStream = AudioSystem.getAudioInputStream(
+              Assets.class.getResourceAsStream("/Music/Pink-panther-theme.wav"));
+            stealthGameMusic.open(inputStream);
         }
         catch (Exception e) {
             System.err.println(e.getMessage());

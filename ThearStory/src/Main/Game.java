@@ -1,10 +1,10 @@
 /* 
     Picture Sources
-    - bevouliin.com
-    - MR.SUJIT YADAV from unluckystudio.com
-    - http://www.gameart2d.com/free-platformer-game-tileset.html
+    - http://www.gameart2d.com/
+    - https://opengameart.org/content/free-game-asset-grumpy-flappy-bird-sprite-sheets
     Sound Source
     - Little Idia: https://www.bensound.com
+    - Pink-panther-theme: http://www.orangefreesounds.com/
     ********************Thank you so much***************************
 */
 

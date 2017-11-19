@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-public class Display {
+public class Display{
     
     public static JFrame frame;
     private Canvas canvas;
@@ -28,7 +28,6 @@ public class Display {
         
         frame.add(canvas);
         frame.pack();
-        
     }
     
     public Canvas getCanvas(){

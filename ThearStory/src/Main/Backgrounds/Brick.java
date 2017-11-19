@@ -2,7 +2,6 @@ package Main.Backgrounds;
 
 import Main.Graphics.Assets;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class Brick extends Background{
     

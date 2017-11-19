@@ -19,11 +19,11 @@ public class Items extends Entity {
     private int count = 0;
     
     private BufferedImage[][] bird;
-    private int xBird;
+    private float xBird;
     private int yBird;
     private int birdFrame = 0;
     private boolean haveBird = false;
-    private int[] setYBird = {325, 270};
+    private int[] setYBird = {345, 270};
     
     private int mapArray = 0;
 
@@ -176,8 +176,8 @@ public class Items extends Entity {
             g.drawImage(obj[i], x[i], y[i], null);
         }
         
-        if(xBird >= -41 && haveBird)
-            g.drawImage(bird[0][birdFrame], xBird, yBird, null);
+        if(haveBird)
+            g.drawImage(bird[0][birdFrame], (int) xBird, yBird, null);
     }
     
     public void move(int speed){
@@ -186,16 +186,16 @@ public class Items extends Entity {
         }
         
         if(xBird >= -41 && haveBird){
-            xBird += speed;
+            xBird += speed - 0.3;
         }
     }
     
     public boolean collisionCheck(float x, float y, float width, float height){
         for(int i = 0;i < this.x.length;i++){
-            float xObj = this.x[i] - 15;
-            float widthObj = this.x[i] + obj[i].getWidth() - 30;
-            float yObj = this.y[i] - 5;
-            float heightObj = this.y[i] + obj[i].getHeight() - 5;
+            float xObj = this.x[i] + 15;
+            float widthObj = this.x[i] + obj[i].getWidth() - 15;
+            float yObj = this.y[i] + 10;
+            float heightObj = this.y[i] + obj[i].getHeight() - 10;
             if(x >= xObj && x <= widthObj){
                 if(y >= yObj && y <= heightObj)
                     return true;
