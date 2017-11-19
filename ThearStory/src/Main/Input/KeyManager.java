@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener{
     
     private boolean[] keys;
-    public boolean up, down, left, right, Enter;
+    public boolean up, down, left, right, Enter, replay, pressed;
     
     public KeyManager(){
         keys = new boolean[256];
@@ -38,6 +38,8 @@ public class KeyManager implements KeyListener{
         }
         else
             Enter = false;
+        replay = keys[KeyEvent.VK_SPACE];
+            
     }
     
     @Override
@@ -48,11 +50,13 @@ public class KeyManager implements KeyListener{
     @Override
     public void keyPressed(KeyEvent ke) {
        keys[ke.getKeyCode()] = true;
+       pressed = true;
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
         keys[ke.getKeyCode()] = false;
+        pressed = false;
     }
     
 }

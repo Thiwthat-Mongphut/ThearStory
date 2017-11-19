@@ -2,7 +2,6 @@ package Main.States;
 
 import Main.Backgrounds.Background;
 import Main.Backgrounds.Brick;
-import Main.Backgrounds.miniGameBG;
 import Main.Entities.Creatures.PlayerSS;
 import Main.Entities.Creatures.ZombieF;
 import Main.Entities.Creatures.ZombieM;
@@ -15,7 +14,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.sound.sampled.Clip;
-import static sun.audio.AudioPlayer.player;
 
 
 public class StealStates extends State

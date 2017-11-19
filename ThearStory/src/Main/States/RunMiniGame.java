@@ -32,6 +32,8 @@ public class RunMiniGame extends State{
     private static int speed = 7;
     private long lastTime;
     private long timeUnit = 100000000;
+    private int hardValue = 1;
+    private boolean Start = false;
     
     // Sound
     private static Clip music;
@@ -49,6 +51,12 @@ public class RunMiniGame extends State{
             oldScore = 0;
             lastScore = 0;
         }
+        else{
+            hardValue++;
+            oldScore += 900;
+            score += 900;
+        }
+            
         
         player = new RunPlayer(game, 50, walkY, walkY, downY);
         playerWidth = player.getWidth();
@@ -73,48 +81,51 @@ public class RunMiniGame extends State{
     
     @Override
     public void tick() { 
-        if(items.collisionCheck(player.getX() + 15, player.getY() + 19, playerWidth - 25, 25)){
-            music.stop();
-            game.gameState = new GameOverInterface(game);
-            State.setState(game.gameState);
-        }
-        else{
-            if(System.nanoTime() / timeUnit - lastTime >= 1){
-                score += 2;
-                if(score - lastScore >= 500){
-                    lastScore = score;
-                    background[map].setX(0);
-                    if(map == 2)
-                        map = 0;
-                    else
-                        map++;
-                    if(speed < 11)
-                        speed++;
-                    player.increaseJumpPower();
-                    items.moveMap();
-                }
-                lastTime = System.nanoTime() / timeUnit;
-            }
-
-            if(score - oldScore >= 1500){
-                oldScore = score;
+        if(!Start && game.getKeyManager().pressed)
+            Start = true;
+        if(Start){
+                if(items.collisionCheck(player.getX() + 15, player.getY() + 19, playerWidth - 25, 25)){
                 music.stop();
-                game.gameState = new StealStates(game);
+                game.gameState = new GameOverInterface(game);
                 State.setState(game.gameState);
             }
+            else{
+                if(System.nanoTime() / timeUnit - lastTime >= 1){
+                    score += 2;
+                    if(score - lastScore >= 500){
+                        lastScore = score;
+                        background[map].setX(0);
+                        if(map == 2)
+                            map = 0;
+                        else
+                            map++;
+                        if(speed < 11)
+                            speed++;
+                        player.increaseJumpPower();
+                        items.moveMap();
+                    }
+                    lastTime = System.nanoTime() / timeUnit;
+                }
 
-            background[map].tick();
-            background[map].move(-1,0);
-            street.move(-speed, 0);
-            street.tick();
-            player.tick();
-            playerWidth = player.getWidth();
-            playerHeight = player.getHeight();
+                if(score - oldScore >= 1500 * hardValue){
+                    oldScore = score;
+                    music.stop();
+                    game.gameState = new StealStates(game);
+                    State.setState(game.gameState);
+                }
 
-            items.tick();
-            items.move(-speed);
-        }
-        
+                background[map].tick();
+                background[map].move(-1,0);
+                street.move(-speed, 0);
+                street.tick();
+                player.tick();
+                playerWidth = player.getWidth();
+                playerHeight = player.getHeight();
+
+                items.tick();
+                items.move(-speed);
+            }
+        }    
     }
 
     @Override
@@ -126,6 +137,10 @@ public class RunMiniGame extends State{
         g.setColor(Color.BLACK);
         g.setFont(Assets.gothicFont);
         g.drawString("Score " + String.valueOf(score), 650, 50);
+        g.setColor(Color.DARK_GRAY);
+        //g.setFont(Assets.gothicFontBig);
+        if(!Start)
+            g.drawString("press any key to start", 300, 280);
     }
     
 }

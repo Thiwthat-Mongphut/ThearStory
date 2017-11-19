@@ -10,34 +10,41 @@ public class MenuInterFace extends State {
     
     private static int highScore = 0;
     private boolean check = true;
+    private long lastTime;
+    private int timeUnit = 1000000000;
+    
     public MenuInterFace(GamePanel game) {
         super(game);
+        lastTime = System.nanoTime() / timeUnit;
     }
 
     @Override
     public void tick() {
         int mouseX = game.getMouseManager().getMouseX();
         int mouseY = game.getMouseManager().getMouseY();
-        if(mouseX >= 485 && mouseX <= 805 && mouseY >= 350 && mouseY <= 450){
+        if(mouseX >= 450 && mouseX <= 770 && mouseY >= 350 && mouseY <= 450){
             check = false;
-            if(game.getMouseManager().isLeftPressed()){
+            if(game.getMouseManager().isLeftPressed() && System.nanoTime() / timeUnit - lastTime >= 1){
                game.gameState = new RunMiniGame(game, false); // go to miniGame
                State.setState(game.gameState);
+               lastTime = System.nanoTime() / timeUnit;
             }
         }
         else{
             check = true;
         }
+        
+        
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.interFaceBg, 0, 0, null);
         if(check){
-            g.drawImage(Assets.letsGoButton, 485, 350, null);
+            g.drawImage(Assets.letsGoButton, 450, 350, null);
         }
         else{
-            g.drawImage(Assets.letsGoButton2, 465, 330, null);
+            g.drawImage(Assets.letsGoButton2, 430, 330, null);
         }
         
         g.setColor(Color.WHITE);
