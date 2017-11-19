@@ -24,8 +24,9 @@ public class Assets {
     public static ArrayList<BufferedImage[]> TearImg;
     public static ArrayList<BufferedImage[]> ZombieImg;
     public static BufferedImage[] Tiles = new BufferedImage[50];
-    public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
-            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
+    public static BufferedImage menuBG, startIcon, interFaceBg, gameOver
+            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2
+            ,restartButton,restartButton2, runTutorial_1, runTutorial_2, stealthTutorial_1,stealthTutorial_2;
 
     public static ArrayList<BufferedImage[]> Obj;
     public static BufferedImage[] bird;
@@ -92,14 +93,28 @@ public class Assets {
             curHeight += frameHeight[i];
         }
         
+        // Start Menu
+        menuBG = ImageLoader.loadImage("/BG/Menu.png");
+        startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
+        
         // main menu
         interFaceBg = ImageLoader.loadImage("/interFace/Bg.png");
         letsGoButton = ImageLoader.loadImage("/interFace/lets_go.png");
         letsGoButton2 = ImageLoader.loadImage("/interFace/lets_go2.png");
-        menuButton = ImageLoader.loadImage("/interFace/menu_button.png");
-        menuButton2 = ImageLoader.loadImage("/interFace/menu_button2.png");
-        closeButton = ImageLoader.loadImage("/interFace/close_button.png");
-        closeButton2 = ImageLoader.loadImage("/interFace/close_button2.png");
+        
+        // RunMiniGame
+        runTutorial_1 = ImageLoader.loadImage("/SFX/runTutorial_1.png");
+        runTutorial_2 = ImageLoader.loadImage("/SFX/runTutorial_2.png");
+        stealthTutorial_1 = ImageLoader.loadImage("/SFX/stealthTutorial_1.png");
+        stealthTutorial_2 = ImageLoader.loadImage("/SFX/stealthTutorial_2.png");
+        
+        // gameover menu
+        restartButton = ImageLoader.loadImage("/interFace/restart.png");
+        restartButton2 = ImageLoader.loadImage("/interFace/restart2.png");
+        menuButton = ImageLoader.loadImage("/interFace/menu.png");
+        menuButton2 = ImageLoader.loadImage("/interFace/menu2.png");
+        closeButton = ImageLoader.loadImage("/interFace/close.png");
+        closeButton2 = ImageLoader.loadImage("/interFace/close2.png");
         gameOver = ImageLoader.loadImage("/interFace/gameOver.png");
         
         // Bird Crop
@@ -109,6 +124,7 @@ public class Assets {
             bird[i] = sheet.crop(i * 41, 0, 41, 35);
         }
         
+        // Zombie Crop
         sheet = new SpriteSheet(ImageLoader.loadImage("/Sprites/ZombieSprite.png"));
         ZombieImg = new ArrayList<BufferedImage[]>();
         curWidth = 0;
@@ -132,9 +148,7 @@ public class Assets {
         BG[2] = ImageLoader.loadImage("/BG/runBG2.png");
         SSBackGround = ImageLoader.loadImage("/BG/wall.png");
         
-        // Load Some Image
-        menuBG = ImageLoader.loadImage("/BG/Menu.png");
-        startIcon = ImageLoader.loadImage("/SFX/StartIcon.png");
+        
         
         // Load Objects
         sheet = new SpriteSheet(ImageLoader.loadImage("/Objects/ObjectsSprite.png"));

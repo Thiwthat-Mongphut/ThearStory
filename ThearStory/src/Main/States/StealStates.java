@@ -10,6 +10,7 @@ import Main.Graphics.Assets;
 import Main.Objects.Doors;
 import Main.Objects.KeyForWin;
 import Main.Objects.Walls;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,6 +34,7 @@ public class StealStates extends State
     // Game Value
     private int lastScore, score;
     private long timeUnit = 1000000000 ,lastTime, lastTimeP;
+    private boolean start = false;
     
     // Sound
     private Clip backgroundMusic;
@@ -183,146 +185,150 @@ public class StealStates extends State
         backgroundMusic.start();
         
         lastTime = System.nanoTime() / timeUnit;
-        lastTimeP = System.nanoTime() / timeUnit;
     }
 
     @Override
     public void tick() 
     {
-        if((System.nanoTime() - lastTimeP) / 1000000000 >= 1){
-            zombieM.setProtectPlayer(false);
-            zombieF.setProtectPlayer(false);
-            lastTimeP = System.nanoTime();
-        }
-        player.setEnterDoor(false);
-        player.tick();
-        
-        zombieM.setrighRoom(player.getrighRoom());
-        zombieM.setvX(player.getX());
-        zombieM.setvY(player.getY());
-        zombieM.tick();
-        
-        zombieF.tick();
-        
-        // Crosse Room
-        if(player.getY() == 395)
-        {
-            if(player.getX() <= 270)
-            {
-                player.setrighRoom(false);
+        if(!start && game.getKeyManager().pressed && System.nanoTime() / timeUnit - lastTime >= 1)
+            start = true;
+        if(start){
+            if((System.nanoTime() - lastTimeP) / 1000000000 >= 1){
+                zombieM.setProtectPlayer(false);
+                zombieF.setProtectPlayer(false);
+                lastTimeP = System.nanoTime();
             }
-            else if(player.getX() >= 300)
+            player.setEnterDoor(false);
+            player.tick();
+
+            zombieM.setrighRoom(player.getrighRoom());
+            zombieM.setvX(player.getX());
+            zombieM.setvY(player.getY());
+            zombieM.tick();
+
+            zombieF.tick();
+
+            // Crosse Room
+            if(player.getY() == 395)
             {
-                player.setrighRoom(true);
-            }
-        }
-        
-        // Go up or Go down Door
-        for(int i = 0; i < ND; i++)
-        {
-            // ต.น. X
-            if(player.getX() + 35 >= NumDoor.get(i).getX() && player.getX() + 35 <= NumDoor.get(i).getX() + 50)
-            {
-                // ต.น. Y
-                if(player.getY() >= NumDoor.get(i).getY() && player.getY() <= NumDoor.get(i).getY() + 50)
+                if(player.getX() <= 270)
                 {
-                    // Press E
-                    if(player.getEnterDoor())
+                    player.setrighRoom(false);
+                }
+                else if(player.getX() >= 300)
+                {
+                    player.setrighRoom(true);
+                }
+            }
+
+            // Go up or Go down Door
+            for(int i = 0; i < ND; i++)
+            {
+                // ต.น. X
+                if(player.getX() + 35 >= NumDoor.get(i).getX() && player.getX() + 35 <= NumDoor.get(i).getX() + 50)
+                {
+                    // ต.น. Y
+                    if(player.getY() >= NumDoor.get(i).getY() && player.getY() <= NumDoor.get(i).getY() + 50)
                     {
-                        // UP
-                        if(NumDoor.get(i).getUP() && System.nanoTime() / timeUnit - lastTime >= 1)
+                        // Press E
+                        if(player.getEnterDoor())
                         {
-                            player.setY(-160);
-                            lastTime = System.nanoTime() / timeUnit;
+                            // UP
+                            if(NumDoor.get(i).getUP() && System.nanoTime() / timeUnit - lastTime >= 1)
+                            {
+                                player.setY(-160);
+                                lastTime = System.nanoTime() / timeUnit;
+                            }
+
+                            // DOWN
+                            else if(NumDoor.get(i).getDOWN() && System.nanoTime() / timeUnit - lastTime >= 1)
+                            {
+
+                                player.setY(160);
+                                lastTime = System.nanoTime() / timeUnit;
+                            }
                         }
-                        
-                        // DOWN
-                        else if(NumDoor.get(i).getDOWN() && System.nanoTime() / timeUnit - lastTime >= 1)
-                        {
-                            
-                            player.setY(160);
-                            lastTime = System.nanoTime() / timeUnit;
-                        }
+                        //End Enter
                     }
-                    //End Enter
+                    // End if y
                 }
-                // End if y
+                // End if x
+                // get position y player to ZombieF
+                zombieF.getPositionPlayer(player.getY());
             }
-            // End if x
-            // get position y player to ZombieF
-            zombieF.getPositionPlayer(player.getY());
-        }
-        // End Loop Door
-        
-        // Hit Blocks
-        if((player.getX() <= zombieM.GetX() + zombieM.getWidth() && player.getX() >= zombieM.GetX()) ||
-                (player.getX() + 130 >= zombieM.GetX() && player.getX() + 130 <= zombieM.GetX()  + zombieM.getWidth()))
-        {
-            if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
+            // End Loop Door
+
+            // Hit Blocks
+            if((player.getX() <= zombieM.GetX() + zombieM.getWidth() && player.getX() >= zombieM.GetX()) ||
+                    (player.getX() + 130 >= zombieM.GetX() && player.getX() + 130 <= zombieM.GetX()  + zombieM.getWidth()))
             {
-                backgroundMusic.stop();
-                game.gameState = new GameOverInterface(game);
-                State.setState(game.gameState);
-            }
-        }
-        if((player.getX() <= zombieF.getX() + zombieF.getWidth() && player.getX() >= zombieF.getX()) ||
-                (player.getX() + 130 >= zombieF.getX() && player.getX() + 130 <= zombieF.getX()  + zombieF.getWidth()))
-        {
-            if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
-            {
-                backgroundMusic.stop();
-                game.gameState = new GameOverInterface(game);
-                State.setState(game.gameState);
-            }
-        }
-        if(zombieF.getX() >= player.getX() && zombieF.getX() + zombieF.getWidth() <= player.getX() + 130){
-            if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
-            {
-                backgroundMusic.stop();
-                game.gameState = new GameOverInterface(game);
-                State.setState(game.gameState);
-            }
-        }
-        if(zombieM.GetX() >= player.getX() && zombieM.GetX() + zombieM.getWidth() <= player.getX() + 130){
-            if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
-            {
-                backgroundMusic.stop();
-                game.gameState = new GameOverInterface(game);
-                State.setState(game.gameState);
-            }
-        }
-        // End Hit Blocks
-        
-        
-        // Key
-        for(int i = 0; i < NumKey.size(); i++)
-        {
-            if((player.getX() <= NumKey.get(i).getX()+ NumKey.get(0).getWidth() && player.getX() >= NumKey.get(i).getX()) ||
-                    (player.getX() + 130 >= NumKey.get(i).getX() && player.getX() + 130 <= NumKey.get(i).getX()  + NumKey.get(0).getWidth()))
-            {
-                if(player.getY() + 25  == NumKey.get(i).getY())
+                if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
                 {
-                    win++;
-                    NumKey.remove(i);
+                    backgroundMusic.stop();
+                    game.gameState = new GameOverInterface(game);
+                    State.setState(game.gameState);
                 }
             }
-            else if(NumKey.get(i).getX() >= player.getX() && NumKey.get(i).getX() + NumKey.get(0).getWidth() <= player.getX() + 130){
-                if(player.getY() + 25  == NumKey.get(i).getY())
+            if((player.getX() <= zombieF.getX() + zombieF.getWidth() && player.getX() >= zombieF.getX()) ||
+                    (player.getX() + 130 >= zombieF.getX() && player.getX() + 130 <= zombieF.getX()  + zombieF.getWidth()))
+            {
+                if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
                 {
-                    win++;
-                    NumKey.remove(i);
+                    backgroundMusic.stop();
+                    game.gameState = new GameOverInterface(game);
+                    State.setState(game.gameState);
                 }
             }
+            if(zombieF.getX() >= player.getX() && zombieF.getX() + zombieF.getWidth() <= player.getX() + 130){
+                if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
+                {
+                    backgroundMusic.stop();
+                    game.gameState = new GameOverInterface(game);
+                    State.setState(game.gameState);
+                }
+            }
+            if(zombieM.GetX() >= player.getX() && zombieM.GetX() + zombieM.getWidth() <= player.getX() + 130){
+                if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
+                {
+                    backgroundMusic.stop();
+                    game.gameState = new GameOverInterface(game);
+                    State.setState(game.gameState);
+                }
+            }
+            // End Hit Blocks
+
+
+            // Key
+            for(int i = 0; i < NumKey.size(); i++)
+            {
+                if((player.getX() <= NumKey.get(i).getX()+ NumKey.get(0).getWidth() && player.getX() >= NumKey.get(i).getX()) ||
+                        (player.getX() + 130 >= NumKey.get(i).getX() && player.getX() + 130 <= NumKey.get(i).getX()  + NumKey.get(0).getWidth()))
+                {
+                    if(player.getY() + 25  == NumKey.get(i).getY())
+                    {
+                        win++;
+                        NumKey.remove(i);
+                    }
+                }
+                else if(NumKey.get(i).getX() >= player.getX() && NumKey.get(i).getX() + NumKey.get(0).getWidth() <= player.getX() + 130){
+                    if(player.getY() + 25  == NumKey.get(i).getY())
+                    {
+                        win++;
+                        NumKey.remove(i);
+                    }
+                }
+            }
+            // End Loop Key
+
+            //Game End
+            if(win == 3)
+            {
+                backgroundMusic.stop();
+                game.gameState = new RunMiniGame(game, true);
+                State.setState(game.gameState);
+            }
         }
-        // End Loop Key
-        
-        //Game End
-        if(win == 3)
-        {
-            backgroundMusic.stop();
-            game.gameState = new RunMiniGame(game, true);
-            State.setState(game.gameState);
-        }
+      
     }
 
     @Override
@@ -350,5 +356,14 @@ public class StealStates extends State
         player.render(g);
         
         zombieF.render(g);
+        
+         if(!start){
+            g.drawImage(Assets.stealthTutorial_1, 95,150, null);
+            g.drawImage(Assets.stealthTutorial_2, 425,150, null);
+            g.setColor(Color.WHITE);
+            g.setFont(Assets.gothicFont);
+            g.drawString("collect three bones to escape", 240, 100);
+            g.drawString("press any keys to start", 280, 340);
+        }
     }
 }

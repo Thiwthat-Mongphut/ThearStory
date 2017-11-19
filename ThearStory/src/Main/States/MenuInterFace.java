@@ -1,21 +1,39 @@
-
 package Main.States;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuInterFace extends State {
     
-    private static int highScore = 0;
     private boolean check = true;
     private long lastTime;
     private int timeUnit = 1000000000;
+    private String score;
     
-    public MenuInterFace(GamePanel game) {
+
+    public MenuInterFace(GamePanel game){
         super(game);
         lastTime = System.nanoTime() / timeUnit;
+        try {
+            BufferedReader br;
+            br = new BufferedReader(new FileReader("score.txt"));
+            score = br.readLine();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MenuInterFace.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuInterFace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+            
+  
     }
 
     @Override
@@ -32,9 +50,7 @@ public class MenuInterFace extends State {
         }
         else{
             check = true;
-        }
-        
-        
+        }    
     }
 
     @Override
@@ -46,12 +62,9 @@ public class MenuInterFace extends State {
         else{
             g.drawImage(Assets.letsGoButton2, 430, 330, null);
         }
-        
         g.setColor(Color.WHITE);
         g.setFont(Assets.gothicFontBig);
-        if(RunMiniGame.score > highScore)
-            highScore = RunMiniGame.score;
-        g.drawString(String.valueOf(highScore), 120, 430);
+        g.drawString(score, 80, 430);
     }
     
 }

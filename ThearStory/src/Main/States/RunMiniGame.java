@@ -9,6 +9,12 @@ import Main.Graphics.Assets;
 import Main.Objects.Items;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 
 public class RunMiniGame extends State{
@@ -27,13 +33,14 @@ public class RunMiniGame extends State{
 
     // Game Value
     public static int score;
+    public static int point = 2;
     private static int lastScore;
     private static int oldScore;
     private static int speed = 7;
     private long lastTime;
     private long timeUnit = 100000000;
     private int hardValue = 1;
-    private boolean Start = false;
+    private boolean start = false;
     
     // Sound
     private static Clip music;
@@ -50,6 +57,7 @@ public class RunMiniGame extends State{
             map = 0;
             oldScore = 0;
             lastScore = 0;
+            start = false;
         }
         else{
             hardValue++;
@@ -81,19 +89,40 @@ public class RunMiniGame extends State{
     
     @Override
     public void tick() { 
-        if(!Start && game.getKeyManager().pressed)
-            Start = true;
-        if(Start){
-                if(items.collisionCheck(player.getX() + 15, player.getY() + 19, playerWidth - 25, 25)){
+        if(!start && game.getKeyManager().pressed && System.nanoTime() / timeUnit / 10 - lastTime / 10 >= 1)
+            start = true;
+        if(start){
+            if(items.collisionCheck(player.getX() + 15, player.getY() + 19, playerWidth - 25, 25)){
+                player.reduceHealth(1);
+            }
+            if(!player.getStatus()){
                 music.stop();
+                // high score
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader("score.txt"));
+                    String y = br.readLine();
+                    br.close();
+                    FileWriter writer = new FileWriter("score.txt");
+                    if(Integer.parseInt(y) < score){
+                        writer.write(String.valueOf(score));
+                    }
+                    else{
+                        writer.write(y);
+                    }
+                    writer.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(RunMiniGame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 game.gameState = new GameOverInterface(game);
                 State.setState(game.gameState);
             }
             else{
                 if(System.nanoTime() / timeUnit - lastTime >= 1){
-                    score += 2;
+                    score += point;
                     if(score - lastScore >= 500){
                         lastScore = score;
+                        point++;
                         background[map].setX(0);
                         if(map == 2)
                             map = 0;
@@ -124,23 +153,32 @@ public class RunMiniGame extends State{
 
                 items.tick();
                 items.move(-speed);
-            }
-        }    
+            }    
+        }        
     }
-
+    
     @Override
     public void render(Graphics g) {
         background[map].render(g);
         street.render(g);
         player.render(g);
         items.render(g);
-        g.setColor(Color.BLACK);
+        if(map == 2)
+            g.setColor(Color.WHITE);
+        else
+            g.setColor(Color.DARK_GRAY);
         g.setFont(Assets.gothicFont);
         g.drawString("Score " + String.valueOf(score), 650, 50);
-        g.setColor(Color.DARK_GRAY);
+        
         //g.setFont(Assets.gothicFontBig);
-        if(!Start)
-            g.drawString("press any key to start", 300, 280);
+        if(!start){
+            //g.setColor(new Color(230, 126, 23));
+            g.drawImage(Assets.runTutorial_1, 148,150, null);
+            g.drawImage(Assets.runTutorial_2, 498,150, null);
+            g.setColor(Color.DARK_GRAY);
+            g.drawString("press any keys to start", 280, 320);
+        }
+            
     }
     
 }

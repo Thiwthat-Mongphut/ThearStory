@@ -2,18 +2,35 @@ package Main.Entities.Creatures;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-public class RunPlayer extends Player{
+public class RunPlayer extends Creature{
+    
+    private GamePanel game;
+    
+    private BufferedImage[] img;
+    private int walkFrame;
+    private long lastTime;
+    private long timeUnit = 300000000;
+    
+    // Jump Variables
+    private int jumpWidth = 0;
+    private int jumpHeight = 230;
+    private boolean jumpStatus = false;
+    private int gravity = 3;
+    private int jumpPower = 5;
+    private boolean startJump = false;
     
     private final float walkY;
     private final float downY;
-    private boolean Stand = false;
-    private long timeUnit = 200000000;
+    private boolean stand = false;
     
     private int count = 0;
     
     public RunPlayer(GamePanel game, float x, float y, float walkY, float downY) {
-        super(game, x, y);
+        super(x, y);
+        this.game = game;
         img = Assets.TearImg.get(1);
         this.walkY = walkY;
         this.downY = downY;
@@ -23,17 +40,18 @@ public class RunPlayer extends Player{
         lastTime = System.nanoTime() / timeUnit;
     }
     
+    @Override
     public void tick() {
         // Return Image to Walk
-        if(Stand){
+        if(stand){
             img = Assets.TearImg.get(1);
             walkFrame = 0;
             y = walkY;
-            Stand = false;
+            stand = false;
         }
         // Change Walk Frame
         else if(System.nanoTime() / timeUnit - lastTime >= 1 
-                && !startJump && !Stand){
+                && !startJump && !stand){
             if(walkFrame >= 2){
                 walkFrame = 0;
                 lastTime = System.nanoTime() / timeUnit;
@@ -106,9 +124,14 @@ public class RunPlayer extends Player{
                 img = Assets.TearImg.get(2);
                 walkFrame = 0;
                 y = downY;
-                Stand = true;
+                stand = true;
             }
         }
+    }
+    
+    @Override
+    public void render(Graphics g) {
+        g.drawImage(img[walkFrame], (int) x, (int) y, null);
     }
     
     public void increaseJumpPower(){
