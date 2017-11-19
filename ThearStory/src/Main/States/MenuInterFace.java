@@ -5,11 +5,25 @@ import Main.GamePanel;
 import Main.Graphics.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuInterFace extends State {
     private boolean check = true;
-    public MenuInterFace(GamePanel game) {
+    private String scorecr;
+    public MenuInterFace(GamePanel game) throws IOException {
         super(game);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("score.txt"));
+            scorecr = br.readLine();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MenuInterFace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @Override
@@ -40,7 +54,7 @@ public class MenuInterFace extends State {
         
         g.setColor(Color.WHITE);
         g.setFont(Assets.gothicFontBig);
-        g.drawString(String.valueOf(RunMiniGame.score), 80, 430);
+        g.drawString(scorecr, 80, 430);
     }
     
 }

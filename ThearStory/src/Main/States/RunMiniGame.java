@@ -9,6 +9,12 @@ import Main.Graphics.Assets;
 import Main.Objects.Items;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.Clip;
 
 public class RunMiniGame extends State{
@@ -93,6 +99,23 @@ public class RunMiniGame extends State{
     public void tick() { 
         if(items.collisionCheck(player.getX() + 15, player.getY() + 19, playerWidth - 25, 25)){
             music.stop();
+   
+            try {
+                
+                BufferedReader br = new BufferedReader(new FileReader("score.txt"));
+                String y = br.readLine();
+                br.close();
+                FileWriter writer = new FileWriter("score.txt");
+                if(Integer.parseInt(y) < score){
+                    writer.write(String.valueOf(score));
+                }
+                else{
+                    writer.write(y);
+                }
+                writer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(RunMiniGame.class.getName()).log(Level.SEVERE, null, ex);
+            }
             game.gameState = new GameOverInterface(game);
             State.setState(game.gameState);
         }

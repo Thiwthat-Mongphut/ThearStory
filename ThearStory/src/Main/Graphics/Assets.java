@@ -25,7 +25,8 @@ public class Assets {
     public static ArrayList<BufferedImage[]> ZombieImg;
     public static BufferedImage[] Tiles = new BufferedImage[50];
     public static BufferedImage menuBG, startIcon, dogSkin, interFaceBg, gameOver
-            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2;
+            ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2
+            ,restartButton,restartButton2;
 
     public static ArrayList<BufferedImage[]> Obj;
     public static BufferedImage[] bird;
@@ -96,10 +97,12 @@ public class Assets {
         interFaceBg = ImageLoader.loadImage("/interFace/Bg.png");
         letsGoButton = ImageLoader.loadImage("/interFace/lets_go.png");
         letsGoButton2 = ImageLoader.loadImage("/interFace/lets_go2.png");
-        menuButton = ImageLoader.loadImage("/interFace/menu_button.png");
-        menuButton2 = ImageLoader.loadImage("/interFace/menu_button2.png");
-        closeButton = ImageLoader.loadImage("/interFace/close_button.png");
-        closeButton2 = ImageLoader.loadImage("/interFace/close_button2.png");
+        restartButton = ImageLoader.loadImage("/interFace/restart.png");
+        restartButton2 = ImageLoader.loadImage("/interFace/restart2.png");
+        menuButton = ImageLoader.loadImage("/interFace/menu.png");
+        menuButton2 = ImageLoader.loadImage("/interFace/menu2.png");
+        closeButton = ImageLoader.loadImage("/interFace/close.png");
+        closeButton2 = ImageLoader.loadImage("/interFace/close2.png");
         gameOver = ImageLoader.loadImage("/interFace/gameOver.png");
         
         // Bird Crop

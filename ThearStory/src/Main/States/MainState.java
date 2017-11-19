@@ -3,6 +3,9 @@ package Main.States;
 import Main.GamePanel;
 import Main.Graphics.Assets;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainState extends State{
 
@@ -25,7 +28,11 @@ public class MainState extends State{
         // if start button is clicked, change to tutorial state
         if(mouseX >= 315 && mouseX <= 495 && mouseY >= 350 && mouseY <= 428
                 && game.getMouseManager().isLeftPressed()){
-            game.gameState = new MenuInterFace(game);
+            try {
+                game.gameState = new MenuInterFace(game);
+            } catch (IOException ex) {
+                Logger.getLogger(MainState.class.getName()).log(Level.SEVERE, null, ex);
+            }
             State.setState(game.gameState);
         }
         
