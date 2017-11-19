@@ -10,15 +10,15 @@ public class PlayerSS extends Creature
     protected GamePanel game;
     protected BufferedImage[] img;
     protected int walkFrame = 0;
-    protected boolean EnterDoor, righRoom = false;
+    protected boolean enterDoor, rightRoom = false;
     private long lastTime, timeUnit = 300000000;
 
-    public PlayerSS(GamePanel game, float x, float y, boolean EnterDoor) {
+    public PlayerSS(GamePanel game, float x, float y, boolean enterDoor) {
         super(x, y);
         this.game = game;
         lastTime = System.nanoTime() / 1000000000;
         img = Assets.TearImg.get(1);
-        this.EnterDoor = EnterDoor;
+        this.enterDoor = enterDoor;
     }
 
     @Override
@@ -33,11 +33,11 @@ public class PlayerSS extends Creature
            x = 720;
        }
        
-       if(x >= 270 && y != 395 && !righRoom)
+       if(x >= 270 && y != 395 && !rightRoom)
        {
            x = 270;
        }
-       else if(x <= 410 && y != 395 && righRoom)
+       else if(x <= 410 && y != 395 && rightRoom)
        {
            x = 410;
        }
@@ -77,7 +77,7 @@ public class PlayerSS extends Creature
         
         if(game.getKeyManager().Enter)
         {
-            EnterDoor = true;
+            enterDoor = true;
         }
         // Crawl
         /*if(game.getKeyManager().down)
@@ -88,12 +88,12 @@ public class PlayerSS extends Creature
     
     public boolean getEnterDoor()
     {
-        return EnterDoor;
+        return enterDoor;
     }
     
-    public void setEnterDoor(boolean EnterDoor)
+    public void setEnterDoor(boolean enterDoor)
     {
-        this.EnterDoor = EnterDoor;
+        this.enterDoor = enterDoor;
     }
     
     public float getX()
@@ -116,14 +116,14 @@ public class PlayerSS extends Creature
         x = dis;
     }
     
-    public void setrighRoom(boolean righRoom)
+    public void setRightRoom(boolean rightRoom)
     {
-        this.righRoom = righRoom;
+        this.rightRoom = rightRoom;
     }
     
-    public boolean getrighRoom()
+    public boolean getRightRoom()
     {
-        return righRoom;
+        return rightRoom;
     }
     
     

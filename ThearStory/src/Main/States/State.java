@@ -5,7 +5,13 @@ import java.awt.Graphics;
 
 public abstract class State {
     
+    protected GamePanel game;
+    
     private static State currentState = null;
+    
+    public State(GamePanel game){
+        this.game = game;
+    }
     
     public static void setState(State state){
         currentState = state;
@@ -14,13 +20,7 @@ public abstract class State {
     public static State getState(){
         return currentState;
     }
-    // Abstract
-    protected GamePanel game;
-    
-    public State(GamePanel game){
-        this.game = game;
-    }
-    
+
     public abstract void tick();
     
     public abstract void render(Graphics g);

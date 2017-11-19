@@ -7,19 +7,20 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Doors extends Entity{
+    
     private GamePanel game;
     private BufferedImage[] img;
-    private boolean checkDoorUp, checkDoorDown, checkDoorCrosse;
-    private int DoorFram;
+    private boolean checkDoorUp, checkDoorDown, checkDoorCross;
+    private int doorFrame;
 
-    public Doors(GamePanel game, float x, float y, boolean checkDoorUp , boolean checkDoorDown, boolean checkDoorCrosse, int DoorFram) 
+    public Doors(GamePanel game, float x, float y, boolean checkDoorUp , boolean checkDoorDown, boolean checkDoorCross, int doorFrame) 
     {
         super(x, y);
         this.game = game;
         this.checkDoorUp = checkDoorUp;
         this.checkDoorDown = checkDoorDown;
-        this.checkDoorCrosse = checkDoorCrosse;
-        this.DoorFram = DoorFram;
+        this.checkDoorCross = checkDoorCross;
+        this.doorFrame = doorFrame;
         img = Assets.Obj.get(5);
         
     }
@@ -50,14 +51,14 @@ public class Doors extends Entity{
         return checkDoorDown;
     }
     
-    public boolean getCROSSE()
+    public boolean getCROSS()
     {
-        return checkDoorCrosse;
+        return checkDoorCross;
     }
 
     @Override
     public void render(Graphics g) 
     {
-        g.drawImage(img[DoorFram], (int)x, (int) y, null);
+        g.drawImage(img[doorFrame], (int)x, (int) y, null);
     }   
 }

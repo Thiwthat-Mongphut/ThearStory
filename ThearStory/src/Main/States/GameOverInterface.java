@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class GameOverInterface extends State {
+    
     private boolean check = true ;
     private boolean check2 = true ;
     private boolean check3 = true;
@@ -20,9 +21,9 @@ public class GameOverInterface extends State {
         int mouseX = game.getMouseManager().getMouseX();
         int mouseY = game.getMouseManager().getMouseY();
         if(mouseX >= 290 && mouseX <= 530 && mouseY >= 345 && mouseY <= 450){
-           check = false;
-           if(game.getMouseManager().isLeftPressed()){
-                game.gameState = new MenuInterFace(game);
+            check = false;
+            if(game.getMouseManager().isLeftPressed()){
+                game.gameState = new MenuInterface(game);
                 State.setState(game.gameState);
            }
         }

@@ -3,13 +3,13 @@ package Main.Backgrounds;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class miniGameBG extends Background{
+public class MiniGameBG extends Background{
     
     private int[] x;
     private int width;
     private int frame = 0;
     
-    public miniGameBG(BufferedImage img, float x, float y, int width){
+    public MiniGameBG(BufferedImage img, float x, float y, int width){
         super(img, x, y);
         this.x = new int[3];
         this.x[0] = 0;

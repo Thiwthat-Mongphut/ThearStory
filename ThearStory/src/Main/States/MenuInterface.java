@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MenuInterFace extends State {
+public class MenuInterface extends State {
     
     private boolean check = true;
     private long lastTime;
@@ -19,7 +19,7 @@ public class MenuInterFace extends State {
     private String score;
     
 
-    public MenuInterFace(GamePanel game){
+    public MenuInterface(GamePanel game){
         super(game);
         lastTime = System.nanoTime() / timeUnit;
         try {
@@ -27,9 +27,9 @@ public class MenuInterFace extends State {
             br = new BufferedReader(new FileReader("score.txt"));
             score = br.readLine();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(MenuInterFace.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuInterface.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(MenuInterFace.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
 
             

@@ -1,8 +1,10 @@
 /* 
     Picture Sources
     - http://www.gameart2d.com/
+    - https://opengameart.org/content/free-game-asset-grumpy-flappy-bird-sprite-sheets
     Sound Source
     - Little Idia: https://www.bensound.com
+    - Pink-panther-theme: http://www.orangefreesounds.com/
     ********************Thank you so much***************************
 */
 
@@ -23,7 +25,6 @@ public class Assets {
     // Pictures
     public static ArrayList<BufferedImage[]> TearImg;
     public static ArrayList<BufferedImage[]> ZombieImg;
-    public static BufferedImage[] Tiles = new BufferedImage[50];
     public static BufferedImage menuBG, startIcon, interFaceBg, gameOver
             ,menuButton,menuButton2,closeButton,closeButton2,letsGoButton,letsGoButton2
             ,restartButton,restartButton2, runTutorial_1, runTutorial_2, stealthTutorial_1,stealthTutorial_2;
@@ -36,8 +37,6 @@ public class Assets {
     // Sounds
     public static Clip runGameMusic;
     public static Clip stealthGameMusic;
-    public static Clip zombieMSound;
-    public static Clip zombieFSound;
     
     // Font
     public static Font gothicFont = new Font("SHOWCARD GOTHIC", Font.PLAIN, 20);
@@ -178,16 +177,6 @@ public class Assets {
             inputStream = AudioSystem.getAudioInputStream(
               Assets.class.getResourceAsStream("/Music/Pink-panther-theme.wav"));
             stealthGameMusic.open(inputStream);
-            
-            zombieMSound = AudioSystem.getClip();
-            inputStream = AudioSystem.getAudioInputStream(
-              Assets.class.getResourceAsStream("/Music/ZombieM.wav"));
-            zombieMSound.open(inputStream);
-            
-            zombieFSound = AudioSystem.getClip();
-            inputStream = AudioSystem.getAudioInputStream(
-              Assets.class.getResourceAsStream("/Music/ZombieF.wav"));
-            zombieFSound.open(inputStream);
         }
         catch (Exception e) {
             System.err.println(e.getMessage());

@@ -2,7 +2,7 @@ package Main.States;
 
 import Main.Backgrounds.Background;
 import Main.Backgrounds.Street;
-import Main.Backgrounds.miniGameBG;
+import Main.Backgrounds.MiniGameBG;
 import Main.Entities.Creatures.RunPlayer;
 import Main.GamePanel;
 import Main.Graphics.Assets;
@@ -28,19 +28,19 @@ public class RunMiniGame extends State{
     
     // BG
     private Background[] background;
-    private static int map = 0;
+    private static int map;
     private Street street= new Street(0, 430);;
 
     // Game Value
     public static int score;
-    public static int point = 2;
+    public static int point;
     private static int lastScore;
     private static int oldScore;
-    private static int speed = 7;
+    private static int speed;
     private long lastTime;
     private long timeUnit = 100000000;
-    private int hardValue = 1;
-    private boolean start = false;
+    private static int hardValue;
+    private boolean start;
     
     // Sound
     private static Clip music;
@@ -52,16 +52,19 @@ public class RunMiniGame extends State{
         super(game);
         
         if(!resume){
-            score = 0;
-            speed = 7;
             map = 0;
+            score = 0;
+            point = 2;
             oldScore = 0;
             lastScore = 0;
+            speed = 7;
+            hardValue = 1;
             start = false;
         }
         else{
             hardValue++;
             oldScore += 900;
+            lastScore += 900;
             score += 900;
         }
             
@@ -76,9 +79,9 @@ public class RunMiniGame extends State{
         
         // Set Backgrounds
         background = new Background[3];
-        background[0] = new miniGameBG(Assets.BG[0],0 ,0, 587);
-        background[1] = new miniGameBG(Assets.BG[1],0 ,0, 640);
-        background[2] = new miniGameBG(Assets.BG[2],0 ,0, 968);
+        background[0] = new MiniGameBG(Assets.BG[0],0 ,0, 587);
+        background[1] = new MiniGameBG(Assets.BG[1],0 ,0, 640);
+        background[2] = new MiniGameBG(Assets.BG[2],0 ,0, 968);
         
         // BG Music
         music = Assets.runGameMusic;
@@ -128,7 +131,7 @@ public class RunMiniGame extends State{
                             map = 0;
                         else
                             map++;
-                        if(speed < 11)
+                        if(speed < 10)
                             speed++;
                         player.increaseJumpPower();
                         items.moveMap();
@@ -139,7 +142,7 @@ public class RunMiniGame extends State{
                 if(score - oldScore >= 1500 * hardValue){
                     oldScore = score;
                     music.stop();
-                    game.gameState = new StealStates(game);
+                    game.gameState = new StealthState(game);
                     State.setState(game.gameState);
                 }
 

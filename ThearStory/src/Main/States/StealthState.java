@@ -17,7 +17,7 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 
 
-public class StealStates extends State
+public class StealthState extends State
 {
     // Player
     private PlayerSS player;
@@ -33,7 +33,7 @@ public class StealStates extends State
     
     // Game Value
     private int lastScore, score;
-    private long timeUnit = 1000000000 ,lastTime, lastTimeP;
+    private double timeUnit = 1000000000 ,lastTime, lastTimeP;
     private boolean start = false;
     
     // Sound
@@ -41,8 +41,8 @@ public class StealStates extends State
     
     // Variable Door
     private Doors door;
-    private static ArrayList<Doors>NumDoor;
-    protected boolean checkDoorUp, checkDoorDown, checkDoorCrosse;
+    private static ArrayList<Doors>numDoor;
+    protected boolean checkDoorUp, checkDoorDown, checkDoorCross;
     protected int xDoor, yDoor = 380, num;
     protected int ND = 16; 
     
@@ -53,7 +53,7 @@ public class StealStates extends State
     private Random dice;
     //private int [] YkeysAll = {420, 260, 100};
     private int Ykey, Xkey, RightorLeft, win = 0, RandomK = 4, getRK;
-    private boolean rightroomKey;
+    private boolean rightRoomKey;
     
     // Zombie Value
     private float vX, vY, checkY;
@@ -71,7 +71,7 @@ public class StealStates extends State
     
     private int a = 0;
     
-    StealStates(GamePanel game)
+    StealthState(GamePanel game)
     {
         super(game);
         player = new PlayerSS(game, X, Y, false);
@@ -92,7 +92,7 @@ public class StealStates extends State
         }
         
         //Door
-        NumDoor = new ArrayList<Doors>();
+        numDoor = new ArrayList<Doors>();
                 
         // Right Room
         xDoor = 0;
@@ -104,9 +104,9 @@ public class StealStates extends State
                 xDoor = 75;
             }
             door = new Doors(game, xDoor, yDoor, true, false, false, 2);
-            NumDoor.add(door);
+            numDoor.add(door);
             door = new Doors(game, xDoor, yDoor - 160, false, true, false, 3);
-            NumDoor.add(door);
+            numDoor.add(door);
             xDoor += 170;
         }
         // Left Room
@@ -120,9 +120,9 @@ public class StealStates extends State
                 xDoor = 575;
             }
             door = new Doors(game, xDoor, yDoor, true, false, false, 2);
-            NumDoor.add(door);
+            numDoor.add(door);
             door = new Doors(game, xDoor, yDoor - 160, false, true, false, 3);
-            NumDoor.add(door);
+            numDoor.add(door);
             xDoor += 170;
         }
         
@@ -201,7 +201,7 @@ public class StealStates extends State
             player.setEnterDoor(false);
             player.tick();
 
-            zombieM.setrighRoom(player.getrighRoom());
+            zombieM.setRightRoom(player.getRightRoom());
             zombieM.setvX(player.getX());
             zombieM.setvY(player.getY());
             zombieM.tick();
@@ -213,11 +213,11 @@ public class StealStates extends State
             {
                 if(player.getX() <= 270)
                 {
-                    player.setrighRoom(false);
+                    player.setRightRoom(false);
                 }
                 else if(player.getX() >= 300)
                 {
-                    player.setrighRoom(true);
+                    player.setRightRoom(true);
                 }
             }
 
@@ -225,52 +225,64 @@ public class StealStates extends State
             for(int i = 0; i < ND; i++)
             {
                 // ต.น. X
-                if(player.getX() + 35 >= NumDoor.get(i).getX() && player.getX() + 35 <= NumDoor.get(i).getX() + 50)
+                if(player.getX() + 35 >= numDoor.get(i).getX() && player.getX() + 35 <= numDoor.get(i).getX() + 50)
                 {
                     // ต.น. Y
-                    if(player.getY() >= NumDoor.get(i).getY() && player.getY() <= NumDoor.get(i).getY() + 50)
+                    if(player.getY() >= numDoor.get(i).getY() && player.getY() <= numDoor.get(i).getY() + 50)
                     {
                         // Press E
                         if(player.getEnterDoor())
                         {
                             // UP
-                            if(NumDoor.get(i).getUP() && System.nanoTime() / timeUnit - lastTime >= 1)
+                            if(numDoor.get(i).getUP() && System.nanoTime() / timeUnit - lastTime >= 1)
                             {
                                 player.setY(-160);
                                 lastTime = System.nanoTime() / timeUnit;
                             }
 
                             // DOWN
-                            else if(NumDoor.get(i).getDOWN() && System.nanoTime() / timeUnit - lastTime >= 1)
+                            else if(numDoor.get(i).getDOWN() && System.nanoTime() / timeUnit - lastTime >= 1)
                             {
 
                                 player.setY(160);
                                 lastTime = System.nanoTime() / timeUnit;
                             }
-                        }
                         //End Enter
+                        }
+                         // End if y
                     }
-                    // End if y
+                    // End if x
                 }
-                // End if x
                 // get position y player to ZombieF
                 zombieF.getPositionPlayer(player.getY());
             }
             // End Loop Door
 
-            // Hit Blocks
-            if((player.getX() <= zombieM.GetX() + zombieM.getWidth() && player.getX() >= zombieM.GetX()) ||
-                    (player.getX() + 130 >= zombieM.GetX() && player.getX() + 130 <= zombieM.GetX()  + zombieM.getWidth()))
+            // Hit Blocks M
+            if((player.getX() <= zombieM.getX() + zombieM.getWidth() && player.getX() >= zombieM.getX()) ||
+                    (player.getX() + 100 >= zombieM.getX() && player.getX() + 100 <= zombieM.getX()  + zombieM.getWidth()))
             {
-                if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
+                if(player.getY() - 9 == zombieM.getY() && !zombieM.getProtectPlayer())
                 {
                     backgroundMusic.stop();
                     game.gameState = new GameOverInterface(game);
                     State.setState(game.gameState);
                 }
             }
+            if(zombieM.getX() >= player.getX() && zombieM.getX() + zombieM.getWidth() <= player.getX() + 100)
+            {
+                if(player.getY() - 9 == zombieM.getY() && !zombieM.getProtectPlayer())
+                {
+                    backgroundMusic.stop();
+                    game.gameState = new GameOverInterface(game);
+                    State.setState(game.gameState);
+                }
+            }
+            // End Hit Blocks M
+
+            // Hit Blocks F
             if((player.getX() <= zombieF.getX() + zombieF.getWidth() && player.getX() >= zombieF.getX()) ||
-                    (player.getX() + 130 >= zombieF.getX() && player.getX() + 130 <= zombieF.getX()  + zombieF.getWidth()))
+                    (player.getX() + 100 >= zombieF.getX() && player.getX() + 100 <= zombieF.getX()  + zombieF.getWidth()))
             {
                 if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
                 {
@@ -279,7 +291,8 @@ public class StealStates extends State
                     State.setState(game.gameState);
                 }
             }
-            if(zombieF.getX() >= player.getX() && zombieF.getX() + zombieF.getWidth() <= player.getX() + 130){
+            if(zombieF.getX() >= player.getX() && zombieF.getX() + zombieF.getWidth() <= player.getX() + 100)
+            {
                 if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
                 {
                     backgroundMusic.stop();
@@ -287,22 +300,14 @@ public class StealStates extends State
                     State.setState(game.gameState);
                 }
             }
-            if(zombieM.GetX() >= player.getX() && zombieM.GetX() + zombieM.getWidth() <= player.getX() + 130){
-                if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
-                {
-                    backgroundMusic.stop();
-                    game.gameState = new GameOverInterface(game);
-                    State.setState(game.gameState);
-                }
-            }
-            // End Hit Blocks
+            // End Hit Blocks F
 
 
             // Key
             for(int i = 0; i < NumKey.size(); i++)
             {
                 if((player.getX() <= NumKey.get(i).getX()+ NumKey.get(0).getWidth() && player.getX() >= NumKey.get(i).getX()) ||
-                        (player.getX() + 130 >= NumKey.get(i).getX() && player.getX() + 130 <= NumKey.get(i).getX()  + NumKey.get(0).getWidth()))
+                        (player.getX() + 100 >= NumKey.get(i).getX() && player.getX() + 100 <= NumKey.get(i).getX()  + NumKey.get(0).getWidth()))
                 {
                     if(player.getY() + 25  == NumKey.get(i).getY())
                     {
@@ -310,7 +315,7 @@ public class StealStates extends State
                         NumKey.remove(i);
                     }
                 }
-                else if(NumKey.get(i).getX() >= player.getX() && NumKey.get(i).getX() + NumKey.get(0).getWidth() <= player.getX() + 130){
+                else if(NumKey.get(i).getX() >= player.getX() && NumKey.get(i).getX() + NumKey.get(0).getWidth() <= player.getX() + 100){
                     if(player.getY() + 25  == NumKey.get(i).getY())
                     {
                         win++;
@@ -346,7 +351,7 @@ public class StealStates extends State
         }
         for(int i = 0; i < ND; i++)
         {
-            NumDoor.get(i).render(g);
+            numDoor.get(i).render(g);
         }
         for(int i = 0; i < NumKey.size(); i++)
         {
