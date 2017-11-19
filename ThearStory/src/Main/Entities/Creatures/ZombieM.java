@@ -11,7 +11,7 @@ public class ZombieM extends Zombie{
     protected BufferedImage[] img;
     protected int walkFrame;
     private float vX, vY, speedUP = 1, limitLeft, LimiRight;
-    private boolean righRoom, LeftRoomZ = true, lock = false, ProtectPlayer = false;
+    private boolean rightRoom, LeftRoomZ = true, lock = false, ProtectPlayer = false;
     private long timeUnit = 300000000, lastTime;
     
     public ZombieM(GamePanel game, float x, float y) {
@@ -24,11 +24,11 @@ public class ZombieM extends Zombie{
     @Override
     public void tick() 
     {
-        if(LeftRoomZ && !righRoom || !LeftRoomZ && righRoom)
+        if(LeftRoomZ && !rightRoom || !LeftRoomZ && rightRoom)
         {
             gotoPlayer();
         }
-        else if(!LeftRoomZ && !righRoom || LeftRoomZ && righRoom )
+        else if(!LeftRoomZ && !rightRoom || LeftRoomZ && rightRoom )
         {
             gotoDownStair();
         }
@@ -135,7 +135,7 @@ public class ZombieM extends Zombie{
     
     public void gotoPlayer()
     {
-        if(righRoom && y < 386)
+        if(rightRoom && y < 386)
         {
             limitLeft = 415;
             LimiRight = 780;
@@ -154,7 +154,7 @@ public class ZombieM extends Zombie{
                     lock = false;
             }
         }
-        else if(!righRoom && y < 386)
+        else if(!rightRoom && y < 386)
         {
             limitLeft = 0;
             LimiRight = 340;
@@ -294,19 +294,19 @@ public class ZombieM extends Zombie{
     }
 
     @Override
-    public float GetX() {
+    public float getX() {
         return x;
     }
 
     @Override
-    public float GetY() {
+    public float getY() {
         return y;
     }
     
 
     @Override
-    public void setrighRoom(boolean righRoom) {
-        this.righRoom = righRoom;
+    public void setRightRoom(boolean rightRoom) {
+        this.rightRoom = rightRoom;
     }
     
     public boolean getProtectPlayer(){

@@ -24,11 +24,11 @@ public abstract class Zombie extends Creature{
     
     public abstract void setvY(float vY);
     
-    public abstract float GetX();
+    public abstract float getX();
     
-    public abstract float GetY();
+    public abstract float getY();
     
-    public abstract void setrighRoom(boolean righRoom);
+    public abstract void setRightRoom(boolean rightRoom);
 
 
     @Override
