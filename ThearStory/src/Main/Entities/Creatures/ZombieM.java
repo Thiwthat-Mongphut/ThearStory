@@ -6,12 +6,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class ZombieM extends Zombie{
-
     
     protected BufferedImage[] img;
     protected int walkFrame;
-    private float vX, vY, speedUP = 1, limitLeft, LimiRight;
-    private boolean rightRoom, LeftRoomZ = true, lock = false, ProtectPlayer = false;
+    private float vX, vY, speedUP = 1, limitLeft, limiRight;
+    private boolean rightRoom, leftRoomZ = true, lock = false, protectPlayer = false;
     private long timeUnit = 300000000, lastTime;
     
     public ZombieM(GamePanel game, float x, float y) {
@@ -24,31 +23,31 @@ public class ZombieM extends Zombie{
     @Override
     public void tick() 
     {
-        if(LeftRoomZ && !rightRoom || !LeftRoomZ && rightRoom)
+        if(leftRoomZ && !rightRoom || !leftRoomZ && rightRoom)
         {
-            gotoPlayer();
+            goToPlayer();
         }
-        else if(!LeftRoomZ && !rightRoom || LeftRoomZ && rightRoom )
+        else if(!leftRoomZ && !rightRoom || leftRoomZ && rightRoom )
         {
-            gotoDownStair();
+            goToDownStair();
         }
     }
     
-    public void gotoDownStair()
+    public void goToDownStair()
     {
         
         if(y == 66 || y == 226)
         {
             // ซ้ายบนและกลาง
-            if(LeftRoomZ)
+            if(leftRoomZ)
             {
                 limitLeft = 0;
-                LimiRight = 340;
-                if(x < LimiRight && !lock)
+                limiRight = 340;
+                if(x < limiRight && !lock)
                 {
                     x += speedUP;
                     walkRight();
-                    if(x == LimiRight)
+                    if(x == limiRight)
                         lock = true;
                 }
                 else if(x > limitLeft && lock)
@@ -63,12 +62,12 @@ public class ZombieM extends Zombie{
             else
             {
                 limitLeft = 415;
-                LimiRight = 780;
-                if(x < LimiRight && !lock)
+                limiRight = 780;
+                if(x < limiRight && !lock)
                 {
                     x += speedUP;
                     walkRight();
-                    if(x == LimiRight)
+                    if(x == limiRight)
                         lock = true;
                 }
                 else if(x > limitLeft && lock)
@@ -86,12 +85,12 @@ public class ZombieM extends Zombie{
         else if(y == 386)
         {
             limitLeft = 0;
-            LimiRight = 780;
-            if(x < LimiRight && !lock)
+            limiRight = 780;
+            if(x < limiRight && !lock)
             {
                 x += speedUP;
                 walkRight();
-                if(x == LimiRight)
+                if(x == limiRight)
                     lock = true;
             }
             else if(x > limitLeft && lock)
@@ -103,10 +102,10 @@ public class ZombieM extends Zombie{
             }
             
             if(x >= 400)
-                LeftRoomZ = false;
+                leftRoomZ = false;
             
             else
-                LeftRoomZ = true;
+                leftRoomZ = true;
         }
         
         // ลงบรรได
@@ -117,7 +116,7 @@ public class ZombieM extends Zombie{
                 if(x == 75 || x == 245 || x == 575 || x == 645)
                 {
                     y += 160;
-                    ProtectPlayer = true;
+                    protectPlayer = true;
                 }
             }
             
@@ -126,24 +125,24 @@ public class ZombieM extends Zombie{
                 if(x == 0 || x == 170 || x == 480 ||x == 0 || x == 650)
                 {
                     y += 160;
-                    ProtectPlayer = true;
+                    protectPlayer = true;
                 }
             }
         }
     }
     
     
-    public void gotoPlayer()
+    public void goToPlayer()
     {
         if(rightRoom && y < 386)
         {
             limitLeft = 415;
-            LimiRight = 780;
-            if(x < LimiRight && !lock)
+            limiRight = 780;
+            if(x < limiRight && !lock)
             {
                 x += speedUP;
                 walkRight();
-                if(x == LimiRight)
+                if(x == limiRight)
                     lock = true;
             }
             else if(x > limitLeft && lock)
@@ -157,12 +156,12 @@ public class ZombieM extends Zombie{
         else if(!rightRoom && y < 386)
         {
             limitLeft = 0;
-            LimiRight = 340;
-            if(x < LimiRight && !lock)
+            limiRight = 340;
+            if(x < limiRight && !lock)
             {
                 x += speedUP;
                 walkRight();
-                if(x == LimiRight)
+                if(x == limiRight)
                     lock = true;
             }
             else if(x > limitLeft && lock)
@@ -176,12 +175,12 @@ public class ZombieM extends Zombie{
         else if(y == 386)
         {
             limitLeft = 0;
-            LimiRight = 780;
-            if(x < LimiRight && !lock)
+            limiRight = 780;
+            if(x < limiRight && !lock)
             {
                 x += speedUP;
                 walkRight();
-                if(x == LimiRight)
+                if(x == limiRight)
                     lock = true;
             }
             else if(x > limitLeft && lock)
@@ -197,7 +196,7 @@ public class ZombieM extends Zombie{
             if(x == 75 || x == 245 || x == 575 || x == 745)
                 {
                     y += 160;
-                    ProtectPlayer = true;
+                    protectPlayer = true;
                 }
         }
         
@@ -206,7 +205,7 @@ public class ZombieM extends Zombie{
             if(x == 0 || x == 170 || x == 480 || x == 650)
                 {
                     y += 160;
-                    ProtectPlayer = true;
+                    protectPlayer = true;
                 }
         }
         
@@ -215,17 +214,17 @@ public class ZombieM extends Zombie{
             if(x == 75 || x == 245 || x == 575 || x == 745)
                 {
                     y -= 160;
-                    ProtectPlayer = true;
+                    protectPlayer = true;
                 }
         }
         
         else if(y == vY - 9)
         {
             if(x >= 400)
-                LeftRoomZ = false;
+                leftRoomZ = false;
             
             else
-                LeftRoomZ = true;
+                leftRoomZ = true;
         }
         
         else if(y > vY - 9 && y == 386) // เตี้ยบน ซอมล่างสุด
@@ -233,7 +232,7 @@ public class ZombieM extends Zombie{
             if(x == 0 || x == 170 || x == 480 || x == 650)
                 {
                     y -= 160;
-                    ProtectPlayer = true;
+                    protectPlayer = true;
                 }
         }
     }
@@ -310,10 +309,10 @@ public class ZombieM extends Zombie{
     }
     
     public boolean getProtectPlayer(){
-        return ProtectPlayer;
+        return protectPlayer;
     }
           
     public void setProtectPlayer(boolean ProtectPlayer){
-        this.ProtectPlayer = ProtectPlayer;
+        this.protectPlayer = ProtectPlayer;
     }
 }

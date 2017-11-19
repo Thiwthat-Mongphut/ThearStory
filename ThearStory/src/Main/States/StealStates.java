@@ -41,8 +41,8 @@ public class StealStates extends State
     
     // Variable Door
     private Doors door;
-    private static ArrayList<Doors>NumDoor;
-    protected boolean checkDoorUp, checkDoorDown, checkDoorCrosse;
+    private static ArrayList<Doors>numDoor;
+    protected boolean checkDoorUp, checkDoorDown, checkDoorCross;
     protected int xDoor, yDoor = 380, num;
     protected int ND = 16; 
     
@@ -53,7 +53,7 @@ public class StealStates extends State
     private Random dice;
     //private int [] YkeysAll = {420, 260, 100};
     private int Ykey, Xkey, RightorLeft, win = 0, RandomK = 4, getRK;
-    private boolean rightroomKey;
+    private boolean rightRoomKey;
     
     // Zombie Value
     private float vX, vY, checkY;
@@ -92,7 +92,7 @@ public class StealStates extends State
         }
         
         //Door
-        NumDoor = new ArrayList<Doors>();
+        numDoor = new ArrayList<Doors>();
                 
         // Right Room
         xDoor = 0;
@@ -104,9 +104,9 @@ public class StealStates extends State
                 xDoor = 75;
             }
             door = new Doors(game, xDoor, yDoor, true, false, false, 2);
-            NumDoor.add(door);
+            numDoor.add(door);
             door = new Doors(game, xDoor, yDoor - 160, false, true, false, 3);
-            NumDoor.add(door);
+            numDoor.add(door);
             xDoor += 170;
         }
         // Left Room
@@ -120,9 +120,9 @@ public class StealStates extends State
                 xDoor = 575;
             }
             door = new Doors(game, xDoor, yDoor, true, false, false, 2);
-            NumDoor.add(door);
+            numDoor.add(door);
             door = new Doors(game, xDoor, yDoor - 160, false, true, false, 3);
-            NumDoor.add(door);
+            numDoor.add(door);
             xDoor += 170;
         }
         
@@ -199,7 +199,7 @@ public class StealStates extends State
         player.setEnterDoor(false);
         player.tick();
         
-        zombieM.setRightRoom(player.getrighRoom());
+        zombieM.setRightRoom(player.getRightRoom());
         zombieM.setvX(player.getX());
         zombieM.setvY(player.getY());
         zombieM.tick();
@@ -211,11 +211,11 @@ public class StealStates extends State
         {
             if(player.getX() <= 270)
             {
-                player.setrighRoom(false);
+                player.setRightRoom(false);
             }
             else if(player.getX() >= 300)
             {
-                player.setrighRoom(true);
+                player.setRightRoom(true);
             }
         }
         
@@ -223,23 +223,23 @@ public class StealStates extends State
         for(int i = 0; i < ND; i++)
         {
             // ต.น. X
-            if(player.getX() + 35 >= NumDoor.get(i).getX() && player.getX() + 35 <= NumDoor.get(i).getX() + 50)
+            if(player.getX() + 35 >= numDoor.get(i).getX() && player.getX() + 35 <= numDoor.get(i).getX() + 50)
             {
                 // ต.น. Y
-                if(player.getY() >= NumDoor.get(i).getY() && player.getY() <= NumDoor.get(i).getY() + 50)
+                if(player.getY() >= numDoor.get(i).getY() && player.getY() <= numDoor.get(i).getY() + 50)
                 {
                     // Press E
                     if(player.getEnterDoor())
                     {
                         // UP
-                        if(NumDoor.get(i).getUP() && System.nanoTime() / timeUnit - lastTime >= 1)
+                        if(numDoor.get(i).getUP() && System.nanoTime() / timeUnit - lastTime >= 1)
                         {
                             player.setY(-160);
                             lastTime = System.nanoTime() / timeUnit;
                         }
                         
                         // DOWN
-                        else if(NumDoor.get(i).getDOWN() && System.nanoTime() / timeUnit - lastTime >= 1)
+                        else if(numDoor.get(i).getDOWN() && System.nanoTime() / timeUnit - lastTime >= 1)
                         {
                             
                             player.setY(160);
@@ -342,7 +342,7 @@ public class StealStates extends State
         }
         for(int i = 0; i < ND; i++)
         {
-            NumDoor.get(i).render(g);
+            numDoor.get(i).render(g);
         }
         for(int i = 0; i < NumKey.size(); i++)
         {
