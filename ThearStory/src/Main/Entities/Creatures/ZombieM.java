@@ -7,16 +7,14 @@ import java.awt.image.BufferedImage;
 
 public class ZombieM extends Creature{
     
-    protected GamePanel game;
     protected BufferedImage[] img;
     protected int walkFrame;
     private float vX, vY, speedUP = 1, limitLeft, limiRight;
     private boolean rightRoom, leftRoomZ = true, lock = false, protectPlayer = false;
     private long timeUnit = 300000000, lastTime;
     
-    public ZombieM(GamePanel game, float x, float y) {
+    public ZombieM(float x, float y) {
         super(x, y);
-        this.game = game;
         lastTime = System.nanoTime() / 1000000000;
         img = Assets.ZombieImg.get(1);
         walkFrame = 0;

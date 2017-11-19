@@ -50,7 +50,10 @@ public class RunMiniGame extends State{
     
     public RunMiniGame(GamePanel game, boolean resume) {
         super(game);
-        
+        player = new RunPlayer(game, 50, walkY, walkY, downY);
+        playerWidth = player.getWidth();
+        playerHeight = player.getHeight();
+
         if(!resume){
             map = 0;
             score = 0;
@@ -66,13 +69,9 @@ public class RunMiniGame extends State{
             oldScore += 900;
             lastScore += 900;
             score += 900;
+            player.setJumpPower(8);
         }
-            
         
-        player = new RunPlayer(game, 50, walkY, walkY, downY);
-        playerWidth = player.getWidth();
-        playerHeight = player.getHeight();
-
         lastTime = System.nanoTime() / timeUnit;
         
         items = new Items(0, 0);
@@ -125,7 +124,8 @@ public class RunMiniGame extends State{
                     score += point;
                     if(score - lastScore >= 500){
                         lastScore = score;
-                        point++;
+                        if(point < 6)
+                            point++;
                         background[map].setX(0);
                         if(map == 2)
                             map = 0;

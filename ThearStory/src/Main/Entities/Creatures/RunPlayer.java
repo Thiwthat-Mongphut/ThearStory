@@ -135,8 +135,12 @@ public class RunPlayer extends Creature{
     }
     
     public void increaseJumpPower(){
-        if(jumpPower < 9)
+        if(jumpPower < 8)
             jumpPower += 1;
+    }
+    
+    public void setJumpPower(int i){
+        jumpPower = i;
     }
     
     public void reduceHealth(int i){

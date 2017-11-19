@@ -168,7 +168,7 @@ public class StealthState extends State
             RandomP.remove(getRK);
         } 
         
-        zombieM = new ZombieM(game, zmX, zmY);      
+        zombieM = new ZombieM(zmX, zmY);      
         
         // ZombieF
         pos = rand.nextInt(2);
@@ -176,7 +176,7 @@ public class StealthState extends State
         pos = rand.nextInt(2);
         posX = positionX[pos];
         
-        zombieF = new ZombieF(game, posX, posY, (float)0.5);
+        zombieF = new ZombieF(posX, posY, (float)0.5);
         
         // BG Music
         backgroundMusic = Assets.stealthGameMusic;

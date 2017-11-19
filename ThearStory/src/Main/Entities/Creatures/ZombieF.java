@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 public class ZombieF extends Creature{
     
-    protected GamePanel game;
     protected BufferedImage[] img;
     protected PlayerSS player;
     
@@ -19,9 +18,8 @@ public class ZombieF extends Creature{
     private boolean firstWalk = true, protectPlayer = false;
     private float posYPlayer;
     
-    public ZombieF(GamePanel game, float x, float y, float walkSpeed){
+    public ZombieF(float x, float y, float walkSpeed){
         super(x, y);
-        this.game = game;
         lastTime = System.nanoTime() / 1000000000;
         img = Assets.ZombieImg.get(3); // เดินขวา
         this.walkSpeed = walkSpeed;
