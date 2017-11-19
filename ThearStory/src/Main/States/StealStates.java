@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.sound.sampled.Clip;
+import static sun.audio.AudioPlayer.player;
 
 
 public class StealStates extends State
@@ -33,7 +34,10 @@ public class StealStates extends State
     
     // Game Value
     private int lastScore, score;
-    private long timeUnit = 1000000000 ,lastTime;
+    private long timeUnit = 1000000000 ,lastTime, lastTimeP;
+    
+    // Sound
+    private Clip backgroundMusic;
     
     // Variable Door
     private Doors door;
@@ -45,9 +49,10 @@ public class StealStates extends State
     //Key
     private KeyForWin key;
     private static ArrayList<KeyForWin>NumKey;
+    private static ArrayList<Integer>RandomP;
     private Random dice;
-    private int [] YkeysAll = {420, 260, 100};
-    private int Ykey, Xkey, RightorLeft, win = 0;
+    //private int [] YkeysAll = {420, 260, 100};
+    private int Ykey, Xkey, RightorLeft, win = 0, RandomK = 4, getRK;
     private boolean rightroomKey;
     
     // Zombie Value
@@ -55,7 +60,7 @@ public class StealStates extends State
     
     // ZombieM
     private ZombieM zombieM;
-    private float zmX = 0, zmY = 75;
+    private float zmX = 0, zmY = 66;
     
     // ZombieF
     private ZombieF zombieF;
@@ -63,6 +68,8 @@ public class StealStates extends State
     private int[] positionX = {100, 600};
     private int[] positionY = {227, 67};
     private Random rand = new Random();
+    
+    private int a = 0;
     
     StealStates(GamePanel game)
     {
@@ -121,38 +128,44 @@ public class StealStates extends State
         
         //Keys
         dice = new Random();
+        RandomP = new ArrayList<Integer>();
         NumKey = new ArrayList<KeyForWin>();
+        RandomP.add(0);
+        RandomP.add(1);
+        RandomP.add(2);
+        RandomP.add(3);
         for(int i = 0; i < 3; i++)
         {
-            Ykey = dice.nextInt(3);
-            Ykey = YkeysAll[Ykey];
-            if(Ykey == 395)
+            getRK = dice.nextInt(RandomK);
+            RandomK--;
+            Ykey = RandomP.get(getRK);
+            
+            if(Ykey == 0)
             {
-                Xkey = dice.nextInt(720);
+                Xkey = dice.nextInt(300);
+                Ykey = 260;
             }
-            else
+            else if(Ykey == 1)
             {
-                // Room Key Right or Left
-                RightorLeft = dice.nextInt(2);
-                if(RightorLeft == 0)
-                {
-                    rightroomKey = true;
-                    Xkey = dice.nextInt(270);
-                }
-                else
-                {
-                    rightroomKey = false;
-                    Xkey = dice.nextInt(720);
-                    
-                    if(Xkey <= 310)
-                        Xkey += 310;
-                    
-                    if(Xkey >= 310 && Xkey <= 410)
-                        Xkey += 50;
-                }
+                Xkey = dice.nextInt(300);
+                Xkey += 450;
+                Ykey = 260;
             }
+            else if(Ykey == 2)
+            {
+                Xkey = dice.nextInt(300);
+                Ykey = 100;
+            }
+            else if(Ykey == 3)
+            {
+                Xkey = dice.nextInt(300);
+                Xkey += 450;
+                Ykey = 100;
+            }
+            
             key = new KeyForWin(game, Xkey, Ykey);
             NumKey.add(key);
+            RandomP.remove(getRK);
         } 
         
         zombieM = new ZombieM(game, zmX, zmY);      
@@ -164,33 +177,45 @@ public class StealStates extends State
         posX = positionX[pos];
         
         zombieF = new ZombieF(game, posX, posY, (float)0.5);
+        
+        // BG Music
+        backgroundMusic = Assets.stealthGameMusic;
+        backgroundMusic.setFramePosition(0);
+        backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        backgroundMusic.start();
+        
+        lastTime = System.nanoTime() / timeUnit;
+        lastTimeP = System.nanoTime() / timeUnit;
     }
 
     @Override
     public void tick() 
     {
+        if((System.nanoTime() - lastTimeP) / 1000000000 >= 1){
+            zombieM.setProtectPlayer(false);
+            zombieF.setProtectPlayer(false);
+            lastTimeP = System.nanoTime();
+        }
         player.setEnterDoor(false);
         player.tick();
         
+        zombieM.setrighRoom(player.getrighRoom());
         zombieM.setvX(player.getX());
         zombieM.setvY(player.getY());
         zombieM.tick();
         
         zombieF.tick();
         
-        System.out.println("Player "+"X:" + player.getX() + "Y:" + player.getY());
-        System.out.println("ZombieM "+"X:" + zombieM.GetX() + "Y:" + zombieM.GetY());
-        
         // Crosse Room
         if(player.getY() == 395)
         {
             if(player.getX() <= 270)
             {
-                player.setrighRoom(true);
+                player.setrighRoom(false);
             }
             else if(player.getX() >= 300)
             {
-                player.setrighRoom(false);
+                player.setrighRoom(true);
             }
         }
         
@@ -231,13 +256,60 @@ public class StealStates extends State
         }
         // End Loop Door
         
+        // Hit Blocks
+        if((player.getX() <= zombieM.GetX() + zombieM.getWidth() && player.getX() >= zombieM.GetX()) ||
+                (player.getX() + 130 >= zombieM.GetX() && player.getX() + 130 <= zombieM.GetX()  + zombieM.getWidth()))
+        {
+            if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
+            {
+                backgroundMusic.stop();
+                game.gameState = new GameOverInterface(game);
+                State.setState(game.gameState);
+            }
+        }
+        if((player.getX() <= zombieF.getX() + zombieF.getWidth() && player.getX() >= zombieF.getX()) ||
+                (player.getX() + 130 >= zombieF.getX() && player.getX() + 130 <= zombieF.getX()  + zombieF.getWidth()))
+        {
+            if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
+            {
+                backgroundMusic.stop();
+                game.gameState = new GameOverInterface(game);
+                State.setState(game.gameState);
+            }
+        }
+        if(zombieF.getX() >= player.getX() && zombieF.getX() + zombieF.getWidth() <= player.getX() + 130){
+            if(player.getY() - 8 == zombieF.getY() && !zombieF.getProtectPlayer())
+            {
+                backgroundMusic.stop();
+                game.gameState = new GameOverInterface(game);
+                State.setState(game.gameState);
+            }
+        }
+        if(zombieM.GetX() >= player.getX() && zombieM.GetX() + zombieM.getWidth() <= player.getX() + 130){
+            if(player.getY() - 9 == zombieM.GetY() && !zombieM.getProtectPlayer())
+            {
+                backgroundMusic.stop();
+                game.gameState = new GameOverInterface(game);
+                State.setState(game.gameState);
+            }
+        }
+        // End Hit Blocks
+        
+        
         // Key
         for(int i = 0; i < NumKey.size(); i++)
         {
-            // รอแก้ความกว้าง key
-            if(player.getX() >= NumKey.get(i).getX() && player.getX() <= NumKey.get(i).getX() + 20)
+            if((player.getX() <= NumKey.get(i).getX()+ NumKey.get(0).getWidth() && player.getX() >= NumKey.get(i).getX()) ||
+                    (player.getX() + 130 >= NumKey.get(i).getX() && player.getX() + 130 <= NumKey.get(i).getX()  + NumKey.get(0).getWidth()))
             {
-                if(player.getY() == NumKey.get(i).getY())
+                if(player.getY() + 25  == NumKey.get(i).getY())
+                {
+                    win++;
+                    NumKey.remove(i);
+                }
+            }
+            else if(NumKey.get(i).getX() >= player.getX() && NumKey.get(i).getX() + NumKey.get(0).getWidth() <= player.getX() + 130){
+                if(player.getY() + 25  == NumKey.get(i).getY())
                 {
                     win++;
                     NumKey.remove(i);
@@ -249,7 +321,8 @@ public class StealStates extends State
         //Game End
         if(win == 3)
         {
-            game.gameState = new MainState(game);
+            backgroundMusic.stop();
+            game.gameState = new RunMiniGame(game, true);
             State.setState(game.gameState);
         }
     }

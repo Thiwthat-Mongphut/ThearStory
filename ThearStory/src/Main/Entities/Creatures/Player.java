@@ -16,7 +16,7 @@ public class Player extends Creature{
     
     // Jump Variables
     protected int jumpWidth = 0;
-    protected int jumpHeight = 250;
+    protected int jumpHeight = 230;
     protected boolean jumpStatus = false;
     protected int gravity = 3;
     protected int jumpPower = 5;

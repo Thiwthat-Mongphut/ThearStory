@@ -1,364 +1,241 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main.Entities.Creatures;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
-import static Main.Graphics.Assets.ZombieImg;
-import Main.Objects.Doors;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import static sun.audio.AudioPlayer.player;
 
-/**
- *
- * @author Korn
- */
 public class ZombieM extends Zombie{
 
     
     protected BufferedImage[] img;
     protected int walkFrame;
-    private float vX, vY, speedUP = 1;
-    private boolean righRoom;
+    private float vX, vY, speedUP = 1, limitLeft, LimiRight;
+    private boolean righRoom, LeftRoomZ = true, lock = false, ProtectPlayer = false;
     private long timeUnit = 300000000, lastTime;
     
     public ZombieM(GamePanel game, float x, float y) {
         super(game, x, y);
         lastTime = System.nanoTime() / 1000000000;
-        img = Assets.ZombieImg.get(0);
+        img = Assets.ZombieImg.get(1);
         walkFrame = 0;
     }
 
     @Override
-    public void tick() {
-        
-        
-        // Down
-        if(vY > y)
+    public void tick() 
+    {
+        if(LeftRoomZ && !righRoom || !LeftRoomZ && righRoom)
         {
-            // Top Room
-            if(y == 75)
-            {
-                // DOOR TOP 1 Left
-                if(x - 75 <= x - 245 && !righRoom)
-                {
-                    if(x > 75)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 75)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 75)
-                    {
-                        y += 160;
-                    }
-                }
-                // DOOR TOP 2 Left
-                else if(x - 75 >= x - 245 && !righRoom)
-                {
-                    if(x > 245)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 245)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 245)
-                    {
-                        y += 160;
-                    }
-                }
-                // DOOR TOP 1 Right
-                else if(x - 650 <= x - 745 && righRoom)
-                {
-                    if(x > 650)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 650)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 650)
-                    {
-                        y += 160;
-                    }
-                }
-                // DOOR TOP 2 Right
-                else if(x - 650 >= x - 745 && righRoom)
-                {
-                    if(x > 745)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 745)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 745)
-                    {
-                        y += 160;
-                    }
-                }
-            }
-            // Top End
-            
-            // Mid Room
-            else if(y == 235)
-            {
-                // DOOR Mid 1 Left
-                if(x - 0 <= x - 170 && !righRoom)
-                {
-                    if(x > 0)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 0)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 0)
-                    {
-                        y += 160;
-                    }
-                }
-                // DOOR Mid 2 Left
-                else if(x >= x - 170 && !righRoom)
-                {
-                    if(x > 170)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 170)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 170)
-                    {
-                        y += 160;
-                    }
-                }
-                // DOOR Mid 3 Right
-                else if(x - 480 <= x - 575 && righRoom)
-                {
-                    if(x > 480)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 480)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 480)
-                    {
-                        y += 160;
-                    }
-                }
-                // DOOR Mid 4 Right
-                else if(x - 480 >= x - 575 && righRoom)
-                {
-                    if(x > 575)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 575)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 575)
-                    {
-                        y += 160;
-                    }
-                }
-            }
-            //Mid End
+            gotoPlayer();
         }
-        // Down End
-        
-        // UP
-        else if(vY < y)
+        else if(!LeftRoomZ && !righRoom || LeftRoomZ && righRoom )
         {
-            // Downstairs
-            if(y == 395)
-            {
-                // Downstairs Door 1
-                if(x <= x - 170)
-                {
-                    if(x > 0)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 0)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 0)
-                    {
-                        y -= 160;
-                    }
-                }
-                // Downstairs Door 2
-                else if(x - 170 <= x - 470)
-                {
-                    if(x > 170)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 170)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 170)
-                    {
-                        y -= 160;
-                    }
-                }
-                // Downstairs Door 3
-                else if(x - 470 <= x - 575)
-                {
-                    if(x > 470)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 470)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 480)
-                    {
-                        y -= 160;
-                    }
-                }
-                // Downstairs Door 4
-                else
-                {
-                    if(x > 575)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 575)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 575)
-                    {
-                        y -= 160;
-                    }
-                }
-            }
-            //Downstairs End
-            
-            // Mid Room
-            else if(y == 235)
-            {
-                // DOOR Mid 1 Left
-                if(x - 0 <= x - 170 && !righRoom)
-                {
-                    if(x > 0)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 0)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 0)
-                    {
-                        y -= 160;
-                    }
-                }
-                // DOOR Mid 2 Left
-                else if(x >= x - 170 && !righRoom)
-                {
-                    if(x > 170)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 170)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 170)
-                    {
-                        y -= 160;
-                    }
-                }
-                // DOOR Mid 3 Right
-                else if(x - 480 <= x - 575 && righRoom)
-                {
-                    if(x > 480)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 480)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 480)
-                    {
-                        y -= 160;
-                    }
-                }
-                // DOOR Mid 4 Right
-                else if(x - 480 >= x - 575 && righRoom)
-                {
-                    if(x > 575)
-                    {
-                        x -= speedUP;
-                        walkLeft();
-                    }
-                    else if(x < 575)
-                    {
-                        x += speedUP;
-                        walkRight();
-                    }
-                    if(x == 575)
-                    {
-                        y -= 160;
-                    }
-                }
-            }
-            //Mid End
+            gotoDownStair();
         }
-        // UP End
+    }
+    
+    public void gotoDownStair()
+    {
+        
+        if(y == 66 || y == 226)
+        {
+            // ซ้ายบนและกลาง
+            if(LeftRoomZ)
+            {
+                limitLeft = 0;
+                LimiRight = 340;
+                if(x < LimiRight && !lock)
+                {
+                    x += speedUP;
+                    walkRight();
+                    if(x == LimiRight)
+                        lock = true;
+                }
+                else if(x > limitLeft && lock)
+                {
+                    x -= speedUP;
+                    walkLeft();
+                    if(x == limitLeft)
+                        lock = false;
+                }
+            }
+            // ขวาบนและกลาง
+            else
+            {
+                limitLeft = 415;
+                LimiRight = 780;
+                if(x < LimiRight && !lock)
+                {
+                    x += speedUP;
+                    walkRight();
+                    if(x == LimiRight)
+                        lock = true;
+                }
+                else if(x > limitLeft && lock)
+                {
+                    x -= speedUP;
+                    walkLeft();
+                    if(x == limitLeft)
+                        lock = false;
+                }
+            }
+        }
+        // End ชั้นกลางแและบน
+        
+        //ชั้นล่าง
+        else if(y == 386)
+        {
+            limitLeft = 0;
+            LimiRight = 780;
+            if(x < LimiRight && !lock)
+            {
+                x += speedUP;
+                walkRight();
+                if(x == LimiRight)
+                    lock = true;
+            }
+            else if(x > limitLeft && lock)
+            {
+                x -= speedUP;
+                walkLeft();
+                if(x == limitLeft)
+                    lock = false;
+            }
+            
+            if(x >= 400)
+                LeftRoomZ = false;
+            
+            else
+                LeftRoomZ = true;
+        }
+        
+        // ลงบรรได
+        if(y < 386)
+        {
+            if(y == 66)
+            {
+                if(x == 75 || x == 245 || x == 575 || x == 645)
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
+            }
+            
+            else if(y == 226)
+            {
+                if(x == 0 || x == 170 || x == 480 ||x == 0 || x == 650)
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
+            }
+        }
+    }
+    
+    
+    public void gotoPlayer()
+    {
+        if(righRoom && y < 386)
+        {
+            limitLeft = 415;
+            LimiRight = 780;
+            if(x < LimiRight && !lock)
+            {
+                x += speedUP;
+                walkRight();
+                if(x == LimiRight)
+                    lock = true;
+            }
+            else if(x > limitLeft && lock)
+            {
+                x -= speedUP;
+                walkLeft();
+                if(x == limitLeft)
+                    lock = false;
+            }
+        }
+        else if(!righRoom && y < 386)
+        {
+            limitLeft = 0;
+            LimiRight = 340;
+            if(x < LimiRight && !lock)
+            {
+                x += speedUP;
+                walkRight();
+                if(x == LimiRight)
+                    lock = true;
+            }
+            else if(x > limitLeft && lock)
+            {
+                x -= speedUP;
+                walkLeft();
+                if(x == limitLeft)
+                    lock = false;
+            }
+        }
+        else if(y == 386)
+        {
+            limitLeft = 0;
+            LimiRight = 780;
+            if(x < LimiRight && !lock)
+            {
+                x += speedUP;
+                walkRight();
+                if(x == LimiRight)
+                    lock = true;
+            }
+            else if(x > limitLeft && lock)
+            {
+                x -= speedUP;
+                walkLeft();
+                if(x == limitLeft)
+                    lock = false;
+            }
+        }
+        if(y < vY - 9 && y == 66) // เตี้ยล่างสุด ซอมบนสุด
+        {
+            if(x == 75 || x == 245 || x == 575 || x == 745)
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
+        }
+        
+        else if(y < vY - 9 && y == 226) // เตี้ยล่าง ซอมกลาง
+        {
+            if(x == 0 || x == 170 || x == 480 || x == 650)
+                {
+                    y += 160;
+                    ProtectPlayer = true;
+                }
+        }
+        
+        else if(y > vY - 9 && y == 226) // เตี้ยบน ซอมกลาง
+        {
+            if(x == 75 || x == 245 || x == 575 || x == 745)
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }
+        }
+        
+        else if(y == vY - 9)
+        {
+            if(x >= 400)
+                LeftRoomZ = false;
+            
+            else
+                LeftRoomZ = true;
+        }
+        
+        else if(y > vY - 9 && y == 386) // เตี้ยบน ซอมล่างสุด
+        {
+            if(x == 0 || x == 170 || x == 480 || x == 650)
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }
+        }
     }
     
     public void walkLeft()
@@ -397,6 +274,10 @@ public class ZombieM extends Zombie{
         img = Assets.ZombieImg.get(1);   
     }
     
+    public int getWidth(){
+        return img[walkFrame].getWidth();
+    }
+    
     @Override
     public void render(Graphics g) {
         g.drawImage(img[walkFrame], (int)x, (int)y, null);
@@ -421,9 +302,18 @@ public class ZombieM extends Zombie{
     public float GetY() {
         return y;
     }
+    
 
     @Override
     public void setrighRoom(boolean righRoom) {
         this.righRoom = righRoom;
+    }
+    
+    public boolean getProtectPlayer(){
+        return ProtectPlayer;
+    }
+          
+    public void setProtectPlayer(boolean ProtectPlayer){
+        this.ProtectPlayer = ProtectPlayer;
     }
 }

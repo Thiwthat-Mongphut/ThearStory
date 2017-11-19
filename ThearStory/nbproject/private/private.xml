@@ -2,11 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Entities/Creatures/ZombieM.java</file>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Entities/Creatures/Zombie.java</file>
+            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/States/GameOverInterface.java</file>
             <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/States/StealStates.java</file>
-            <file>file:/C:/Users/Korn/Desktop/java/NewProject/ThearStory/ThearStory/src/Main/Graphics/Assets.java</file>
         </group>
+>>>>>>> 05fffb77a343ed6861c9dae080a7819b7268f165
     </open-files>
 </project-private>

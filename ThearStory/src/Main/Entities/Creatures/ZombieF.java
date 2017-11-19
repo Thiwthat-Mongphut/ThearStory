@@ -2,11 +2,8 @@ package Main.Entities.Creatures;
 
 import Main.GamePanel;
 import Main.Graphics.Assets;
-import static Main.Graphics.Assets.ZombieImg;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import Main.Entities.Creatures.PlayerSS;
 
 public class ZombieF extends Creature{
     
@@ -19,7 +16,7 @@ public class ZombieF extends Creature{
     
     private float walkSpeed;
     
-    private boolean firstWalk = true;
+    private boolean firstWalk = true, ProtectPlayer = false;
     private float posYPlayer;
     
     public ZombieF(GamePanel game, float x, float y, float walkSpeed){
@@ -65,30 +62,54 @@ public class ZombieF extends Creature{
             if(posYPlayer > y && y == 67){ // เตี้ยอยู่ล่าง
                 // ซอมบี้เดินลง
                 if(x == 75)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 245)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
             }
             else if(posYPlayer > y && y == 227){ // เตี้ยอยู่ล่างสุด
                 // ซอมบี้เดินลง
                 if(x == 0)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 170)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
             }
             else if(posYPlayer < y && y == 227){ // เตี้ยอยู่บน
                 // ซอมบี้เดินขึ้น
                 if(x == 75)
+                {
                     y -= 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 245)
-                    y -= 160;  
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }
             }
             else if(posYPlayer < y && y == 387){
                 // ซอมบี้เดินขึ้น
                 if(x == 0)
+                {
                     y -= 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 170)
-                    y -= 160;                  
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }                 
             }
         }
         if(x >  330){
@@ -115,29 +136,53 @@ public class ZombieF extends Creature{
             if(posYPlayer > y && y == 67){ // เตี้ยอยู่ล่าง
                 // ซอมบี้เดินลง
                 if(x == 575)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 745)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
             }
             else if(posYPlayer > y && y == 227){ // เตี้ยอยู่ล่างสุด
                 if(x == 480)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 650)
+                {
                     y += 160;
+                    ProtectPlayer = true;
+                }
             }
             else if(posYPlayer < y && y == 227){ // เตี้ยอยู่บน
                 // ซอมบี้เดินขึ้น
                 if(x == 575)
+                {
                     y -= 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 745)
-                    y -= 160;  
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }  
             }
             else if(posYPlayer < y && y == 387){
                 // ซอมบี้เดินขึ้น
                 if(x == 480)
+                {
                     y -= 160;
+                    ProtectPlayer = true;
+                }
                 else if(x == 650)
-                    y -= 160;                  
+                {
+                    y -= 160;
+                    ProtectPlayer = true;
+                }               
             }    
         } 
     }
@@ -146,10 +191,30 @@ public class ZombieF extends Creature{
         posYPlayer = pos;
         return posYPlayer;
     }
+    
+    public float getX(){
+        return x;
+    }
+    
+    public float getY(){
+        return y;
+    }
+    
+     public int getWidth(){
+        return img[walkFrame].getWidth();
+    }
+     
+    public boolean getProtectPlayer(){
+        return ProtectPlayer;
+    }
+          
+    public void setProtectPlayer(boolean ProtectPlayer){
+        this.ProtectPlayer = ProtectPlayer;
+    }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(img[walkFrame], (int)x, (int)y, 42, 66, null);
+        g.drawImage(img[walkFrame], (int)x, (int)y, null);
     }
     
 }
