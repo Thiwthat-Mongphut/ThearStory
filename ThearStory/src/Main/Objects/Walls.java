@@ -12,12 +12,12 @@ public class Walls extends Entity{
     private GamePanel game;
     
     private BufferedImage[] img;
-    private int Fram;
+    private int frame;
     
-    public Walls(GamePanel game, float x, float y, int Fram) {
+    public Walls(GamePanel game, float x, float y, int frame) {
         super(x, y);
         img = Assets.Obj.get(5);
-        this.Fram = Fram;
+        this.frame = frame;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Walls extends Entity{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(img[Fram], (int)x, (int) y, null);
+        g.drawImage(img[frame], (int)x, (int) y, null);
     }
     
 }
